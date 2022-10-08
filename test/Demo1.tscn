@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbi8uvck5yguc"]
+
+[ext_resource type="PackedScene" uid="uid://d34k8bhduppp8" path="res://scene/Bird.tscn" id="1_04pan"]
+[ext_resource type="PackedScene" uid="uid://x2j8ifdnka4d" path="res://scene/Pipe.tscn" id="2_erj82"]
+
+[node name="Demo1" type="Node2D"]
+
+[node name="Bird" parent="." instance=ExtResource("1_04pan")]
+position = Vector2(45, 290)
+
+[node name="PipeUp" parent="." instance=ExtResource("2_erj82")]
+position = Vector2(267, 389)
+
+[node name="PipeUp2" parent="." instance=ExtResource("2_erj82")]
+position = Vector2(452, 266)
+
+[node name="PipeUp3" parent="." instance=ExtResource("2_erj82")]
+position = Vector2(639, 395)

@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpggn6rfp70y2"]
+
+[ext_resource type="Texture2D" uid="uid://ollibr005jsd" path="res://image/bg_day.png" id="1_7cebt"]
+[ext_resource type="Texture2D" uid="uid://bw4k3kxyen6yg" path="res://image/land.png" id="2_7ae41"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3d2j4"]
+size = Vector2(336, 112)
+
+[node name="Background" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(144, 256)
+texture = ExtResource("1_7cebt")
+
+[node name="Background" type="Sprite2D" parent="Background"]
+position = Vector2(288, 0)
+texture = ExtResource("1_7cebt")
+
+[node name="Background" type="Sprite2D" parent="Background/Background"]
+position = Vector2(288, 0)
+texture = ExtResource("1_7cebt")
+
+[node name="Background" type="Sprite2D" parent="Background/Background/Background"]
+position = Vector2(288, 0)
+texture = ExtResource("1_7cebt")
+
+[node name="Land" type="Node2D" parent="."]
+z_index = 10
+
+[node name="Land" type="StaticBody2D" parent="Land"]
+position = Vector2(168, 456)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="Land/Land"]
+shape = SubResource("RectangleShape2D_3d2j4")
+
+[node name="Sprite2d" type="Sprite2D" parent="Land/Land"]
+texture = ExtResource("2_7ae41")
+
+[node name="Land2" type="StaticBody2D" parent="Land"]
+position = Vector2(504, 456)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="Land/Land2"]
+shape = SubResource("RectangleShape2D_3d2j4")
+
+[node name="Sprite2d" type="Sprite2D" parent="Land/Land2"]
+texture = ExtResource("2_7ae41")
+
+[node name="Land3" type="StaticBody2D" parent="Land"]
+position = Vector2(840, 456)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="Land/Land3"]
+shape = SubResource("RectangleShape2D_3d2j4")
+
+[node name="Sprite2d" type="Sprite2D" parent="Land/Land3"]
+texture = ExtResource("2_7ae41")
+
+[node name="Land4" type="StaticBody2D" parent="Land"]
+position = Vector2(1176, 456)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="Land/Land4"]
+shape = SubResource("RectangleShape2D_3d2j4")
+
+[node name="Sprite2d" type="Sprite2D" parent="Land/Land4"]
+texture = ExtResource("2_7ae41")

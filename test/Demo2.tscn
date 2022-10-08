@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://buwtowjqfckmn"]
+
+[ext_resource type="PackedScene" uid="uid://bpggn6rfp70y2" path="res://scene/Background.tscn" id="1_1bf26"]
+[ext_resource type="PackedScene" uid="uid://x2j8ifdnka4d" path="res://scene/Pipe.tscn" id="2_ww27e"]
+[ext_resource type="PackedScene" uid="uid://d34k8bhduppp8" path="res://scene/Bird.tscn" id="3_vgtii"]
+
+[node name="Demo2" type="Node2D"]
+
+[node name="Background" parent="." instance=ExtResource("1_1bf26")]
+
+[node name="Pipe" parent="." instance=ExtResource("2_ww27e")]
+position = Vector2(191, 260)
+
+[node name="Pipe2" parent="." instance=ExtResource("2_ww27e")]
+position = Vector2(327, 152)
+
+[node name="Pipe3" parent="." instance=ExtResource("2_ww27e")]
+position = Vector2(492, 313)
+
+[node name="Pipe4" parent="." instance=ExtResource("2_ww27e")]
+position = Vector2(655, 163)
+
+[node name="Pipe5" parent="." instance=ExtResource("2_ww27e")]
+position = Vector2(831, 253)
+
+[node name="Bird" parent="." instance=ExtResource("3_vgtii")]
+position = Vector2(20, 258)

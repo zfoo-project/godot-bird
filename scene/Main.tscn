@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1he6mg0d54wk"]
+
+[ext_resource type="Script" path="res://script/Main.gd" id="1_31v4x"]
+[ext_resource type="AudioStream" uid="uid://dj3s6cg6cthyx" path="res://audio/die.wav" id="2_l07b6"]
+[ext_resource type="AudioStream" uid="uid://ddp61kf15rkay" path="res://audio/swoosh.wav" id="3_8madq"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_31v4x")
+
+[node name="die" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_l07b6")
+
+[node name="swoosh" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_8madq")
