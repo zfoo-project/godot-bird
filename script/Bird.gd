@@ -42,6 +42,7 @@ func _process(delta):
 		animated.stop()
 		animated.frame =  0  
 		set_gravity_scale(gravityScale)
+		set_linear_velocity(Vector2(speed, get_linear_velocity().y))
 		
 	position.y = clamp(position.y, 0, screen_size.y)
 	pass
