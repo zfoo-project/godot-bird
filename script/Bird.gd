@@ -1,10 +1,10 @@
 extends RigidBody2D
 
 
-var speed: int = 100
-var gravityScale: float = 1.5
+@export var speed: int = 100
+@export var hp: int = 3
+@export var gravityScale: float = 1.5
 
-var hp: int = 3
 var point: int = 0
 
 # Size of the game window.
