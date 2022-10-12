@@ -1,5 +1,30 @@
 # 1. Bird场景 - 单独实现一个可以向右飞的小鸟
 
+- git补充知识
+
+## git补充知识，git使用默认的安装，选择git bash only
+
+```
+安装好以后，在git bash中输入：git --version，有结果返回则表示安装成功
+```
+
+- 参看所有的git配置，git config --list
+
+- git下载代码慢的解决方法|无法下载代码的解决方法，取消git配置使用git config --global --unset http.proxy
+
+```
+使用vpn
+git config --global http.proxy http://127.0.0.1:10809
+git config --global https.proxy https://127.0.0.1:10809
+```
+
+- 换行符
+
+```
+提交时转换为LF，检出时不转换，强烈推荐设置，可以减少不同电脑和不同系统之间切换，导致换行符不统一的问题
+git config --global core.autocrlf input
+```
+
 # 2. Pipe场景 - 一个有碰撞的水管
 
 - 1.单一职责原则
