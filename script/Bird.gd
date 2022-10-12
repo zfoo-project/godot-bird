@@ -21,7 +21,6 @@ func _ready():
 
 	set_contact_monitor(true)
 	set_max_contacts_reported(1)
-	
 	connect("body_entered", Callable(self, "on_body_entered_event"))
 	pass
 
@@ -43,7 +42,6 @@ func _process(delta):
 		animated.stop()
 		animated.frame =  0  
 		set_gravity_scale(gravityScale)
-		set_linear_velocity(Vector2(speed, get_linear_velocity().y))
 		
 	position.y = clamp(position.y, 0, screen_size.y)
 	pass
