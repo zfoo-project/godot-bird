@@ -4,7 +4,7 @@ extends Node2D
 @onready var camera2d: Camera2D = $Camera2d
 @onready var bird: RigidBody2D = $Bird
 
-@onready var background: Node2D = $Backgrounds
+@onready var lands: Node2D = $Lands
 @onready var pipes: Node2D = $Pipes
 
 signal end_game(point: int)
@@ -23,7 +23,7 @@ func _process(delta):
 	camera2d.position.x = bird.position.x - 90
 	# 移动多少个屏幕背景
 	var count = int(bird.position.x) / 1152
-	background.position.x = count * 1152
+	lands.position.x = count * 1152
 	# 血量小于0则结束游戏
 	if (bird.hp <= 0):
 		emit_signal("end_game", bird.point)
