@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 func _ready():
 	home()
@@ -9,9 +9,10 @@ func home():
 	var home = homeResource.instantiate()
 	add_child(home)
 	$Home/Control/Start.connect("pressed", Callable(self, "startGame"))
-	$swoosh.play()
 	if (get_node_or_null("Over") != null):
 		$Over.queue_free()
+	whenChangeScene()
+	$swoosh.play()
 	pass
 
 func startGame():
@@ -24,6 +25,7 @@ func startGame():
 	# 切换场景，删除Home
 	$Home.queue_free()
 	
+	whenChangeScene()
 	$swoosh.play()
 	pass
 
@@ -36,6 +38,14 @@ func endGame(point: int):
 	$Over/Control/Menu.connect("pressed", Callable(self, "home"))
 	$Game.queue_free()
 	
+	whenChangeScene()
 	$die.play()
 	pass
 
+func whenChangeScene():
+	$Transition/CanvasLayer.visible = true
+	var animationPlayer: AnimationPlayer = $Transition/AnimationPlayer
+	animationPlayer.play("fade-in")
+	await animationPlayer.animation_finished
+	$Transition/CanvasLayer.visible = false
+	pass

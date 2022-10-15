@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 [display]
 
 window/size/viewport_height=512
+window/size/always_on_top=true
 
 [input]
 
