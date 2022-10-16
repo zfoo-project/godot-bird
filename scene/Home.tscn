@@ -37,14 +37,11 @@ playing = true
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 513.0
-offset_top = 211.0
-offset_right = 637.0
-offset_bottom = 289.0
 
-[node name="Start" type="Button" parent="Control"]
+[node name="Start" type="TextureButton" parent="Control"]
 layout_mode = 0
-offset_right = 124.0
-offset_bottom = 78.0
-icon = ExtResource("6_xrh3e")
-flat = true
+offset_left = 513.0
+offset_top = 220.0
+offset_right = 629.0
+offset_bottom = 290.0
+texture_normal = ExtResource("6_xrh3e")
