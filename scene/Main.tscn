@@ -28,10 +28,10 @@ _data = {
 [node name="Main" type="Node"]
 script = ExtResource("1_31v4x")
 
-[node name="die" type="AudioStreamPlayer" parent="."]
+[node name="DieAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_l07b6")
 
-[node name="swoosh" type="AudioStreamPlayer" parent="."]
+[node name="SwooshAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_8madq")
 
 [node name="Transition" type="Node" parent="."]

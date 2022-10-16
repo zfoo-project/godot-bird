@@ -18,6 +18,12 @@
 - 需要注意的一点是，godot4.x已经没有晦涩难懂的margin了，完全用位置替代，
 
 - await 新语法
+
 ```
 yield(object, signal) == await object.signal
 ```
+
+# 3. 优化转换场景的方法
+
+- 使用Autoload把Main当作全局的脚本控制
+- 使用change_scene_to_file替换之前的add_child方式切换场景

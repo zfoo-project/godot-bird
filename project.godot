@@ -14,6 +14,10 @@ config/name="godot-bird"
 config/features=PackedStringArray("4.0", "Vulkan Clustered")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Main="*res://scene/Main.tscn"
+
 [display]
 
 window/size/viewport_height=512

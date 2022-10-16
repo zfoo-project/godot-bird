@@ -7,10 +7,10 @@ extends Node2D
 @onready var lands: Node2D = $Lands
 @onready var pipes: Node2D = $Pipes
 
-signal end_game(point: int)
 
 var pipeInterval: int = 150
 var pipeCount: int = 3
+var isOver: bool = false
 
 func _ready():
 	# 以当前小鸟的位置，每隔pipeInterval间距生成水管
@@ -25,10 +25,15 @@ func _process(delta):
 	var count = int(bird.position.x) / 1152
 	lands.position.x = count * 1152
 	# 血量小于0则结束游戏
-	if (bird.hp <= 0):
-		emit_signal("end_game", bird.point)
+	if (!isOver && bird.hp <= 0):
+		endGame()
 	pass
 
+func endGame():
+	isOver = true
+	Main.point = bird.point
+	Main.changeScene("res://scene/Over.tscn")
+	pass
 
 func createPipe():
 	var createPositionX = pipeCount * pipeInterval
