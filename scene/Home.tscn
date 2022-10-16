@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgtlwwsmtiwtn"]
+[gd_scene load_steps=19 format=3 uid="uid://dgtlwwsmtiwtn"]
 
 [ext_resource type="PackedScene" uid="uid://bpggn6rfp70y2" path="res://scene/Background.tscn" id="1_3mncm"]
 [ext_resource type="Script" path="res://script/Home.gd" id="1_8nwth"]
@@ -7,14 +7,73 @@
 [ext_resource type="Texture2D" uid="uid://1pqepk4bsrym" path="res://image/bird1_1.png" id="4_4ri0l"]
 [ext_resource type="Texture2D" uid="uid://co3v3ascl0p3o" path="res://image/bird1_2.png" id="5_itf6j"]
 [ext_resource type="Texture2D" uid="uid://6p6jk5lmnevt" path="res://image/button_play.png" id="6_xrh3e"]
+[ext_resource type="Texture2D" uid="uid://dg8hoe7a44hyj" path="res://image/bird2_0.png" id="7_sl34s"]
+[ext_resource type="Texture2D" uid="uid://k0mn4lk3kb00" path="res://image/bird2_1.png" id="8_1g2pb"]
+[ext_resource type="Texture2D" uid="uid://brwfyolfyudk8" path="res://image/bird2_2.png" id="9_83qvx"]
+[ext_resource type="Texture2D" uid="uid://3x7ym4gw2wdi" path="res://image/bird0_0.png" id="10_bghpi"]
+[ext_resource type="Texture2D" uid="uid://bhq2q5csrvf6c" path="res://image/bird0_1.png" id="11_5m7p4"]
+[ext_resource type="Texture2D" uid="uid://ffqyrvetr2n2" path="res://image/bird0_2.png" id="12_oult4"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dyn88"]
 animations = [{
 "frames": [ExtResource("3_rofjb"), ExtResource("4_4ri0l"), ExtResource("5_itf6j")],
 "loop": true,
-"name": &"bird",
-"speed": 5.0
+"name": &"bird-blue",
+"speed": 8.0
+}, {
+"frames": [ExtResource("7_sl34s"), ExtResource("8_1g2pb"), ExtResource("9_83qvx")],
+"loop": true,
+"name": &"bird-red",
+"speed": 8.0
+}, {
+"frames": [ExtResource("10_bghpi"), ExtResource("11_5m7p4"), ExtResource("12_oult4")],
+"loop": true,
+"name": &"bird-yellow",
+"speed": 8.0
 }]
+
+[sub_resource type="Animation" id="Animation_vc1ir"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.523599]
+}
+
+[sub_resource type="Animation" id="Animation_3flym"]
+resource_name = "title"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.261799, -0.261799, 0.261799]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f2j7k"]
+_data = {
+"RESET": SubResource("Animation_vc1ir"),
+"title": SubResource("Animation_3flym")
+}
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o10le"]
+texture = ExtResource("6_xrh3e")
+region_rect = Rect2(0, 0, 116, 70)
+modulate_color = Color(0, 0, 0, 1)
 
 [node name="Home" type="Node2D"]
 script = ExtResource("1_8nwth")
@@ -26,22 +85,31 @@ position = Vector2(576, 90)
 metadata/_edit_group_ = true
 
 [node name="Title" type="Sprite2D" parent="UI"]
+rotation = -0.523599
 texture = ExtResource("2_75urw")
 
 [node name="Bird" type="AnimatedSprite2D" parent="UI"]
 position = Vector2(0, 80)
 frames = SubResource("SpriteFrames_dyn88")
-animation = &"bird"
+animation = &"bird-blue"
 playing = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
+autoplay = "title"
+libraries = {
+"": SubResource("AnimationLibrary_f2j7k")
+}
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 
-[node name="Start" type="TextureButton" parent="Control"]
+[node name="Start" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 513.0
 offset_top = 220.0
 offset_right = 629.0
 offset_bottom = 290.0
-texture_normal = ExtResource("6_xrh3e")
+theme_override_styles/focus = SubResource("StyleBoxTexture_o10le")
+icon = ExtResource("6_xrh3e")
+flat = true

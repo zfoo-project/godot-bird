@@ -7,5 +7,5 @@ func _ready():
 	pass
 	
 func home():
-	Main.changeScene("res://scene/Home.tscn")
+	Main.changeScene(Main.SCENE.Home)
 	pass

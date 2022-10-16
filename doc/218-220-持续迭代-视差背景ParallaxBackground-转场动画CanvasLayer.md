@@ -27,3 +27,9 @@ yield(object, signal) == await object.signal
 
 - 使用Autoload把Main当作全局的脚本控制
 - 使用change_scene_to_file替换之前的add_child方式切换场景
+
+# 4. 优化UI
+
+- 按钮的点击效果，利用style的fouse的stylebox属性
+- 标题的动态效果，使用AnimationPlayer控制title的rotation实现动画
+- 首页的小鸟随机不同的颜色动画

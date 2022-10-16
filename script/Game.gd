@@ -32,7 +32,7 @@ func _process(delta):
 func endGame():
 	isOver = true
 	Main.point = bird.point
-	Main.changeScene("res://scene/Over.tscn")
+	Main.changeScene(Main.SCENE.Over)
 	pass
 
 func createPipe():

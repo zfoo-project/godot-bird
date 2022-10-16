@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cc16ykvsxuoo3"]
+[gd_scene load_steps=9 format=3 uid="uid://cc16ykvsxuoo3"]
 
 [ext_resource type="PackedScene" uid="uid://bpggn6rfp70y2" path="res://scene/Background.tscn" id="1_3mncm"]
 [ext_resource type="Script" path="res://script/Over.gd" id="1_tv3r4"]
@@ -7,6 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://cl0px2bmjdblu" path="res://image/button_menu.png" id="4_qluxl"]
 [ext_resource type="Texture2D" uid="uid://pwmdmtvupegk" path="res://image/button_share.png" id="5_mex2y"]
 [ext_resource type="FontFile" uid="uid://y6i73v06b3es" path="res://font/FB.ttf" id="6_jwtg5"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0c31e"]
+texture = ExtResource("4_qluxl")
+region_rect = Rect2(0, 0, 80, 28)
+modulate_color = Color(0.854902, 0.47451, 0.278431, 1)
 
 [node name="Over" type="Node2D"]
 script = ExtResource("1_tv3r4")
@@ -40,6 +45,7 @@ offset_top = 54.0
 offset_right = 86.0
 offset_bottom = 90.0
 scale = Vector2(1.5, 1.5)
+theme_override_styles/focus = SubResource("StyleBoxTexture_0c31e")
 icon = ExtResource("4_qluxl")
 flat = true
 metadata/_edit_use_anchors_ = true
