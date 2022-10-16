@@ -43,9 +43,7 @@ func endGame(point: int):
 	pass
 
 func whenChangeScene():
-	$Transition/CanvasLayer.visible = true
 	var animationPlayer: AnimationPlayer = $Transition/AnimationPlayer
 	animationPlayer.play("fade-in")
 	await animationPlayer.animation_finished
-	$Transition/CanvasLayer.visible = false
 	pass
