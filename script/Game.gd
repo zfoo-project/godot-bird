@@ -13,6 +13,7 @@ var pipeCount: int = 3
 var isOver: bool = false
 
 func _ready():
+	$ParallaxBackground/ParallaxLayer/Background.texture = Main.currentBackground
 	# 以当前小鸟的位置，每隔pipeInterval间距生成水管
 	for i in range(30):
 		createPipe()
@@ -44,6 +45,10 @@ func createPipe():
 	newPipe.position.x = createPositionX
 	newPipe.position.y = createPositionY
 	newPipe.name = String.num_int64(pipeCount)
+	# 每隔10个水管，更换一下水管的颜色
+	if (pipeCount / 10 % 2 == 1):
+		newPipe.get_node("Up/Sprite2d").texture = preload("res://image/pipe2_up.png")
+		newPipe.get_node("Down/Sprite2d").texture = preload("res://image/pipe2_down.png")
 	pipes.add_child(newPipe)
 	
 	newPipe.get_node("VisibleOnScreenNotifier2d").screen_exited.connect(onPipeScreenExited.bind(newPipe))

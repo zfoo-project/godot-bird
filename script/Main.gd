@@ -1,5 +1,7 @@
 extends Node
 
+const RandomUtils = preload("res://zfoo/RandomUtils.gd")
+
 @onready var dieAudio: AudioStreamPlayer = $DieAudio
 @onready var swooshAudio: AudioStreamPlayer = $SwooshAudio
 @onready var transitionAnimation: AnimationPlayer = $Transition/AnimationPlayer
@@ -7,12 +9,16 @@ extends Node
 # 场景常量数据
 enum SCENE {Home, Game, Over}
 const sceneMap: Dictionary = {
-	SCENE.Home: "res://scene/Home.tscn",
-	SCENE.Game: "res://scene/Game.tscn",
-	SCENE.Over: "res://scene/Over.tscn"
+	SCENE.Home: preload("res://scene/Home.tscn"),
+	SCENE.Game: preload("res://scene/Game.tscn"),
+	SCENE.Over: preload("res://scene/Over.tscn")
 }
 
+# 背景图片数据
+const backgrounds: Array[Resource] = [preload("res://image/bg_day.png"), preload("res://image/bg_night.png")]
 
+# 当前的背景，随机一个
+var currentBackground = backgrounds.front()
 
 var point: int = 0
 
@@ -30,7 +36,11 @@ func changeScene(scene: SCENE):
 		swooshAudio.play()
 	transitionAnimation.play_backwards("fade-in")
 	await transitionAnimation.animation_finished
-	get_tree().change_scene_to_file(scenePath)
+	get_tree().change_scene_to_packed(scenePath)
 	transitionAnimation.play("fade-in")
 	await transitionAnimation.animation_finished
+	pass
+
+func randomBackground():
+	currentBackground = RandomUtils.randomEle(backgrounds)
 	pass
