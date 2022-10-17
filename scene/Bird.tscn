@@ -25,12 +25,12 @@ animations = [{
 "frames": [ExtResource("4_ogibt"), ExtResource("5_r63fk"), ExtResource("6_2x83s")],
 "loop": true,
 "name": &"red",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [ExtResource("7_sbqk8"), ExtResource("8_ool5u"), ExtResource("9_5nu3n")],
 "loop": true,
 "name": &"yellow",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wqpkg"]

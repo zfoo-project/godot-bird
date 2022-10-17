@@ -16,9 +16,12 @@ const sceneMap: Dictionary = {
 
 # 背景图片数据
 const backgrounds: Array[Resource] = [preload("res://image/bg_day.png"), preload("res://image/bg_night.png")]
-
 # 当前的背景，随机一个
 var currentBackground = backgrounds.front()
+
+# 小鸟动画数据
+var birdAnimations: Array[String] = ["blue", "red", "yellow"]
+var currentAnimation = birdAnimations.front()
 
 var point: int = 0
 
@@ -43,4 +46,5 @@ func changeScene(scene: SCENE):
 
 func randomBackground():
 	currentBackground = RandomUtils.randomEle(backgrounds)
+	currentAnimation = RandomUtils.randomEle(birdAnimations)
 	pass

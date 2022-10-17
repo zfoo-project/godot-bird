@@ -18,17 +18,17 @@
 animations = [{
 "frames": [ExtResource("3_rofjb"), ExtResource("4_4ri0l"), ExtResource("5_itf6j")],
 "loop": true,
-"name": &"bird-blue",
+"name": &"blue",
 "speed": 8.0
 }, {
 "frames": [ExtResource("7_sl34s"), ExtResource("8_1g2pb"), ExtResource("9_83qvx")],
 "loop": true,
-"name": &"bird-red",
+"name": &"red",
 "speed": 8.0
 }, {
 "frames": [ExtResource("10_bghpi"), ExtResource("11_5m7p4"), ExtResource("12_oult4")],
 "loop": true,
-"name": &"bird-yellow",
+"name": &"yellow",
 "speed": 8.0
 }]
 
@@ -91,7 +91,7 @@ texture = ExtResource("2_75urw")
 [node name="Bird" type="AnimatedSprite2D" parent="UI"]
 position = Vector2(0, 80)
 frames = SubResource("SpriteFrames_dyn88")
-animation = &"bird-blue"
+animation = &"blue"
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
