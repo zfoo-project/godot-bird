@@ -10,6 +10,8 @@ var point: int = 0
 # Size of the game window.
 var screen_size
 
+signal hpChangedEvent(oldHp: int, hp: int)
+
 @onready var animated: AnimatedSprite2D = $AnimatedSprite2d
 
 func _ready():
@@ -48,7 +50,9 @@ func _process(delta):
 	pass
 
 func on_body_entered_event(other_body):
+	var oldHp = hp
 	$hit.play()
 	hp = hp - 1
+	emit_signal("hpChangedEvent", oldHp, hp)
 	pass
 	

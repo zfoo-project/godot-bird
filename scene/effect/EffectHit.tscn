@@ -1,0 +1,22 @@
+[gd_scene load_steps=8 format=3 uid="uid://b6krcedxn7usq"]
+
+[ext_resource type="Script" path="res://script/effect/EffectHit.gd" id="1_87nka"]
+[ext_resource type="Texture2D" uid="uid://2t7a1oswkoml" path="res://image/effect/hit/0.png" id="2_lig4d"]
+[ext_resource type="Texture2D" uid="uid://dgd5vy6v4qa18" path="res://image/effect/hit/1.png" id="3_wuvwc"]
+[ext_resource type="Texture2D" uid="uid://8hu4hmy48u8f" path="res://image/effect/hit/2.png" id="4_fwpu6"]
+[ext_resource type="Texture2D" uid="uid://cccsoswowobp7" path="res://image/effect/hit/3.png" id="5_mao3y"]
+[ext_resource type="Texture2D" uid="uid://b66fs8xtm2ean" path="res://image/effect/hit/4.png" id="6_v8iox"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jdedr"]
+animations = [{
+"frames": [ExtResource("2_lig4d"), ExtResource("3_wuvwc"), ExtResource("4_fwpu6"), ExtResource("5_mao3y"), ExtResource("6_v8iox")],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="EffectHit" type="Node2D"]
+script = ExtResource("1_87nka")
+
+[node name="AnimatedSprite2d" type="AnimatedSprite2D" parent="."]
+frames = SubResource("SpriteFrames_jdedr")

@@ -1,12 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://cixunv12bwswq"]
+[gd_scene load_steps=11 format=3 uid="uid://cixunv12bwswq"]
 
 [ext_resource type="PackedScene" uid="uid://d34k8bhduppp8" path="res://scene/Bird.tscn" id="1_57m10"]
 [ext_resource type="Script" path="res://script/Game.gd" id="1_cica3"]
 [ext_resource type="Texture2D" uid="uid://bw4k3kxyen6yg" path="res://image/land.png" id="3_ii7vv"]
 [ext_resource type="Texture2D" uid="uid://ollibr005jsd" path="res://image/bg_day.png" id="4_p31ru"]
+[ext_resource type="Texture2D" uid="uid://baywi268vk2wi" path="res://image/ui/0.png" id="5_ukhbt"]
+[ext_resource type="Texture2D" uid="uid://cy84765p4s40s" path="res://image/ui/1.png" id="6_x4pca"]
+[ext_resource type="Texture2D" uid="uid://dcceghnl5gjwq" path="res://image/ui/2.png" id="7_504rb"]
+[ext_resource type="Texture2D" uid="uid://db4jd354mqudu" path="res://image/ui/3.png" id="8_1habm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fymwr"]
 size = Vector2(1138, 102)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5frqc"]
+animations = [{
+"frames": [ExtResource("5_ukhbt"), ExtResource("6_x4pca"), ExtResource("7_504rb"), ExtResource("8_1habm")],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_cica3")
@@ -62,3 +74,23 @@ motion_mirroring = Vector2(1152, 0)
 [node name="Background" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
 position = Vector2(576, 256)
 texture = ExtResource("4_p31ru")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HP" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="AnimatedSprite2d" type="AnimatedSprite2D" parent="UI/HP"]
+position = Vector2(45, 43)
+scale = Vector2(0.495238, 0.495238)
+frames = SubResource("SpriteFrames_5frqc")
+
+[node name="HP" type="Label" parent="UI/HP"]
+offset_left = 76.0
+offset_top = 17.0
+offset_right = 160.0
+offset_bottom = 71.0
+theme_override_font_sizes/font_size = 37
+text = "99"
+vertical_alignment = 1

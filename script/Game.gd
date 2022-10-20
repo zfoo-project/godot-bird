@@ -14,6 +14,7 @@ var isOver: bool = false
 
 func _ready():
 	$ParallaxBackground/ParallaxLayer/Background.texture = Main.currentBackground
+	bird.hpChangedEvent.connect(onHpChangedEvent)
 	# 以当前小鸟的位置，每隔pipeInterval间距生成水管
 	for i in range(30):
 		createPipe()
@@ -67,4 +68,11 @@ func onBirdEntered(other_body):
 	if (other_body == bird):
 		$Bird/point.play()
 		bird.point = bird.point + 1
+	pass
+
+func onHpChangedEvent(oldHp: int, hp: int):
+	if (oldHp >  hp):
+		var effectHit = preload("res://scene/effect/EffectHit.tscn").instantiate()
+		effectHit.position = bird.position
+		add_child(effectHit)
 	pass
