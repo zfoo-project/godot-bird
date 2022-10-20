@@ -16,6 +16,7 @@ animations = [{
 }]
 
 [node name="EffectHit" type="Node2D"]
+z_index = 200
 script = ExtResource("1_87nka")
 
 [node name="AnimatedSprite2d" type="AnimatedSprite2D" parent="."]
