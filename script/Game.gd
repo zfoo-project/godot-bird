@@ -1,23 +1,39 @@
 extends Node2D
 
+const RandomUtils = preload("res://zfoo/RandomUtils.gd")
 
 @onready var camera2d: Camera2D = $Camera2d
 @onready var bird: RigidBody2D = $Bird
 
 @onready var lands: Node2D = $Lands
 @onready var pipes: Node2D = $Pipes
-
+@onready var hpAnimatedSprite2D: AnimatedSprite2D = $UI/HP/AnimatedSprite2d
 
 var pipeInterval: int = 150
 var pipeCount: int = 3
 var isOver: bool = false
 
+const enemies: Array[PackedScene] = [
+	preload("res://scene/enemy/Fish.tscn"), 
+	preload("res://scene/enemy/Shark.tscn"), 
+	preload("res://scene/enemy/Cloud.tscn")
+	]
+
 func _ready():
 	$ParallaxBackground/ParallaxLayer/Background.texture = Main.currentBackground
 	bird.hpChangedEvent.connect(onHpChangedEvent)
+	$Enemies/Timer.timeout.connect(onEnemiesTimeout)
+	$Hp/Timer.timeout.connect(onHpTimeout)
+	$SpeedUp/Timer.timeout.connect(onSpeedUpTimeout)
+	changeHp(bird.hp)
 	# 以当前小鸟的位置，每隔pipeInterval间距生成水管
 	for i in range(30):
 		createPipe()
+	pass
+
+func changeHp(hp: int):
+	$UI/HP/HP.text = String.num_int64(bird.hp)
+	hpAnimatedSprite2D.play()
 	pass
 
 func _process(delta):
@@ -29,6 +45,9 @@ func _process(delta):
 	# 血量小于0则结束游戏
 	if (!isOver && bird.hp <= 0):
 		endGame()
+	if (hpAnimatedSprite2D.frame == 3):
+		hpAnimatedSprite2D.frame = 0
+		hpAnimatedSprite2D.stop()
 	pass
 
 func endGame():
@@ -63,16 +82,62 @@ func onPipeScreenExited(exitedPipe: Node2D):
 	exitedPipe.queue_free()
 	createPipe()
 	pass
-	
+
+# 进入水管加分
 func onBirdEntered(other_body):
 	if (other_body == bird):
 		$Bird/point.play()
 		bird.point = bird.point + 1
 	pass
+	
 
 func onHpChangedEvent(oldHp: int, hp: int):
 	if (oldHp >  hp):
 		var effectHit = preload("res://scene/effect/EffectHit.tscn").instantiate()
 		effectHit.position = bird.position
 		add_child(effectHit)
+		changeHp(bird.hp)
+	pass
+
+
+func onEnemiesTimeout():
+	var enemy = RandomUtils.randomEle(enemies).instantiate()
+	var createPositionY = randf_range(50, 450)
+	enemy.position.x = bird.position.x + 1000
+	enemy.position.y = createPositionY
+	add_child(enemy)
+	pass
+
+func onHpTimeout():
+	var hp = preload("res://scene/effect/EffectHp.tscn").instantiate()
+	var createPositionY = randf_range(100, 300)
+	hp.position.x = bird.position.x + 1500
+	hp.position.y = createPositionY
+	add_child(hp)
+	hp.addHpSignal.connect(onHpEntered)
+	pass
+
+func onSpeedUpTimeout():
+	var speedUp = preload("res://scene/effect/EffectSpeedUp.tscn").instantiate()
+	var createPositionY = randf_range(100, 300)
+	speedUp.position.x = bird.position.x + 1500
+	speedUp.position.y = createPositionY
+	add_child(speedUp)
+	speedUp.speedUpSignal.connect(onSpeedUpEntered)
+	pass
+	
+# 吃血包加血量
+func onHpEntered(node: Node2D, other_body):
+	if (other_body == bird):
+		$Bird/hp.play()
+		bird.hp = bird.hp + 1
+		changeHp(bird.hp)
+		node.queue_free()
+	pass
+
+func onSpeedUpEntered(node: Node2D, other_body):
+	if (other_body == bird):
+		$Bird/speedup_end.play()
+		bird.speedUp()
+		node.queue_free()
 	pass

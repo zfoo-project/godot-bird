@@ -1,0 +1,32 @@
+[gd_scene load_steps=8 format=3 uid="uid://dld0h87uyknlp"]
+
+[ext_resource type="Script" path="res://script/enemy/Cloud.gd" id="1_td6ao"]
+[ext_resource type="Texture2D" uid="uid://ck1wulbkxkbvs" path="res://image/enemy/cloud/0.png" id="2_ad7v2"]
+[ext_resource type="Texture2D" uid="uid://dpw5e4joft2hh" path="res://image/enemy/cloud/1.png" id="3_dlx4s"]
+[ext_resource type="Texture2D" uid="uid://dsag87y63qte6" path="res://image/enemy/cloud/2.png" id="4_73qgj"]
+[ext_resource type="Texture2D" uid="uid://b2fyooh2058hl" path="res://image/enemy/cloud/3.png" id="5_dgfcc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x2eia"]
+animations = [{
+"frames": [ExtResource("2_ad7v2"), ExtResource("3_dlx4s"), ExtResource("4_73qgj"), ExtResource("5_dgfcc")],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j4uw0"]
+radius = 10.0499
+
+[node name="Cloud" type="AnimatableBody2D"]
+z_index = 500
+script = ExtResource("1_td6ao")
+
+[node name="AnimatedSprite2d" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+frames = SubResource("SpriteFrames_x2eia")
+playing = true
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_j4uw0")
+
+[node name="VisibleOnScreenNotifier2d" type="VisibleOnScreenNotifier2D" parent="."]

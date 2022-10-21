@@ -32,6 +32,12 @@ current = true
 
 [node name="Pipes" type="Node2D" parent="."]
 
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Timer" type="Timer" parent="Enemies"]
+wait_time = 6.0
+autostart = true
+
 [node name="Lands" type="Node2D" parent="."]
 z_index = 10
 
@@ -65,6 +71,18 @@ shape = SubResource("RectangleShape2D_fymwr")
 [node name="Sprite2d" type="Sprite2D" parent="Lands/Land3"]
 texture = ExtResource("3_ii7vv")
 
+[node name="Hp" type="Node2D" parent="."]
+
+[node name="Timer" type="Timer" parent="Hp"]
+wait_time = 10.0
+autostart = true
+
+[node name="SpeedUp" type="Node2D" parent="."]
+
+[node name="Timer" type="Timer" parent="SpeedUp"]
+wait_time = 13.0
+autostart = true
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -87,6 +105,7 @@ scale = Vector2(0.495238, 0.495238)
 frames = SubResource("SpriteFrames_5frqc")
 
 [node name="HP" type="Label" parent="UI/HP"]
+layout_mode = 0
 offset_left = 76.0
 offset_top = 17.0
 offset_right = 160.0

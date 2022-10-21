@@ -1,0 +1,36 @@
+[gd_scene load_steps=12 format=3 uid="uid://cklt47n0w06i2"]
+
+[ext_resource type="Script" path="res://script/enemy/Shark.gd" id="1_gjil1"]
+[ext_resource type="Texture2D" uid="uid://cssabo7s5sx5f" path="res://image/enemy/shark/0.png" id="2_j4hxc"]
+[ext_resource type="Texture2D" uid="uid://daix2ya461gsn" path="res://image/enemy/shark/1.png" id="3_bnm7k"]
+[ext_resource type="Texture2D" uid="uid://l1f7akor6ie1" path="res://image/enemy/shark/2.png" id="4_02dc2"]
+[ext_resource type="Texture2D" uid="uid://b3hdthdt4kqe3" path="res://image/enemy/shark/3.png" id="5_gctl6"]
+[ext_resource type="Texture2D" uid="uid://pdg18rgf2i7j" path="res://image/enemy/shark/4.png" id="6_olep4"]
+[ext_resource type="Texture2D" uid="uid://d4dwcto8q2d33" path="res://image/enemy/shark/5.png" id="7_qfian"]
+[ext_resource type="Texture2D" uid="uid://2okxmtwt5w0h" path="res://image/enemy/shark/6.png" id="8_w1xlg"]
+[ext_resource type="Texture2D" uid="uid://bkwts1m3hcvgd" path="res://image/enemy/shark/7.png" id="9_8jnpr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x2eia"]
+animations = [{
+"frames": [ExtResource("2_j4hxc"), ExtResource("3_bnm7k"), ExtResource("4_02dc2"), ExtResource("5_gctl6"), ExtResource("6_olep4"), ExtResource("7_qfian"), ExtResource("8_w1xlg"), ExtResource("9_8jnpr")],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jipgq"]
+radius = 22.0907
+
+[node name="Shark" type="AnimatableBody2D"]
+z_index = 500
+script = ExtResource("1_gjil1")
+
+[node name="AnimatedSprite2d" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+frames = SubResource("SpriteFrames_x2eia")
+playing = true
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jipgq")
+
+[node name="VisibleOnScreenNotifier2d" type="VisibleOnScreenNotifier2D" parent="."]

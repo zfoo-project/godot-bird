@@ -1,0 +1,14 @@
+# AnimatableBody2D节点
+
+- 使用AnimatableBody2D节点当作敌人
+
+- 注意渲染帧和物理帧的区别
+```
+func _process(delta):
+	position.x = position.x - speed * delta
+	pass
+
+func _physics_process(delta):
+	position.x = position.x - speed * delta
+	pass
+```

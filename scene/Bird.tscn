@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d34k8bhduppp8"]
+[gd_scene load_steps=24 format=3 uid="uid://d34k8bhduppp8"]
 
 [ext_resource type="Script" path="res://script/Bird.gd" id="1_fpmxp"]
 [ext_resource type="Texture2D" uid="uid://dynec8127lrcn" path="res://image/bird1_0.png" id="1_fqmow"]
@@ -10,10 +10,16 @@
 [ext_resource type="Texture2D" uid="uid://3x7ym4gw2wdi" path="res://image/bird0_0.png" id="7_sbqk8"]
 [ext_resource type="Texture2D" uid="uid://bhq2q5csrvf6c" path="res://image/bird0_1.png" id="8_ool5u"]
 [ext_resource type="Texture2D" uid="uid://ffqyrvetr2n2" path="res://image/bird0_2.png" id="9_5nu3n"]
+[ext_resource type="Texture2D" uid="uid://cqoia0n6a0pjt" path="res://image/effect/speedup/0.png" id="11_dliiv"]
 [ext_resource type="AudioStream" uid="uid://dcoobpmodm8wk" path="res://audio/wing.wav" id="11_nsl0k"]
 [ext_resource type="AudioStream" uid="uid://bn2vwgavvunvm" path="res://audio/hit.wav" id="12_kn6w5"]
+[ext_resource type="Texture2D" uid="uid://bcfdqlfecinii" path="res://image/effect/speedup/1.png" id="12_mgp6w"]
 [ext_resource type="AudioStream" uid="uid://dj3s6cg6cthyx" path="res://audio/die.wav" id="13_d05b0"]
+[ext_resource type="Texture2D" uid="uid://b1liwj34355h2" path="res://image/effect/speedup/2.png" id="13_k7ccg"]
 [ext_resource type="AudioStream" uid="uid://dcgu70sdjetco" path="res://audio/point.wav" id="14_w50nl"]
+[ext_resource type="AudioStream" uid="uid://bj8hn31xs4f0c" path="res://audio/hp.wav" id="15_yjfpb"]
+[ext_resource type="AudioStream" uid="uid://31i6ke7t7jxp" path="res://audio/speedup.wav" id="19_87ta0"]
+[ext_resource type="AudioStream" uid="uid://c2qyhqm77o3rs" path="res://audio/speedup_end.wav" id="20_ivxwe"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1pjba"]
 animations = [{
@@ -33,6 +39,14 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_uemlu"]
+animations = [{
+"frames": [ExtResource("11_dliiv"), ExtResource("12_mgp6w"), ExtResource("13_k7ccg")],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wqpkg"]
 height = 20.0
 
@@ -43,6 +57,12 @@ script = ExtResource("1_fpmxp")
 [node name="AnimatedSprite2d" type="AnimatedSprite2D" parent="."]
 frames = SubResource("SpriteFrames_1pjba")
 animation = &"blue"
+
+[node name="SpeedUp" type="AnimatedSprite2D" parent="."]
+visible = false
+scale = Vector2(0.3, 0.3)
+frames = SubResource("SpriteFrames_uemlu")
+playing = true
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_wqpkg")
@@ -58,3 +78,15 @@ stream = ExtResource("13_d05b0")
 
 [node name="point" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_w50nl")
+
+[node name="hp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_yjfpb")
+
+[node name="speedup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_87ta0")
+
+[node name="speedup_end" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_ivxwe")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0

@@ -1,10 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://x2j8ifdnka4d"]
+[gd_scene load_steps=6 format=3 uid="uid://x2j8ifdnka4d"]
 
 [ext_resource type="Texture2D" uid="uid://cqgbgrjed5hnm" path="res://image/pipe_up.png" id="1_1prh2"]
 [ext_resource type="Texture2D" uid="uid://dcpofcteljj4o" path="res://image/pipe_down.png" id="2_tko18"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tmljb"]
-size = Vector2(48, 314)
+size = Vector2(44, 316)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4myoy"]
+size = Vector2(44, 1556)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5uvl1"]
 size = Vector2(20, 184)
@@ -14,7 +17,6 @@ z_index = 5
 
 [node name="Up" type="StaticBody2D" parent="."]
 position = Vector2(0, 250)
-metadata/_edit_lock_ = true
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Up"]
 shape = SubResource("RectangleShape2D_tmljb")
@@ -24,10 +26,10 @@ texture = ExtResource("1_1prh2")
 
 [node name="Down" type="StaticBody2D" parent="."]
 position = Vector2(0, -250)
-metadata/_edit_lock_ = true
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Down"]
-shape = SubResource("RectangleShape2D_tmljb")
+position = Vector2(0, -620)
+shape = SubResource("RectangleShape2D_4myoy")
 
 [node name="Sprite2d" type="Sprite2D" parent="Down"]
 texture = ExtResource("2_tko18")
