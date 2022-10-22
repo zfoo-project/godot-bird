@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends AnimatableBody2D
 
 var speed: int = 100
 
