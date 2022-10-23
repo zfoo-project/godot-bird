@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://btjqldtsos6cb"]
+
+[ext_resource type="Script" path="res://test/Test.gd" id="1_14bxr"]
+[ext_resource type="Texture2D" uid="uid://doqx2efbtllrr" path="res://icon.svg" id="2_mxsf8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkcby"]
+size = Vector2(300, 300)
+
+[node name="Test" type="Node2D"]
+script = ExtResource("1_14bxr")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+texture_normal = ExtResource("2_mxsf8")
+shape = SubResource("RectangleShape2D_xkcby")

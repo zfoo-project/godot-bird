@@ -105,7 +105,6 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="Start" type="Button" parent="Control"]
-layout_mode = 0
 offset_left = 513.0
 offset_top = 220.0
 offset_right = 629.0
