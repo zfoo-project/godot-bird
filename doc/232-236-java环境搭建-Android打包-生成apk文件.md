@@ -26,3 +26,10 @@
 - [官方文档也有比较详细的教程文档](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_android.html) ，安装比较简单，无脑下一步
 
 ![Image text](image/232/img.png)
+
+- 六边小鸟版本，v3.0.0
+
+```
+链接：https://pan.baidu.com/s/1zC1kqqSF2dOKzH1HFCuCzQ?pwd=zfoo 
+提取码：zfoo
+```
