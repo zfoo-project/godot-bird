@@ -19,6 +19,8 @@ var point: int = 0
 # Size of the game window.
 var screen_size
 
+var isSpeedUp = false
+
 signal hpChangedEvent(oldHp: int, hp: int)
 
 @onready var animated: AnimatedSprite2D = $AnimatedSprite2d
@@ -53,10 +55,10 @@ func _process(delta):
 		
 	position.y = clamp(position.y, 0, screen_size.y)
 	
-	if (speed == INIT_SPEED):
-		cameraOffset = clampf(cameraOffset - CAMERA_MOVE_SPEED * delta, INIT_CAMERA_OFFSET, SPEED_UP_CAMERA_OFFSET)
-	else:
+	if (isSpeedUp):
 		cameraOffset = clamp(cameraOffset + CAMERA_MOVE_SPEED * delta, INIT_CAMERA_OFFSET, SPEED_UP_CAMERA_OFFSET)
+	else:
+		cameraOffset = clampf(cameraOffset - CAMERA_MOVE_SPEED * delta, INIT_CAMERA_OFFSET, SPEED_UP_CAMERA_OFFSET)
 	pass
 
 func _input(event):
@@ -73,7 +75,7 @@ func fly():
 	pass
 
 func on_body_entered_event(other_body):
-	if (speed != INIT_SPEED):
+	if (isSpeedUp):
 		return
 	var oldHp = hp
 	$hit.play()
@@ -88,6 +90,7 @@ func speedUp():
 	$SpeedUp.visible = true
 	speed = speed + SPEED_UP
 	flyUpSpeed = SPEED_UP_FLY_UP_SPEED
+	isSpeedUp = true
 	pass
 
 func onSpeedUpTimeout():
@@ -96,6 +99,7 @@ func onSpeedUpTimeout():
 	$speedup_end.play()
 	$SpeedUp.visible = false
 	flyUpSpeed = INIT_FLY_UP_SPEED
+	isSpeedUp = false
 	pass
 
 

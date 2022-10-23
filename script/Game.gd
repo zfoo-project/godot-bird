@@ -8,6 +8,7 @@ const RandomUtils = preload("res://zfoo/RandomUtils.gd")
 @onready var lands: Node2D = $Lands
 @onready var pipes: Node2D = $Pipes
 @onready var hpAnimatedSprite2D: AnimatedSprite2D = $UI/HP/AnimatedSprite2d
+@onready var birdSpeedUpEffect: GPUParticles2D = $BirdSpeedUpEffect
 
 var pipeInterval: int = 150
 var pipeCount: int = 3
@@ -23,8 +24,8 @@ func _ready():
 	$ParallaxBackground/ParallaxLayer/Background.texture = Main.currentBackground
 	bird.hpChangedEvent.connect(onHpChangedEvent)
 	$Enemies/Timer.timeout.connect(onEnemiesTimeout)
-	$Hp/Timer.timeout.connect(onHpTimeout)
-	$SpeedUp/Timer.timeout.connect(onSpeedUpTimeout)
+	$HpItem/Timer.timeout.connect(onHpItemTimeout)
+	$SpeedUpItem/Timer.timeout.connect(onSpeedUpItemTimeout)
 	changeHp(bird.hp)
 	# 以当前小鸟的位置，每隔pipeInterval间距生成水管
 	for i in range(30):
@@ -39,6 +40,9 @@ func changeHp(hp: int):
 func _process(delta):
 	# 移动相机
 	camera2d.position.x = bird.position.x - bird.cameraOffset
+	# 移动特效
+	birdSpeedUpEffect.position = bird.position
+	birdSpeedUpEffect.visible = bird.isSpeedUp
 	# 移动多少个屏幕背景
 	var count = int(bird.position.x) / 1152
 	lands.position.x = count * 1152
@@ -108,26 +112,26 @@ func onEnemiesTimeout():
 	add_child(enemy)
 	pass
 
-func onHpTimeout():
+func onHpItemTimeout():
 	var hp = preload("res://scene/effect/EffectHp.tscn").instantiate()
 	var createPositionY = randf_range(100, 300)
 	hp.position.x = bird.position.x + 1500
 	hp.position.y = createPositionY
 	add_child(hp)
-	hp.addHpSignal.connect(onHpEntered)
+	hp.addHpSignal.connect(onHpItemEntered)
 	pass
 
-func onSpeedUpTimeout():
+func onSpeedUpItemTimeout():
 	var speedUp = preload("res://scene/effect/EffectSpeedUp.tscn").instantiate()
 	var createPositionY = randf_range(100, 300)
 	speedUp.position.x = bird.position.x + 1500
 	speedUp.position.y = createPositionY
 	add_child(speedUp)
-	speedUp.speedUpSignal.connect(onSpeedUpEntered)
+	speedUp.speedUpSignal.connect(onSpeedUpItemEntered)
 	pass
 	
 # 吃血包加血量
-func onHpEntered(node: Node2D, other_body):
+func onHpItemEntered(node: Node2D, other_body):
 	if (other_body == bird):
 		$Bird/hp.play()
 		bird.hp = bird.hp + 1
@@ -135,7 +139,7 @@ func onHpEntered(node: Node2D, other_body):
 		node.queue_free()
 	pass
 
-func onSpeedUpEntered(node: Node2D, other_body):
+func onSpeedUpItemEntered(node: Node2D, other_body):
 	if (other_body == bird):
 		$Bird/speedup_end.play()
 		bird.speedUp()

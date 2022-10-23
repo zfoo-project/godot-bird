@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cixunv12bwswq"]
+[gd_scene load_steps=17 format=3 uid="uid://cixunv12bwswq"]
 
 [ext_resource type="PackedScene" uid="uid://d34k8bhduppp8" path="res://scene/Bird.tscn" id="1_57m10"]
 [ext_resource type="Script" path="res://script/Game.gd" id="1_cica3"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cy84765p4s40s" path="res://image/ui/1.png" id="6_x4pca"]
 [ext_resource type="Texture2D" uid="uid://dcceghnl5gjwq" path="res://image/ui/2.png" id="7_504rb"]
 [ext_resource type="Texture2D" uid="uid://db4jd354mqudu" path="res://image/ui/3.png" id="8_1habm"]
+[ext_resource type="Texture2D" uid="uid://dynec8127lrcn" path="res://image/bird1_0.png" id="9_cc2dn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fymwr"]
 size = Vector2(1138, 102)
@@ -19,6 +20,29 @@ animations = [{
 "name": &"default",
 "speed": 8.0
 }]
+
+[sub_resource type="Gradient" id="Gradient_2fae4"]
+offsets = PackedFloat32Array(0.00790514, 1)
+colors = PackedColorArray(0.0941176, 0.458824, 0.823529, 0.498039, 0.0941176, 0.458824, 0.823529, 0.152941)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hx1o0"]
+gradient = SubResource("Gradient_2fae4")
+
+[sub_resource type="Curve" id="Curve_mvas1"]
+_data = [Vector2(0.00996678, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.608108), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_54858"]
+curve = SubResource("Curve_mvas1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g7xqs"]
+particle_flag_disable_z = true
+flatness = 0.2
+gravity = Vector3(0, 98, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_54858")
+color_ramp = SubResource("GradientTexture1D_hx1o0")
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_cica3")
@@ -71,16 +95,16 @@ shape = SubResource("RectangleShape2D_fymwr")
 [node name="Sprite2d" type="Sprite2D" parent="Lands/Land3"]
 texture = ExtResource("3_ii7vv")
 
-[node name="Hp" type="Node2D" parent="."]
+[node name="HpItem" type="Node2D" parent="."]
 
-[node name="Timer" type="Timer" parent="Hp"]
+[node name="Timer" type="Timer" parent="HpItem"]
 wait_time = 10.0
 autostart = true
 
-[node name="SpeedUp" type="Node2D" parent="."]
+[node name="SpeedUpItem" type="Node2D" parent="."]
 
-[node name="Timer" type="Timer" parent="SpeedUp"]
-wait_time = 2.0
+[node name="Timer" type="Timer" parent="SpeedUpItem"]
+wait_time = 13.0
 autostart = true
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -105,7 +129,6 @@ scale = Vector2(0.495238, 0.495238)
 frames = SubResource("SpriteFrames_5frqc")
 
 [node name="HP" type="Label" parent="UI/HP"]
-layout_mode = 0
 offset_left = 76.0
 offset_top = 17.0
 offset_right = 160.0
@@ -113,3 +136,9 @@ offset_bottom = 71.0
 theme_override_font_sizes/font_size = 37
 text = "99"
 vertical_alignment = 1
+
+[node name="BirdSpeedUpEffect" type="GPUParticles2D" parent="."]
+visible = false
+scale = Vector2(3.33333, 3.33333)
+process_material = SubResource("ParticleProcessMaterial_g7xqs")
+texture = ExtResource("9_cc2dn")
