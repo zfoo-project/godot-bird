@@ -34,19 +34,13 @@ func _ready():
 	speedTimer.timeout.connect(onSpeedUpTimeout)
 	pass
 
+
 func _process(delta):
 	if rotation < deg_to_rad(-30):
 		rotation = deg_to_rad(-30)
 		set_angular_velocity(0)
 	if get_linear_velocity().y > 0:
 		set_angular_velocity(3)
-	
-	if Input.is_action_just_pressed("fly_button"):
-		set_linear_velocity(Vector2(speed, flyUpSpeed))
-		set_angular_velocity(-3)
-		set_gravity_scale(0)
-		animated.play()
-		$wing.play()
 		
 	if (animated.frame == 2):
 		animated.stop()
@@ -54,6 +48,19 @@ func _process(delta):
 		set_gravity_scale(gravityScale)
 		
 	position.y = clamp(position.y, 0, screen_size.y)
+	pass
+
+func _input(event):
+	if (event.is_pressed()):
+		fly()
+	pass
+
+func fly():
+	set_linear_velocity(Vector2(speed, flyUpSpeed))
+	set_angular_velocity(-3)
+	set_gravity_scale(0)
+	animated.play()
+	$wing.play()
 	pass
 
 func on_body_entered_event(other_body):
