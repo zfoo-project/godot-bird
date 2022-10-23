@@ -38,7 +38,7 @@ func changeHp(hp: int):
 
 func _process(delta):
 	# 移动相机
-	camera2d.position.x = bird.position.x - 90
+	camera2d.position.x = bird.position.x - bird.cameraOffset
 	# 移动多少个屏幕背景
 	var count = int(bird.position.x) / 1152
 	lands.position.x = count * 1152

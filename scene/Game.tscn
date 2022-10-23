@@ -80,7 +80,7 @@ autostart = true
 [node name="SpeedUp" type="Node2D" parent="."]
 
 [node name="Timer" type="Timer" parent="SpeedUp"]
-wait_time = 13.0
+wait_time = 2.0
 autostart = true
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -105,6 +105,7 @@ scale = Vector2(0.495238, 0.495238)
 frames = SubResource("SpriteFrames_5frqc")
 
 [node name="HP" type="Label" parent="UI/HP"]
+layout_mode = 0
 offset_left = 76.0
 offset_top = 17.0
 offset_right = 160.0

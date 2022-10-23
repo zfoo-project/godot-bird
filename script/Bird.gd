@@ -4,9 +4,13 @@ const INIT_SPEED = 100
 const SPEED_UP = 100
 const INIT_FLY_UP_SPEED = -200
 const SPEED_UP_FLY_UP_SPEED = -300
+const INIT_CAMERA_OFFSET = 90
+const SPEED_UP_CAMERA_OFFSET = 300
+const CAMERA_MOVE_SPEED = 40
 
 @export var speed: int = INIT_SPEED
 @export var flyUpSpeed: int = INIT_FLY_UP_SPEED
+@export var cameraOffset: float = INIT_CAMERA_OFFSET
 @export var hp: int = 3
 @export var gravityScale: float = 1.5
 
@@ -41,13 +45,18 @@ func _process(delta):
 		set_angular_velocity(0)
 	if get_linear_velocity().y > 0:
 		set_angular_velocity(3)
-		
+
 	if (animated.frame == 2):
 		animated.stop()
 		animated.frame =  0  
 		set_gravity_scale(gravityScale)
 		
 	position.y = clamp(position.y, 0, screen_size.y)
+	
+	if (speed == INIT_SPEED):
+		cameraOffset = clampf(cameraOffset - CAMERA_MOVE_SPEED * delta, INIT_CAMERA_OFFSET, SPEED_UP_CAMERA_OFFSET)
+	else:
+		cameraOffset = clamp(cameraOffset + CAMERA_MOVE_SPEED * delta, INIT_CAMERA_OFFSET, SPEED_UP_CAMERA_OFFSET)
 	pass
 
 func _input(event):

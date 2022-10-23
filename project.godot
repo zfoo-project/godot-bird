@@ -22,7 +22,6 @@ Main="*res://scene/Main.tscn"
 [display]
 
 window/size/viewport_height=512
-window/size/always_on_top=true
 window/stretch/mode="canvas_items"
 
 [input]
