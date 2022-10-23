@@ -11,8 +11,6 @@
 
 # 安装Java 11，通过官Idea下载安装
 
-
-
 # 打包Android之前准备，安装Android SDK
 
 - 需要安装Android的SDK，我们直接使用更强大的集成开发环境Android Studio，这个Android Studio自带SDK省去了复杂的安装流程
@@ -26,3 +24,5 @@
 # 打包Android
 
 - [官方文档也有比较详细的教程文档](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_android.html) ，安装比较简单，无脑下一步
+
+![Image text](image/232/img.png)
