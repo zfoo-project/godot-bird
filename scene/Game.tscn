@@ -36,11 +36,6 @@ point_count = 2
 curve = SubResource("Curve_mvas1")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g7xqs"]
-particle_flag_disable_z = true
-flatness = 0.2
-gravity = Vector3(0, 98, 0)
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
 scale_curve = SubResource("CurveTexture_54858")
 color_ramp = SubResource("GradientTexture1D_hx1o0")
 
@@ -139,9 +134,6 @@ text = "99"
 vertical_alignment = 1
 
 [node name="BirdSpeedUpEffect" type="GPUParticles2D" parent="."]
-visible = false
 scale = Vector2(3.33333, 3.33333)
-emitting = false
-lifetime = 0.7
 process_material = SubResource("ParticleProcessMaterial_g7xqs")
 texture = ExtResource("9_cc2dn")
