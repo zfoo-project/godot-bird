@@ -142,5 +142,6 @@ vertical_alignment = 1
 visible = false
 scale = Vector2(3.33333, 3.33333)
 emitting = false
+lifetime = 0.7
 process_material = SubResource("ParticleProcessMaterial_g7xqs")
 texture = ExtResource("9_cc2dn")
