@@ -129,6 +129,7 @@ scale = Vector2(0.495238, 0.495238)
 frames = SubResource("SpriteFrames_5frqc")
 
 [node name="HP" type="Label" parent="UI/HP"]
+layout_mode = 0
 offset_left = 76.0
 offset_top = 17.0
 offset_right = 160.0
@@ -140,5 +141,6 @@ vertical_alignment = 1
 [node name="BirdSpeedUpEffect" type="GPUParticles2D" parent="."]
 visible = false
 scale = Vector2(3.33333, 3.33333)
+emitting = false
 process_material = SubResource("ParticleProcessMaterial_g7xqs")
 texture = ExtResource("9_cc2dn")

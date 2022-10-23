@@ -4,8 +4,8 @@ const INIT_SPEED = 100
 const SPEED_UP = 100
 const INIT_FLY_UP_SPEED = -200
 const SPEED_UP_FLY_UP_SPEED = -300
-const INIT_CAMERA_OFFSET = 90
-const SPEED_UP_CAMERA_OFFSET = 300
+const INIT_CAMERA_OFFSET = 200
+const SPEED_UP_CAMERA_OFFSET = 450
 const CAMERA_MOVE_SPEED = 40
 
 @export var speed: int = INIT_SPEED
@@ -47,6 +47,8 @@ func _process(delta):
 		set_angular_velocity(0)
 	if get_linear_velocity().y > 0:
 		set_angular_velocity(3)
+		if rotation > deg_to_rad(75):
+			set_angular_velocity(6)
 
 	if (animated.frame == 2):
 		animated.stop()

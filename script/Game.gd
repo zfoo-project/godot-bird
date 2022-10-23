@@ -43,6 +43,7 @@ func _process(delta):
 	# 移动特效
 	birdSpeedUpEffect.position = bird.position
 	birdSpeedUpEffect.visible = bird.isSpeedUp
+	birdSpeedUpEffect.emitting = bird.isSpeedUp
 	# 移动多少个屏幕背景
 	var count = int(bird.position.x) / 1152
 	lands.position.x = count * 1152
