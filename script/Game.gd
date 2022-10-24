@@ -42,7 +42,6 @@ func _process(delta):
 	camera2d.position.x = bird.position.x - bird.cameraOffset
 	# 移动特效
 	birdSpeedUpEffect.position = bird.position
-	birdSpeedUpEffect.visible = bird.isSpeedUp
 	birdSpeedUpEffect.emitting = bird.isSpeedUp
 	# 移动多少个屏幕背景
 	var count = int(bird.position.x) / 1152
