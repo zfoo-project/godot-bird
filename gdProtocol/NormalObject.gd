@@ -33,13 +33,13 @@ static func write(buffer, packet):
 	buffer.writeDouble(packet.f)
 	buffer.writeBool(packet.g)
 	buffer.writeString(packet.jj)
-	buffer.writePacket(packet.kk, 0)
+	buffer.writePacket(packet.kk, 102)
 	buffer.writeIntArray(packet.l)
 	buffer.writeLongArray(packet.ll)
-	buffer.writePacketArray(packet.lll, 0)
+	buffer.writePacketArray(packet.lll, 102)
 	buffer.writeStringArray(packet.llll)
 	buffer.writeIntStringMap(packet.m)
-	buffer.writeIntPacketMap(packet.mm, 0)
+	buffer.writeIntPacketMap(packet.mm, 102)
 	buffer.writeIntArray(packet.s)
 	buffer.writeStringArray(packet.ssss)
 
@@ -66,19 +66,19 @@ static func read(buffer):
 	packet.g = result7
 	var result8 = buffer.readString()
 	packet.jj = result8
-	var result9 = buffer.readPacket(0)
+	var result9 = buffer.readPacket(102)
 	packet.kk = result9
 	var list10 = buffer.readIntArray()
 	packet.l = list10
 	var list11 = buffer.readLongArray()
 	packet.ll = list11
-	var list12 = buffer.readPacketArray(0)
+	var list12 = buffer.readPacketArray(102)
 	packet.lll = list12
 	var list13 = buffer.readStringArray()
 	packet.llll = list13
 	var map14 = buffer.readIntStringMap()
 	packet.m = map14
-	var map15 = buffer.readIntPacketMap(0)
+	var map15 = buffer.readIntPacketMap(102)
 	packet.mm = map15
 	var set16 = buffer.readIntArray()
 	packet.s = set16

@@ -4,14 +4,14 @@ var a # int
 var m # java.util.Map<java.lang.Integer, java.lang.String>
 var objectB # com.zfoo.protocol.packet.ObjectB
 
-const PROTOCOL_ID = 0
+const PROTOCOL_ID = 102
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):
 		return
 	buffer.writeInt(packet.a)
 	buffer.writeIntStringMap(packet.m)
-	buffer.writePacket(packet.objectB, 1)
+	buffer.writePacket(packet.objectB, 103)
 
 
 static func read(buffer):
@@ -22,6 +22,6 @@ static func read(buffer):
 	packet.a = result0
 	var map1 = buffer.readIntStringMap()
 	packet.m = map1
-	var result2 = buffer.readPacket(1)
+	var result2 = buffer.readPacket(103)
 	packet.objectB = result2
 	return packet

@@ -1,14 +1,14 @@
-const ObjectA = preload("res://gdProtocol//ObjectA.gd")
-const ObjectB = preload("res://gdProtocol//ObjectB.gd")
 const ComplexObject = preload("res://gdProtocol//ComplexObject.gd")
 const NormalObject = preload("res://gdProtocol//NormalObject.gd")
+const ObjectA = preload("res://gdProtocol//ObjectA.gd")
+const ObjectB = preload("res://gdProtocol//ObjectB.gd")
 const SimpleObject = preload("res://gdProtocol//SimpleObject.gd")
 
 const protocols: Dictionary = {
-	0: ObjectA,
-	1: ObjectB,
 	100: ComplexObject,
 	101: NormalObject,
+	102: ObjectA,
+	103: ObjectB,
 	104: SimpleObject
 }
 
@@ -30,5 +30,3 @@ static func read(buffer):
 	var protocol = protocols[protocolId]
 	var packet = protocol.read(buffer);
 	return packet;
-
-

@@ -97,8 +97,8 @@ static func write(buffer, packet):
 	buffer.writeCharArray(packet.hhhh)
 	buffer.writeString(packet.jj)
 	buffer.writeStringArray(packet.jjj)
-	buffer.writePacket(packet.kk, 0)
-	buffer.writePacketArray(packet.kkk, 0)
+	buffer.writePacket(packet.kk, 102)
+	buffer.writePacketArray(packet.kkk, 102)
 	buffer.writeIntArray(packet.l)
 	if (packet.ll == null):
 		buffer.writeInt(0)
@@ -116,7 +116,7 @@ static func write(buffer, packet):
 	else:
 		buffer.writeInt(packet.lll.size())
 		for element2 in packet.lll:
-			buffer.writePacketArray(element2, 0)
+			buffer.writePacketArray(element2, 102)
 	buffer.writeStringArray(packet.llll)
 	if (packet.lllll == null):
 		buffer.writeInt(0)
@@ -125,14 +125,14 @@ static func write(buffer, packet):
 		for element3 in packet.lllll:
 			buffer.writeIntStringMap(element3)
 	buffer.writeIntStringMap(packet.m)
-	buffer.writeIntPacketMap(packet.mm, 0)
+	buffer.writeIntPacketMap(packet.mm, 102)
 	if (packet.mmm == null):
 		buffer.writeInt(0)
 	else:
 		buffer.writeInt(packet.mmm.size())
 		for key4 in packet.mmm:
 			var value5 = packet.mmm[key4]
-			buffer.writePacket(key4, 0)
+			buffer.writePacket(key4, 102)
 			buffer.writeIntArray(value5)
 	if (packet.mmmm == null):
 		buffer.writeInt(0)
@@ -145,7 +145,7 @@ static func write(buffer, packet):
 			else:
 				buffer.writeInt(key6.size())
 				for element8 in key6:
-					buffer.writePacketArray(element8, 0)
+					buffer.writePacketArray(element8, 102)
 			if (value7 == null):
 				buffer.writeInt(0)
 			else:
@@ -192,7 +192,7 @@ static func write(buffer, packet):
 	else:
 		buffer.writeInt(packet.sss.size())
 		for element17 in packet.sss:
-			buffer.writePacketArray(element17, 0)
+			buffer.writePacketArray(element17, 102)
 	buffer.writeStringArray(packet.ssss)
 	if (packet.sssss == null):
 		buffer.writeInt(0)
@@ -201,7 +201,7 @@ static func write(buffer, packet):
 		for element18 in packet.sssss:
 			buffer.writeIntStringMap(element18)
 	buffer.writeInt(packet.myCompatible)
-	buffer.writePacket(packet.myObject, 0)
+	buffer.writePacket(packet.myObject, 102)
 
 
 static func read(buffer):
@@ -276,9 +276,9 @@ static func read(buffer):
 	packet.jj = result51
 	var array52 = buffer.readStringArray()
 	packet.jjj = array52
-	var result53 = buffer.readPacket(0)
+	var result53 = buffer.readPacket(102)
 	packet.kk = result53
-	var array54 = buffer.readPacketArray(0)
+	var array54 = buffer.readPacketArray(102)
 	packet.kkk = array54
 	var list55 = buffer.readIntArray()
 	packet.l = list55
@@ -298,7 +298,7 @@ static func read(buffer):
 	var size65 = buffer.readInt()
 	if (size65 > 0):
 		for index64 in range(size65):
-			var list66 = buffer.readPacketArray(0)
+			var list66 = buffer.readPacketArray(102)
 			result63.append(list66)
 	packet.lll = result63
 	var list67 = buffer.readStringArray()
@@ -312,13 +312,13 @@ static func read(buffer):
 	packet.lllll = result68
 	var map72 = buffer.readIntStringMap()
 	packet.m = map72
-	var map73 = buffer.readIntPacketMap(0)
+	var map73 = buffer.readIntPacketMap(102)
 	packet.mm = map73
 	var result74 = {}
 	var size75 = buffer.readInt()
 	if (size75 > 0):
 		for index76 in range(size75):
-			var result77 = buffer.readPacket(0)
+			var result77 = buffer.readPacket(102)
 			var list78 = buffer.readIntArray()
 			result74[result77] = list78
 	packet.mmm = result74
@@ -330,7 +330,7 @@ static func read(buffer):
 			var size84 = buffer.readInt()
 			if (size84 > 0):
 				for index83 in range(size84):
-					var list85 = buffer.readPacketArray(0)
+					var list85 = buffer.readPacketArray(102)
 					result82.append(list85)
 			var result86 = []
 			var size88 = buffer.readInt()
@@ -381,7 +381,7 @@ static func read(buffer):
 	var size114 = buffer.readInt()
 	if (size114 > 0):
 		for index113 in range(size114):
-			var set115 = buffer.readPacketArray(0)
+			var set115 = buffer.readPacketArray(102)
 			result112.append(set115)
 	packet.sss = result112
 	var set116 = buffer.readStringArray()
@@ -399,6 +399,6 @@ static func read(buffer):
 	packet.myCompatible = result121
 	if (!buffer.isReadable()):
 		return packet
-	var result122 = buffer.readPacket(0)
+	var result122 = buffer.readPacket(102)
 	packet.myObject = result122
 	return packet

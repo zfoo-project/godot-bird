@@ -2,7 +2,7 @@
 
 var flag # boolean
 
-const PROTOCOL_ID = 1
+const PROTOCOL_ID = 103
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):
