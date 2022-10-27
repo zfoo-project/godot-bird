@@ -1,23 +1,25 @@
+const ObjectA = preload("res://gdProtocol//ObjectA.gd")
+const ObjectB = preload("res://gdProtocol//ObjectB.gd")
 
 
-var a # byte
-var aaa # byte[]
-var b # short
-var c # int
-var d # long
-var e # float
-var f # double
-var g # boolean
-var jj # java.lang.String
-var kk # com.zfoo.protocol.packet.ObjectA
-var l # java.util.List<java.lang.Integer>
-var ll # java.util.List<java.lang.Long>
-var lll # java.util.List<com.zfoo.protocol.packet.ObjectA>
-var llll # java.util.List<java.lang.String>
-var m # java.util.Map<java.lang.Integer, java.lang.String>
-var mm # java.util.Map<java.lang.Integer, com.zfoo.protocol.packet.ObjectA>
-var s # java.util.Set<java.lang.Integer>
-var ssss # java.util.Set<java.lang.String>
+var a: int
+var aaa: Array[int]
+var b: int
+var c: int
+var d: int
+var e: float
+var f: float
+var g: bool
+var jj: String
+var kk: ObjectA
+var l: Array[int]
+var ll: Array[int]
+var lll: Array[ObjectA]
+var llll: Array[String]
+var m: Dictionary
+var mm: Dictionary
+var s: Array[int]
+var ssss: Array[String]
 
 const PROTOCOL_ID = 101
 
@@ -42,7 +44,6 @@ static func write(buffer, packet):
 	buffer.writeIntPacketMap(packet.mm, 102)
 	buffer.writeIntArray(packet.s)
 	buffer.writeStringArray(packet.ssss)
-
 
 static func read(buffer):
 	if (!buffer.readBool()):

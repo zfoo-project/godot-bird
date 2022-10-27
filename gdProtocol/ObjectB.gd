@@ -1,6 +1,6 @@
 
 
-var flag # boolean
+var flag: bool
 
 const PROTOCOL_ID = 103
 
@@ -8,7 +8,6 @@ static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):
 		return
 	buffer.writeBool(packet.flag)
-
 
 static func read(buffer):
 	if (!buffer.readBool()):

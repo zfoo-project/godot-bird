@@ -1,62 +1,64 @@
-# 复杂的对象，包括了各种复杂的结构，数组，List，Set，Map
+const ObjectA = preload("res://gdProtocol//ObjectA.gd")
+const ObjectB = preload("res://gdProtocol//ObjectB.gd")
 
+# 复杂的对象，包括了各种复杂的结构，数组，List，Set，Map
 # byte类型，最简单的整形
-var a # byte
+var a: int
 # byte的包装类型，优先使用基础类型，包装类型会有装箱拆箱
-var aa # java.lang.Byte
+var aa: int
 # 数组类型
-var aaa # byte[]
-var aaaa # java.lang.Byte[]
-var b # short
-var bb # java.lang.Short
-var bbb # short[]
-var bbbb # java.lang.Short[]
-var c # int
-var cc # java.lang.Integer
-var ccc # int[]
-var cccc # java.lang.Integer[]
-var d # long
-var dd # java.lang.Long
-var ddd # long[]
-var dddd # java.lang.Long[]
-var e # float
-var ee # java.lang.Float
-var eee # float[]
-var eeee # java.lang.Float[]
-var f # double
-var ff # java.lang.Double
-var fff # double[]
-var ffff # java.lang.Double[]
-var g # boolean
-var gg # java.lang.Boolean
-var ggg # boolean[]
-var gggg # java.lang.Boolean[]
-var h # char
-var hh # java.lang.Character
-var hhh # char[]
-var hhhh # java.lang.Character[]
-var jj # java.lang.String
-var jjj # java.lang.String[]
-var kk # com.zfoo.protocol.packet.ObjectA
-var kkk # com.zfoo.protocol.packet.ObjectA[]
-var l # java.util.List<java.lang.Integer>
-var ll # java.util.List<java.util.List<java.util.List<java.lang.Integer>>>
-var lll # java.util.List<java.util.List<com.zfoo.protocol.packet.ObjectA>>
-var llll # java.util.List<java.lang.String>
-var lllll # java.util.List<java.util.Map<java.lang.Integer, java.lang.String>>
-var m # java.util.Map<java.lang.Integer, java.lang.String>
-var mm # java.util.Map<java.lang.Integer, com.zfoo.protocol.packet.ObjectA>
-var mmm # java.util.Map<com.zfoo.protocol.packet.ObjectA, java.util.List<java.lang.Integer>>
-var mmmm # java.util.Map<java.util.List<java.util.List<com.zfoo.protocol.packet.ObjectA>>, java.util.List<java.util.List<java.util.List<java.lang.Integer>>>>
-var mmmmm # java.util.Map<java.util.List<java.util.Map<java.lang.Integer, java.lang.String>>, java.util.Set<java.util.Map<java.lang.Integer, java.lang.String>>>
-var s # java.util.Set<java.lang.Integer>
-var ss # java.util.Set<java.util.Set<java.util.List<java.lang.Integer>>>
-var sss # java.util.Set<java.util.Set<com.zfoo.protocol.packet.ObjectA>>
-var ssss # java.util.Set<java.lang.String>
-var sssss # java.util.Set<java.util.Map<java.lang.Integer, java.lang.String>>
+var aaa: Array[int]
+var aaaa: Array[int]
+var b: int
+var bb: int
+var bbb: Array[int]
+var bbbb: Array[int]
+var c: int
+var cc: int
+var ccc: Array[int]
+var cccc: Array[int]
+var d: int
+var dd: int
+var ddd: Array[int]
+var dddd: Array[int]
+var e: float
+var ee: float
+var eee: Array[float]
+var eeee: Array[float]
+var f: float
+var ff: float
+var fff: Array[float]
+var ffff: Array[float]
+var g: bool
+var gg: bool
+var ggg: Array[bool]
+var gggg: Array[bool]
+var h: String
+var hh: String
+var hhh: Array[String]
+var hhhh: Array[String]
+var jj: String
+var jjj: Array[String]
+var kk: ObjectA
+var kkk: Array[ObjectA]
+var l: Array[int]
+var ll: Array
+var lll: Array
+var llll: Array[String]
+var lllll: Array
+var m: Dictionary
+var mm: Dictionary
+var mmm: Dictionary
+var mmmm: Dictionary
+var mmmmm: Dictionary
+var s: Array[int]
+var ss: Array
+var sss: Array
+var ssss: Array[String]
+var sssss: Array
 # 如果要修改协议并且兼容老协议，需要加上Compatible注解，按照增加的顺序添加order
-var myCompatible # int
-var myObject # com.zfoo.protocol.packet.ObjectA
+var myCompatible: int
+var myObject: ObjectA
 
 const PROTOCOL_ID = 100
 
@@ -202,7 +204,6 @@ static func write(buffer, packet):
 			buffer.writeIntStringMap(element18)
 	buffer.writeInt(packet.myCompatible)
 	buffer.writePacket(packet.myObject, 102)
-
 
 static func read(buffer):
 	if (!buffer.readBool()):

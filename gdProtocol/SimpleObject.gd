@@ -1,7 +1,7 @@
 
 
-var c # int
-var g # boolean
+var c: int
+var g: bool
 
 const PROTOCOL_ID = 104
 
@@ -10,7 +10,6 @@ static func write(buffer, packet):
 		return
 	buffer.writeInt(packet.c)
 	buffer.writeBool(packet.g)
-
 
 static func read(buffer):
 	if (!buffer.readBool()):

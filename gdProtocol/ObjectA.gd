@@ -1,8 +1,9 @@
+const ObjectB = preload("res://gdProtocol//ObjectB.gd")
 
 
-var a # int
-var m # java.util.Map<java.lang.Integer, java.lang.String>
-var objectB # com.zfoo.protocol.packet.ObjectB
+var a: int
+var m: Dictionary
+var objectB: ObjectB
 
 const PROTOCOL_ID = 102
 
@@ -12,7 +13,6 @@ static func write(buffer, packet):
 	buffer.writeInt(packet.a)
 	buffer.writeIntStringMap(packet.m)
 	buffer.writePacket(packet.objectB, 103)
-
 
 static func read(buffer):
 	if (!buffer.readBool()):
