@@ -35,7 +35,6 @@ hs_err_pid*
 
 # 忽略生成的协议文件
 **/jsProtocol/
-**/gdProtocol/
 **/CsProtocol/
 **/LuaProtocol/
 **/cppProtocol/

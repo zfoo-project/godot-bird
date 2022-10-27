@@ -7,7 +7,7 @@ static func writeStringToFile(filePath: String, content: String) -> void:
 	var file = FileAccess.open(filePath, FileAccess.WRITE)
 	# bread and butter
 	file.store_string(content)
-	file.close()
+	file = null
 	pass
 	
 
@@ -21,7 +21,7 @@ static func readFileToString(filePath: String) -> String:
 	var file = FileAccess.open(filePath, FileAccess.READ)
 	
 	var content = file.get_as_text()
-	file.close()
+	file = null
 	return content
 
 # 读取文件
@@ -33,6 +33,6 @@ static func readFileToByteArray(filePath: String) -> PackedByteArray:
 	# allow reading only for file
 	var file = FileAccess.open(filePath, FileAccess.READ)
 	
-	var buffer = file.get_buffer(file.get_len())
-	file.close()
+	var buffer = file.get_buffer(file.get_length())
+	file = null
 	return buffer
