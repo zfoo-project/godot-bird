@@ -57,10 +57,6 @@ current = true
 
 [node name="Enemies" type="Node2D" parent="."]
 
-[node name="Timer" type="Timer" parent="Enemies"]
-wait_time = 6.0
-autostart = true
-
 [node name="Lands" type="Node2D" parent="."]
 z_index = 10
 
@@ -93,18 +89,6 @@ shape = SubResource("RectangleShape2D_fymwr")
 
 [node name="Sprite2d" type="Sprite2D" parent="Lands/Land3"]
 texture = ExtResource("3_ii7vv")
-
-[node name="HpItem" type="Node2D" parent="."]
-
-[node name="Timer" type="Timer" parent="HpItem"]
-wait_time = 10.0
-autostart = true
-
-[node name="SpeedUpItem" type="Node2D" parent="."]
-
-[node name="Timer" type="Timer" parent="SpeedUpItem"]
-wait_time = 13.0
-autostart = true
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

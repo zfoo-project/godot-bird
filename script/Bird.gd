@@ -1,5 +1,7 @@
 extends RigidBody2D
 
+const Common = preload("res://script/Common.gd")
+
 const INIT_SPEED = 100
 const SPEED_UP = 100
 const INIT_FLY_UP_SPEED = -200
@@ -11,7 +13,7 @@ const CAMERA_MOVE_SPEED = 40
 @export var speed: int = INIT_SPEED
 @export var flyUpSpeed: int = INIT_FLY_UP_SPEED
 @export var cameraOffset: float = INIT_CAMERA_OFFSET
-@export var hp: int = 3
+@export var hp: int = Common.birdInitHp()
 @export var gravityScale: float = 1.5
 
 var point: int = 0

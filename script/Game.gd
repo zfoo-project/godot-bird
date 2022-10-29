@@ -24,18 +24,10 @@ var isOver: bool = false
 var gameTotalTime: float = 0
 var godotResourcesTimerMap: Dictionary = {}
 
-const enemies: Array[PackedScene] = [
-	preload("res://scene/enemy/Fish.tscn"), 
-	preload("res://scene/enemy/Shark.tscn"), 
-	preload("res://scene/enemy/Cloud.tscn")
-	]
 
 func _ready():
 	$ParallaxBackground/ParallaxLayer/Background.texture = Main.currentBackground
 	bird.hpChangedEvent.connect(onHpChangedEvent)
-	$Enemies/Timer.timeout.connect(onEnemiesTimeout)
-	$HpItem/Timer.timeout.connect(onHpItemTimeout)
-	$SpeedUpItem/Timer.timeout.connect(onSpeedUpItemTimeout)
 	changeHp(bird.hp)
 	# 以当前小鸟的位置，每隔pipeInterval间距生成水管
 	for i in range(30):
@@ -118,32 +110,6 @@ func onHpChangedEvent(oldHp: int, hp: int):
 		changeHp(bird.hp)
 	pass
 
-
-func onEnemiesTimeout():
-	var enemy = RandomUtils.randomEle(enemies).instantiate()
-	var createPositionY = randf_range(50, 450)
-	enemy.position.x = bird.position.x + 1000
-	enemy.position.y = createPositionY
-	add_child(enemy)
-	pass
-
-func onHpItemTimeout():
-	var hp = preload("res://scene/effect/EffectHp.tscn").instantiate()
-	var createPositionY = randf_range(100, 300)
-	hp.position.x = bird.position.x + 1500
-	hp.position.y = createPositionY
-	add_child(hp)
-	hp.addHpSignal.connect(onHpItemEntered)
-	pass
-
-func onSpeedUpItemTimeout():
-	var speedUp = preload("res://scene/effect/EffectSpeedUp.tscn").instantiate()
-	var createPositionY = randf_range(100, 300)
-	speedUp.position.x = bird.position.x + 1500
-	speedUp.position.y = createPositionY
-	add_child(speedUp)
-	speedUp.speedUpSignal.connect(onSpeedUpItemEntered)
-	pass
 	
 # 吃血包加血量
 func onHpItemEntered(node: Node2D, other_body):
@@ -163,7 +129,8 @@ func onSpeedUpItemEntered(node: Node2D, other_body):
 
 func onTimeout():
 	for key in godotResourcesTimerMap.keys():
-		if godotResourcesTimerMap[key] < gameTotalTime:
+		var refreshTime: float = godotResourcesTimerMap[key]
+		if refreshTime > gameTotalTime:
 			continue
 		# 生成物体
 		var objectResource: GodotObjectResource = objectResources[key]
