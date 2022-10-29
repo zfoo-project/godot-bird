@@ -1,6 +1,10 @@
 extends Node
 
+const FileUtils = preload("res://zfoo/FileUtils.gd")
 const RandomUtils = preload("res://zfoo/RandomUtils.gd")
+const ByteBufferStorage =preload("res://storage/ByteBuffer.gd")
+const ProtocolManagerStorage = preload("res://storage/ProtocolManager.gd")
+const ResourceStorage = preload("res://storage/ResourceStorage.gd")
 
 @onready var dieAudio: AudioStreamPlayer = $DieAudio
 @onready var swooshAudio: AudioStreamPlayer = $SwooshAudio
@@ -25,10 +29,18 @@ var currentAnimation = birdAnimations.front()
 
 var point: int = 0
 
+# excel配置表数据
+var resourceStorage: ResourceStorage
+
 func _ready():
 	swooshAudio.play()
 	transitionAnimation.play("fade-in")
 	await transitionAnimation.animation_finished
+	# 加载配置表的数据
+	var buffer = ByteBufferStorage.new()
+	var poolByteArray = FileUtils.readFileToByteArray("res://godot_resource_binary.cfg")
+	buffer.writePackedByteArray(poolByteArray)
+	resourceStorage = ProtocolManagerStorage.read(buffer)
 	pass
 
 func changeScene(scene: SCENE):
