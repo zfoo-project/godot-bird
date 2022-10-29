@@ -1,6 +1,8 @@
 extends AnimatableBody2D
 
-var speed: int = 60
+const Common = preload("res://script/Common.gd")
+
+var speed: float = Common.speedCloud()
 
 func _ready():
 	$VisibleOnScreenNotifier2d.screen_exited.connect(onScreenExited)

@@ -5,7 +5,8 @@ var path: String
 var randomUpY: float
 var randomDownY: float
 var forwardX: float
-var refreshTime: int
+var refreshTime: float
+var refreshMinTime: float
 var refreshAccelerate: float
 var signalBind: String
 var callback: String
@@ -22,7 +23,8 @@ static func write(buffer, packet):
 	buffer.writeFloat(packet.randomDownY)
 	buffer.writeFloat(packet.randomUpY)
 	buffer.writeFloat(packet.refreshAccelerate)
-	buffer.writeInt(packet.refreshTime)
+	buffer.writeFloat(packet.refreshMinTime)
+	buffer.writeFloat(packet.refreshTime)
 	buffer.writeString(packet.signalBind)
 
 static func read(buffer):
@@ -43,8 +45,10 @@ static func read(buffer):
 	packet.randomUpY = result5
 	var result6 = buffer.readFloat()
 	packet.refreshAccelerate = result6
-	var result7 = buffer.readInt()
-	packet.refreshTime = result7
-	var result8 = buffer.readString()
-	packet.signalBind = result8
+	var result7 = buffer.readFloat()
+	packet.refreshMinTime = result7
+	var result8 = buffer.readFloat()
+	packet.refreshTime = result8
+	var result9 = buffer.readString()
+	packet.signalBind = result9
 	return packet

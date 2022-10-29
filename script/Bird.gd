@@ -2,19 +2,17 @@ extends RigidBody2D
 
 const Common = preload("res://script/Common.gd")
 
-const INIT_SPEED = 100
-const SPEED_UP = 100
-const INIT_FLY_UP_SPEED = -200
-const SPEED_UP_FLY_UP_SPEED = -300
-const INIT_CAMERA_OFFSET = 200
-const SPEED_UP_CAMERA_OFFSET = 450
-const CAMERA_MOVE_SPEED = 40
 
-@export var speed: int = INIT_SPEED
-@export var flyUpSpeed: int = INIT_FLY_UP_SPEED
-@export var cameraOffset: float = INIT_CAMERA_OFFSET
+@export var speed: float = Common.birdInitSpeed()
+@export var flyUpSpeed: float = Common.birdFlyUpSpeed()
+
+@export var cameraInitOffset: float = Common.cameraInitOffset()
+@export var cameraSpeedUpOffset: float = Common.cameraSpeedUpOffset()
+@export var cameraMoveSpeed: float = Common.cameraMoveSpeed()
+
+@export var cameraOffset: float = Common.cameraInitOffset()
 @export var hp: int = Common.birdInitHp()
-@export var gravityScale: float = 1.5
+
 
 var point: int = 0
 
@@ -34,12 +32,15 @@ func _ready():
 	
 	set_linear_velocity(Vector2(speed, 0))
 	set_linear_damp(0)
-	set_gravity_scale(gravityScale)
+	set_gravity_scale(Common.birdGravityScale())
 
 	set_contact_monitor(true)
 	set_max_contacts_reported(1)
 	connect("body_entered", Callable(self, "on_body_entered_event"))
+	speedTimer.wait_time = Common.birdSpeedUpContinueTime()
 	speedTimer.timeout.connect(onSpeedUpTimeout)
+	fly()
+	fly()
 	pass
 
 
@@ -55,14 +56,14 @@ func _process(delta):
 	if (animated.frame == 2):
 		animated.stop()
 		animated.frame =  0  
-		set_gravity_scale(gravityScale)
+		set_gravity_scale(Common.birdGravityScale())
 		
 	position.y = clamp(position.y, 0, screen_size.y)
 	
 	if (isSpeedUp):
-		cameraOffset = clamp(cameraOffset + CAMERA_MOVE_SPEED * delta, INIT_CAMERA_OFFSET, SPEED_UP_CAMERA_OFFSET)
+		cameraOffset = clamp(cameraOffset + cameraMoveSpeed * delta, cameraInitOffset, cameraSpeedUpOffset)
 	else:
-		cameraOffset = clampf(cameraOffset - CAMERA_MOVE_SPEED * delta, INIT_CAMERA_OFFSET, SPEED_UP_CAMERA_OFFSET)
+		cameraOffset = clampf(cameraOffset - cameraMoveSpeed * delta, cameraInitOffset, cameraSpeedUpOffset)
 	pass
 
 func _input(event):
@@ -92,17 +93,17 @@ func speedUp():
 	speedTimer.one_shot = true
 	$speedup.play()
 	$SpeedUp.visible = true
-	speed = speed + SPEED_UP
-	flyUpSpeed = SPEED_UP_FLY_UP_SPEED
+	speed = speed + Common.birdSpeedUp()
+	flyUpSpeed = Common.birdSpeedUpFlyUpSpeed()
 	isSpeedUp = true
 	pass
 
 func onSpeedUpTimeout():
-	speed = INIT_SPEED
+	speed = Common.birdInitSpeed()
 	$speedup.stop()
 	$speedup_end.play()
 	$SpeedUp.visible = false
-	flyUpSpeed = INIT_FLY_UP_SPEED
+	flyUpSpeed = Common.birdFlyUpSpeed()
 	isSpeedUp = false
 	pass
 

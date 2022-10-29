@@ -16,8 +16,8 @@ const GodotObjectResource = preload("res://storage/GodotObjectResource.gd")
 
 var objectResources: Dictionary = Main.resourceStorage.objectResources
 
-var pipeInterval: int = 150
-var pipeCount: int = 3
+var pipeInterval: int = 170
+var pipeCount: int = 4
 var isOver: bool = false
 
 # 游戏开始的总时间
@@ -69,7 +69,7 @@ func endGame():
 
 func createPipe():
 	var createPositionX = pipeCount * pipeInterval
-	var createPositionY = randf_range(80, 320)
+	var createPositionY = randf_range(Common.pipeRandomDown(), Common.pipeRandomUp())
 	
 	var pipeResource = preload("res://scene/Pipe.tscn")
 	var newPipe = pipeResource.instantiate()
@@ -90,7 +90,7 @@ func createPipe():
 	pass
 
 func onPipeScreenExited(exitedPipe: Node2D):
-	exitedPipe.queue_free()
+	exitedPipe.queue_free()  
 	createPipe()
 	pass
 
@@ -143,7 +143,7 @@ func onTimeout():
 			obj.connect(objectResource.signalBind, Callable(self, objectResource.callback))
 		# 计算下一次的生成时间
 		var nextTime = objectResource.refreshTime - objectResource.refreshAccelerate * (gameTotalTime / Common.gameMaxTimeSeconds())
-		nextTime = max(nextTime, Common.objectCreateMinTimeSeconds())
+		nextTime = max(nextTime, objectResource.refreshMinTime)
 		var nextRefreshTime: float = gameTotalTime + nextTime
 		godotResourcesTimerMap[key] = nextRefreshTime
 	pass
