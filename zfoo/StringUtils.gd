@@ -9,6 +9,8 @@ const EMPTY_JSON: String = "{}"
 static func isEmpty(s: String) -> bool:
 	return s == null or s.length() == 0
 
+static func isNotEmpty(s: String) -> bool:
+	return !isEmpty(s)
 
 # 检查是否为空的字符串
 static func isBlank(s: String) -> bool:

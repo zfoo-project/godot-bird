@@ -1,16 +1,16 @@
 
 
-var callback: String
-var forwardX: float
 var id: int
 var path: String
-var randomDownY: float
 var randomUpY: float
-var refreshAccelerate: float
+var randomDownY: float
+var forwardX: float
 var refreshTime: int
+var refreshAccelerate: float
 var signalBind: String
+var callback: String
 
-const PROTOCOL_ID = 0
+const PROTOCOL_ID = 1
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

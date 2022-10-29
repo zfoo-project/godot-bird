@@ -36,6 +36,10 @@ point_count = 2
 curve = SubResource("Curve_mvas1")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g7xqs"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 98, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
 scale_curve = SubResource("CurveTexture_54858")
 color_ramp = SubResource("GradientTexture1D_hx1o0")
 
@@ -137,3 +141,6 @@ vertical_alignment = 1
 scale = Vector2(3.33333, 3.33333)
 process_material = SubResource("ParticleProcessMaterial_g7xqs")
 texture = ExtResource("9_cc2dn")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true

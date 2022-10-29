@@ -1,20 +1,26 @@
-const GodotResource = preload("res://storage/GodotResource.gd")
+const GodotCommonResource = preload("res://storage/GodotCommonResource.gd")
+const GodotObjectResource = preload("res://storage/GodotObjectResource.gd")
 
 
 # Map<Integer, GodotResource>
-var godotResources: Dictionary
+var objectResources: Dictionary
+# Map<String, GodotCommonResource>
+var commonResources: Dictionary
 
-const PROTOCOL_ID = 1
+const PROTOCOL_ID = 2
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):
 		return
-	buffer.writeIntPacketMap(packet.godotResources, 0)
+	buffer.writeStringPacketMap(packet.commonResources, 0)
+	buffer.writeIntPacketMap(packet.objectResources, 1)
 
 static func read(buffer):
 	if (!buffer.readBool()):
 		return null
 	var packet = buffer.newInstance(PROTOCOL_ID)
-	var map0 = buffer.readIntPacketMap(0)
-	packet.godotResources = map0
+	var map0 = buffer.readStringPacketMap(0)
+	packet.commonResources = map0
+	var map1 = buffer.readIntPacketMap(1)
+	packet.objectResources = map1
 	return packet

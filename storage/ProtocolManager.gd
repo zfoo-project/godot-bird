@@ -1,9 +1,11 @@
-const GodotResource = preload("res://storage/GodotResource.gd")
+const GodotCommonResource = preload("res://storage/GodotCommonResource.gd")
+const GodotObjectResource = preload("res://storage/GodotObjectResource.gd")
 const ResourceStorage = preload("res://storage/ResourceStorage.gd")
 
 const protocols: Dictionary = {
-	0: GodotResource,
-	1: ResourceStorage
+	0: GodotCommonResource,
+	1: GodotObjectResource,
+	2: ResourceStorage
 }
 
 static func getProtocol(protocolId: int):

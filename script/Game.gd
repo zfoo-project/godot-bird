@@ -1,6 +1,9 @@
 extends Node2D
 
 const RandomUtils = preload("res://zfoo/RandomUtils.gd")
+const StringUtils = preload("res://zfoo/StringUtils.gd")
+const Common = preload("res://script/Common.gd")
+const GodotObjectResource = preload("res://storage/GodotObjectResource.gd")
 
 @onready var camera2d: Camera2D = $Camera2d
 @onready var bird: RigidBody2D = $Bird
@@ -10,9 +13,16 @@ const RandomUtils = preload("res://zfoo/RandomUtils.gd")
 @onready var hpAnimatedSprite2D: AnimatedSprite2D = $UI/HP/AnimatedSprite2d
 @onready var birdSpeedUpEffect: GPUParticles2D = $BirdSpeedUpEffect
 
+
+var objectResources: Dictionary = Main.resourceStorage.objectResources
+
 var pipeInterval: int = 150
 var pipeCount: int = 3
 var isOver: bool = false
+
+# 游戏开始的总时间
+var gameTotalTime: float = 0
+var godotResourcesTimerMap: Dictionary = {}
 
 const enemies: Array[PackedScene] = [
 	preload("res://scene/enemy/Fish.tscn"), 
@@ -30,6 +40,10 @@ func _ready():
 	# 以当前小鸟的位置，每隔pipeInterval间距生成水管
 	for i in range(30):
 		createPipe()
+	
+	$Timer.timeout.connect(onTimeout)
+	for key in objectResources.keys():
+		godotResourcesTimerMap[key] = objectResources[key].refreshTime
 	pass
 
 func changeHp(hp: int):
@@ -38,6 +52,7 @@ func changeHp(hp: int):
 	pass
 
 func _process(delta):
+	gameTotalTime += delta
 	# 移动相机
 	camera2d.position.x = bird.position.x - bird.cameraOffset
 	# 移动特效
@@ -144,4 +159,24 @@ func onSpeedUpItemEntered(node: Node2D, other_body):
 		$Bird/speedup_end.play()
 		bird.speedUp()
 		node.queue_free()
+	pass
+
+func onTimeout():
+	for key in godotResourcesTimerMap.keys():
+		if godotResourcesTimerMap[key] < gameTotalTime:
+			continue
+		# 生成物体
+		var objectResource: GodotObjectResource = objectResources[key]
+		var obj = load(objectResource.path).instantiate()
+		var createPositionY = randf_range(objectResource.randomUpY, objectResource.randomDownY)
+		obj.position.x = bird.position.x + objectResource.forwardX
+		obj.position.y = createPositionY
+		add_child(obj)
+		if StringUtils.isNotEmpty(objectResource.signalBind):
+			obj.connect(objectResource.signalBind, Callable(self, objectResource.callback))
+		# 计算下一次的生成时间
+		var nextTime = objectResource.refreshTime - objectResource.refreshAccelerate * (gameTotalTime / Common.gameMaxTimeSeconds())
+		nextTime = max(nextTime, Common.objectCreateMinTimeSeconds())
+		var nextRefreshTime: float = gameTotalTime + nextTime
+		godotResourcesTimerMap[key] = nextRefreshTime
 	pass

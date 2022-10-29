@@ -32,15 +32,19 @@ var point: int = 0
 # excel配置表数据
 var resourceStorage: ResourceStorage
 
-func _ready():
-	swooshAudio.play()
-	transitionAnimation.play("fade-in")
-	await transitionAnimation.animation_finished
+func _init():
 	# 加载配置表的数据
 	var buffer = ByteBufferStorage.new()
 	var poolByteArray = FileUtils.readFileToByteArray("res://godot_resource_binary.cfg")
 	buffer.writePackedByteArray(poolByteArray)
-	resourceStorage = ProtocolManagerStorage.read(buffer)
+	var packet = ProtocolManagerStorage.read(buffer)
+	resourceStorage = packet
+	pass
+
+func _ready():
+	swooshAudio.play()
+	transitionAnimation.play("fade-in")
+	await transitionAnimation.animation_finished
 	pass
 
 func changeScene(scene: SCENE):
