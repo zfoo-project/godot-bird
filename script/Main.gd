@@ -33,12 +33,19 @@ var point: int = 0
 var resourceStorage: ResourceStorage
 
 func _init():
+	print("开始加载配置表")
 	# 加载配置表的数据
 	var buffer = ByteBufferStorage.new()
-	var poolByteArray = FileUtils.readFileToByteArray("res://godot_resource_binary.cfg")
+
+	var poolByteArray = FileUtils.readFileToByteArray("res://godot_resource_storage.bin.tres")
 	buffer.writePackedByteArray(poolByteArray)
 	var packet = ProtocolManagerStorage.read(buffer)
 	resourceStorage = packet
+	print(JSON.stringify(packet.objectResources))
+	for key in packet.objectResources:
+		print(packet.objectResources[key].id)
+	
+	print("配置表加载完成")
 	pass
 
 func _ready():

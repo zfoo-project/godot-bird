@@ -72,9 +72,34 @@ func _input(event):
 	pass
 
 func fly():
-	set_linear_velocity(Vector2(speed, flyUpSpeed))
+	var ratio = 50000
+	if linear_velocity.y > 500:
+		set_linear_velocity(Vector2(speed, flyUpSpeed + 0.60))
+	elif linear_velocity.y > 400:
+		set_linear_velocity(Vector2(speed, flyUpSpeed + 0.65))
+	elif linear_velocity.y > 300:
+		set_linear_velocity(Vector2(speed, flyUpSpeed + 0.7))
+	elif linear_velocity.y > 200:
+		set_linear_velocity(Vector2(speed, flyUpSpeed + 0.8))
+	elif linear_velocity.y > 100:
+		set_linear_velocity(Vector2(speed, flyUpSpeed * 0.9))
+	elif linear_velocity.y > 0:
+		set_linear_velocity(Vector2(speed, flyUpSpeed))
+	elif linear_velocity.y > -100:
+		set_linear_velocity(Vector2(speed, flyUpSpeed * 1.1))
+	elif linear_velocity.y > -200:
+		set_linear_velocity(Vector2(speed, flyUpSpeed * 1.15))
+	elif linear_velocity.y > -300:
+		set_linear_velocity(Vector2(speed, flyUpSpeed * 1.2))
+	elif linear_velocity.y > -400:
+		set_linear_velocity(Vector2(speed, flyUpSpeed * 1.3))
+	elif linear_velocity.y > -500:
+		set_linear_velocity(Vector2(speed, flyUpSpeed * 1.4))
+	else:
+		set_linear_velocity(Vector2(speed, flyUpSpeed * 1.5))
 	set_angular_velocity(-3)
 	set_gravity_scale(0)
+	animated.frame = 0
 	animated.play()
 	$wing.play()
 	pass
