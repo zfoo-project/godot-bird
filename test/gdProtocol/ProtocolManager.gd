@@ -1,8 +1,8 @@
-const ComplexObject = preload("res://gdProtocol//ComplexObject.gd")
-const NormalObject = preload("res://gdProtocol//NormalObject.gd")
-const ObjectA = preload("res://gdProtocol//ObjectA.gd")
-const ObjectB = preload("res://gdProtocol//ObjectB.gd")
-const SimpleObject = preload("res://gdProtocol//SimpleObject.gd")
+const ComplexObject = preload("res://test/gdProtocol/ComplexObject.gd")
+const NormalObject = preload("res://test/gdProtocol/NormalObject.gd")
+const ObjectA = preload("res://test/gdProtocol/ObjectA.gd")
+const ObjectB = preload("res://test/gdProtocol/ObjectB.gd")
+const SimpleObject = preload("res://test/gdProtocol/SimpleObject.gd")
 
 const protocols: Dictionary = {
 	100: ComplexObject,

@@ -1,8 +1,8 @@
 extends Node2D
 
 
-const ProtocolManager = preload("res://gdProtocol/ProtocolManager.gd")
-const ByteBuffer = preload("res://gdProtocol/buffer/ByteBuffer.gd")
+const ProtocolManager = preload("res://test/gdProtocol/ProtocolManager.gd")
+const ByteBuffer = preload("res://test/gdProtocol/buffer/ByteBuffer.gd")
 const FileUtils = preload("res://zfoo/FileUtils.gd")
 
 func _ready():
@@ -83,7 +83,7 @@ func _ready():
 
 func test():
 	var buffer = ByteBuffer.new()
-	var poolByteArray = FileUtils.readFileToByteArray("user://ComplexObject.bytes")
+	var poolByteArray = FileUtils.readFileToByteArray("res://test/gdProtocol/ComplexObject.cfg")
 	buffer.writePackedByteArray(poolByteArray)
 	
 	var packet = ProtocolManager.read(buffer)

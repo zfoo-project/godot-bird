@@ -1,4 +1,4 @@
-const ObjectB = preload("res://gdProtocol//ObjectB.gd")
+const ObjectB = preload("res://test/gdProtocol/ObjectB.gd")
 
 
 var a: int

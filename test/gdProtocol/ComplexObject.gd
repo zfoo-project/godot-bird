@@ -1,5 +1,5 @@
-const ObjectA = preload("res://gdProtocol//ObjectA.gd")
-const ObjectB = preload("res://gdProtocol//ObjectB.gd")
+const ObjectA = preload("res://test/gdProtocol/ObjectA.gd")
+const ObjectB = preload("res://test/gdProtocol/ObjectB.gd")
 
 # 复杂的对象，包括了各种复杂的结构，数组，List，Set，Map
 # byte类型，最简单的整形
