@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://c42q772pm12uh"]
+
+[ext_resource type="Texture2D" uid="uid://bmyg5u0uk7noq" path="res://image/effect/attack.png" id="1_kgb4g"]
+
+[sub_resource type="GDScript" id="GDScript_8ji8h"]
+script/source = "extends Node2D
+
+
+@onready var animationPlayer: AnimationPlayer = $AnimationPlayer
+
+func _ready():
+	animationPlayer.animation_finished.connect(onAnimationFinished)
+	animationPlayer.play()
+	pass
+
+
+func onAnimationFinished():
+	animationPlayer.stop()
+	animationPlayer.queue_free()
+	pass
+"
+
+[sub_resource type="Animation" id="Animation_d5f2h"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.07, 0.14, 0.21, 0.28, 0.35, 0.42, 0.49, 0.56, 0.63, 0.69, 0.76, 0.83, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_xx315"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1dena"]
+_data = {
+"RESET": SubResource("Animation_xx315"),
+"attack": SubResource("Animation_d5f2h")
+}
+
+[node name="EffectAttack" type="Node2D"]
+script = SubResource("GDScript_8ji8h")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kgb4g")
+hframes = 4
+vframes = 4
+frame = 15
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "attack"
+libraries = {
+"": SubResource("AnimationLibrary_1dena")
+}
