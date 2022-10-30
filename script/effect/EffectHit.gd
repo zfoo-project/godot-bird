@@ -10,5 +10,5 @@ func _ready():
 
 func onAnimationFinished():
 	animatedSprite2D.stop()
-	animatedSprite2D.queue_free()
+	queue_free()
 	pass

@@ -14,14 +14,13 @@ func _ready():
 	pass
 
 
-func onAnimationFinished():
+func onAnimationFinished(anim_name):
 	animationPlayer.stop()
-	animationPlayer.queue_free()
+	queue_free()
 	pass
 "
 
 [sub_resource type="Animation" id="Animation_xx315"]
-length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -29,10 +28,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.001, 0.08, 0.16, 0.24, 0.3, 0.36, 0.42, 0.48, 0.54, 0.6, 0.66, 0.72, 0.8, 0.86, 0.92, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [15]
+"values": [15, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 }
 
 [sub_resource type="Animation" id="Animation_d5f2h"]

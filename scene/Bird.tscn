@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://d34k8bhduppp8"]
+[gd_scene load_steps=25 format=3 uid="uid://d34k8bhduppp8"]
 
 [ext_resource type="Script" path="res://script/Bird.gd" id="1_fpmxp"]
 [ext_resource type="Texture2D" uid="uid://dynec8127lrcn" path="res://image/bird1_0.png" id="1_fqmow"]
@@ -19,6 +19,7 @@
 [ext_resource type="AudioStream" uid="uid://dcgu70sdjetco" path="res://audio/point.wav" id="14_w50nl"]
 [ext_resource type="AudioStream" uid="uid://bj8hn31xs4f0c" path="res://audio/hp.wav" id="15_yjfpb"]
 [ext_resource type="AudioStream" uid="uid://31i6ke7t7jxp" path="res://audio/speedup.wav" id="19_87ta0"]
+[ext_resource type="AudioStream" uid="uid://bewq0uli37q2f" path="res://audio/attack.wav" id="19_bmpo8"]
 [ext_resource type="AudioStream" uid="uid://c2qyhqm77o3rs" path="res://audio/speedup_end.wav" id="20_ivxwe"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1pjba"]
@@ -81,6 +82,9 @@ stream = ExtResource("14_w50nl")
 
 [node name="hp" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_yjfpb")
+
+[node name="attack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_bmpo8")
 
 [node name="speedup" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("19_87ta0")

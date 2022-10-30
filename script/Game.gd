@@ -28,6 +28,7 @@ var godotResourcesTimerMap: Dictionary = {}
 func _ready():
 	$ParallaxBackground/ParallaxLayer/Background.texture = Main.currentBackground
 	bird.hpChangedEvent.connect(onHpChangedEvent)
+	bird.attackEvent.connect(onAttackEvent)
 	changeHp(bird.hp)
 	# 以当前小鸟的位置，每隔pipeInterval间距生成水管
 	for i in range(30):
@@ -108,6 +109,14 @@ func onHpChangedEvent(oldHp: int, hp: int):
 		effectHit.position = bird.position
 		add_child(effectHit)
 		changeHp(bird.hp)
+	pass
+
+
+func onAttackEvent(other_body):
+	var effectAttack = preload("res://scene/effect/EffectAttack.tscn").instantiate()
+	effectAttack.position = bird.position
+	add_child(effectAttack)
+	other_body.queue_free()
 	pass
 
 	

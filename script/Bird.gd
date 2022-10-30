@@ -21,7 +21,10 @@ var screen_size
 
 var isSpeedUp = false
 
+var lastLinearVelocity: Vector2
+
 signal hpChangedEvent(oldHp: int, hp: int)
+signal attackEvent(other_body)
 
 @onready var animated: AnimatedSprite2D = $AnimatedSprite2d
 @onready var speedTimer: Timer = $Timer
@@ -33,6 +36,7 @@ func _ready():
 	set_linear_velocity(Vector2(speed, 0))
 	set_linear_damp(0)
 	set_gravity_scale(Common.birdGravityScale())
+	lastLinearVelocity = get_linear_velocity()
 
 	set_contact_monitor(true)
 	set_max_contacts_reported(1)
@@ -64,6 +68,8 @@ func _process(delta):
 		cameraOffset = clamp(cameraOffset + cameraMoveSpeed * delta, cameraInitOffset, cameraSpeedUpOffset)
 	else:
 		cameraOffset = clampf(cameraOffset - cameraMoveSpeed * delta, cameraInitOffset, cameraSpeedUpOffset)
+	
+	lastLinearVelocity = get_linear_velocity()
 	pass
 
 func _input(event):
@@ -106,6 +112,10 @@ func fly():
 
 func on_body_entered_event(other_body):
 	if (isSpeedUp):
+		if (other_body is AnimatableBody2D):
+			emit_signal("attackEvent", other_body)
+			$attack.play()
+			set_linear_velocity(lastLinearVelocity)
 		return
 	var oldHp = hp
 	$hit.play()
