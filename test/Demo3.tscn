@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b65gafw17pmi6"]
+[gd_scene load_steps=6 format=3 uid="uid://b65gafw17pmi6"]
 
 [ext_resource type="PackedScene" uid="uid://d34k8bhduppp8" path="res://scene/Bird.tscn" id="1_6tl1n"]
 [ext_resource type="PackedScene" uid="uid://cklt47n0w06i2" path="res://scene/enemy/Shark.tscn" id="2_36450"]
 [ext_resource type="PackedScene" uid="uid://dfn7yujsnt3ae" path="res://scene/enemy/Fish.tscn" id="3_pw58h"]
 [ext_resource type="PackedScene" uid="uid://dld0h87uyknlp" path="res://scene/enemy/Cloud.tscn" id="4_bhgff"]
+[ext_resource type="PackedScene" uid="uid://cla2lshoedc3o" path="res://scene/enemy/BiliBili.tscn" id="5_whe1x"]
 
 [node name="Demo3" type="Node2D"]
 
@@ -18,3 +19,6 @@ position = Vector2(493, 282)
 
 [node name="Cloud" parent="." instance=ExtResource("4_bhgff")]
 position = Vector2(738, 83)
+
+[node name="BiliBili" parent="." instance=ExtResource("5_whe1x")]
+position = Vector2(755, 189)

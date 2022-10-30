@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://cla2lshoedc3o"]
+
+[ext_resource type="Script" path="res://script/enemy/Cloud.gd" id="1_td6ao"]
+[ext_resource type="Texture2D" uid="uid://5u2i8al5taw" path="res://image/enemy/bilibili.png" id="2_aokby"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t05s7"]
+radius = 26.0
+height = 62.0
+
+[sub_resource type="Animation" id="Animation_ul62t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_or08s"]
+resource_name = "bilibili"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_olqkp"]
+_data = {
+"RESET": SubResource("Animation_ul62t"),
+"bilibili": SubResource("Animation_or08s")
+}
+
+[node name="BiliBili" type="AnimatableBody2D"]
+z_index = 500
+script = ExtResource("1_td6ao")
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_t05s7")
+
+[node name="VisibleOnScreenNotifier2d" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "bilibili"
+libraries = {
+"": SubResource("AnimationLibrary_olqkp")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_aokby")
+hframes = 7
