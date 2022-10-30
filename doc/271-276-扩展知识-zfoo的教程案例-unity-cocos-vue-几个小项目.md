@@ -7,3 +7,5 @@
 # admin-vue-js，vue后台管理
 
 # fivechess，基于zfoo的游戏服务器，cocos前端
+
+# 下个版本的鸟了个鸟版本，对接tank-game-server的服务器，服务器逻辑都一样
