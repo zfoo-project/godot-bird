@@ -1,24 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c42q772pm12uh"]
 
+[ext_resource type="Script" path="res://script/effect/EffectAttack.gd" id="1_6rrse"]
 [ext_resource type="Texture2D" uid="uid://bmyg5u0uk7noq" path="res://image/effect/attack.png" id="1_kgb4g"]
-
-[sub_resource type="GDScript" id="GDScript_8ji8h"]
-script/source = "extends Node2D
-
-
-@onready var animationPlayer: AnimationPlayer = $AnimationPlayer
-
-func _ready():
-	animationPlayer.animation_finished.connect(onAnimationFinished)
-	animationPlayer.play()
-	pass
-
-
-func onAnimationFinished(anim_name):
-	animationPlayer.stop()
-	queue_free()
-	pass
-"
 
 [sub_resource type="Animation" id="Animation_xx315"]
 tracks/0/type = "value"
@@ -56,7 +39,7 @@ _data = {
 }
 
 [node name="EffectAttack" type="Node2D"]
-script = SubResource("GDScript_8ji8h")
+script = ExtResource("1_6rrse")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_kgb4g")

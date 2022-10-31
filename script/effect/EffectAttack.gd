@@ -1,11 +1,15 @@
 extends Node2D
 
 
-# Called when the node enters the scene tree for the first time.
+@onready var animationPlayer: AnimationPlayer = $AnimationPlayer
+
 func _ready():
-	pass # Replace with function body.
+	animationPlayer.animation_finished.connect(onAnimationFinished)
+	animationPlayer.play()
+	pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func onAnimationFinished(anim_name):
+	animationPlayer.stop()
+	queue_free()
 	pass

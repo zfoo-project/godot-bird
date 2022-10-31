@@ -31,7 +31,7 @@ func _ready():
 	bird.attackEvent.connect(onAttackEvent)
 	changeHp(bird.hp)
 	# 以当前小鸟的位置，每隔pipeInterval间距生成水管
-	for i in range(30):
+	for i in range(20):
 		createPipe()
 	
 	$Timer.timeout.connect(onTimeout)
@@ -147,6 +147,9 @@ func onTimeout():
 		var createPositionY = randf_range(objectResource.randomUpY, objectResource.randomDownY)
 		obj.position.x = bird.position.x + objectResource.forwardX
 		obj.position.y = createPositionY
+		# 调整血包何加速包的x位置，让他们不和水管叠加
+		if (objectResource.id == 1 || objectResource.id == 2):
+			obj.position.x = pipeCount * pipeInterval - pipeInterval / 2
 		add_child(obj)
 		if StringUtils.isNotEmpty(objectResource.signalBind):
 			obj.connect(objectResource.signalBind, Callable(self, objectResource.callback))
