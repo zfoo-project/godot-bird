@@ -24,9 +24,9 @@ func start():
 	client.big_endian = true
 	client.connect_to_host(host, port)
 	connectThread.start(Callable(self, "tickConnect"))
-	#sendThread.start(Callable(self, "tickSend"))
+	sendThread.start(Callable(self, "tickSend"))
 	print(StringUtils.format("tcp client connect threadId:[{}]", [connectThread.get_id()]))
-	#print(StringUtils.format("tcp client send threadId:[{}]", [sendThread.get_id()]))
+	print(StringUtils.format("tcp client send threadId:[{}]", [sendThread.get_id()]))
 	
 
 var noneTime: int = 0
@@ -55,7 +55,7 @@ func popReceivePacket():
 	receiveMutex.unlock()
 	return packet
 
-func send(packet):
+func sendSync(packet):
 	var buffer = ByteBuffer.new()
 	buffer.writeRawInt(0)
 	ProtocolManager.write(buffer, packet)
@@ -68,7 +68,7 @@ func send(packet):
 	print(StringUtils.format("send packet [{}]", [packet]))
 	
 
-func sendaaa(packet):
+func send(packet):
 	if packet == null:
 		printerr("null point exception")
 	pushSendPacket(packet)
@@ -150,16 +150,7 @@ func tickSend():
 			StreamPeerTCP.STATUS_CONNECTING:
 				pushSendPacket(packet)
 			StreamPeerTCP.STATUS_CONNECTED:
-				var buffer = ByteBuffer.new()
-				buffer.writeRawInt(0)
-				ProtocolManager.write(buffer, packet)
-				var writeOffset = buffer.getWriteOffset();
-				buffer.setWriteOffset(0)
-				buffer.writeRawInt(writeOffset - 4)
-				buffer.setWriteOffset(writeOffset)
-				var data = buffer.toPackedByteArray()
-				client.put_data(data)
-				print(StringUtils.format("send packet [{}]", [packet]))
+				sendSync(packet)
 			_:
 				print("tcp client unknown")
 	pass
