@@ -3,7 +3,7 @@ extends RefCounted
 const StringUtils = preload("res://zfoo/StringUtils.gd")
 const TimeUtils = preload("res://zfoo/TimeUtils.gd")
 const ProtocolManager = preload("res://protocol/ProtocolManager.gd")
-const ByteBuffer =preload("res://protocol/ByteBuffer.gd")
+const ByteBuffer = preload("res://protocol/ByteBuffer.gd")
 
 var client = StreamPeerTCP.new()
 
@@ -17,7 +17,6 @@ func _init(hostAndPort: String):
 	var splits = hostAndPort.split(":")
 	host = splits[0]
 	port = splits[1].to_int()
-	
 	pass
 
 func start():
