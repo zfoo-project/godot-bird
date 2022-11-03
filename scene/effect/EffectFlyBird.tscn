@@ -1,0 +1,40 @@
+[gd_scene load_steps=12 format=3 uid="uid://cbu1wbla8mr31"]
+
+[ext_resource type="Script" path="res://script/effect/EffectFlyBird.gd" id="1_tls4u"]
+[ext_resource type="Texture2D" uid="uid://dynec8127lrcn" path="res://image/bird1_0.png" id="2_yvfnl"]
+[ext_resource type="Texture2D" uid="uid://1pqepk4bsrym" path="res://image/bird1_1.png" id="3_cdnc0"]
+[ext_resource type="Texture2D" uid="uid://co3v3ascl0p3o" path="res://image/bird1_2.png" id="4_jftcc"]
+[ext_resource type="Texture2D" uid="uid://dg8hoe7a44hyj" path="res://image/bird2_0.png" id="5_s7vge"]
+[ext_resource type="Texture2D" uid="uid://k0mn4lk3kb00" path="res://image/bird2_1.png" id="6_1yg6m"]
+[ext_resource type="Texture2D" uid="uid://brwfyolfyudk8" path="res://image/bird2_2.png" id="7_o7nbb"]
+[ext_resource type="Texture2D" uid="uid://3x7ym4gw2wdi" path="res://image/bird0_0.png" id="8_b47i4"]
+[ext_resource type="Texture2D" uid="uid://bhq2q5csrvf6c" path="res://image/bird0_1.png" id="9_knoa8"]
+[ext_resource type="Texture2D" uid="uid://ffqyrvetr2n2" path="res://image/bird0_2.png" id="10_clqkc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_csp04"]
+animations = [{
+"frames": [ExtResource("2_yvfnl"), ExtResource("3_cdnc0"), ExtResource("4_jftcc")],
+"loop": true,
+"name": &"blue",
+"speed": 8.0
+}, {
+"frames": [ExtResource("5_s7vge"), ExtResource("6_1yg6m"), ExtResource("7_o7nbb")],
+"loop": true,
+"name": &"red",
+"speed": 8.0
+}, {
+"frames": [ExtResource("8_b47i4"), ExtResource("9_knoa8"), ExtResource("10_clqkc")],
+"loop": true,
+"name": &"yellow",
+"speed": 8.0
+}]
+
+[node name="EffectFlyBird" type="Node2D"]
+script = ExtResource("1_tls4u")
+
+[node name="Bird" type="AnimatedSprite2D" parent="."]
+frames = SubResource("SpriteFrames_csp04")
+animation = &"blue"
+playing = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

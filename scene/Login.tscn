@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=3 uid="uid://begf4acapm88l"]
+
+[ext_resource type="Script" path="res://script/Login.gd" id="1_8883d"]
+[ext_resource type="PackedScene" uid="uid://bpggn6rfp70y2" path="res://scene/Background.tscn" id="1_xhk51"]
+[ext_resource type="Texture2D" uid="uid://bw845aaa6sbnj" path="res://image/title.png" id="3_qf4wj"]
+
+[sub_resource type="Animation" id="Animation_vc1ir"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.523599]
+}
+
+[sub_resource type="Animation" id="Animation_3flym"]
+resource_name = "title"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.261799, -0.261799, 0.261799]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f2j7k"]
+_data = {
+"RESET": SubResource("Animation_vc1ir"),
+"title": SubResource("Animation_3flym")
+}
+
+[node name="Login" type="Node2D"]
+script = ExtResource("1_8883d")
+
+[node name="Background" parent="." instance=ExtResource("1_xhk51")]
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="UserName" type="LineEdit" parent="Control"]
+layout_mode = 0
+offset_left = 511.0
+offset_top = 188.0
+offset_right = 681.0
+offset_bottom = 219.0
+
+[node name="UI" type="Node2D" parent="."]
+position = Vector2(576, 90)
+metadata/_edit_group_ = true
+
+[node name="Title" type="Sprite2D" parent="UI"]
+rotation = -0.523599
+texture = ExtResource("3_qf4wj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
+autoplay = "title"
+libraries = {
+"": SubResource("AnimationLibrary_f2j7k")
+}
