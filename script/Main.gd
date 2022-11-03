@@ -5,6 +5,7 @@ const RandomUtils = preload("res://zfoo/RandomUtils.gd")
 const ByteBufferStorage =preload("res://storage/ByteBuffer.gd")
 const ProtocolManagerStorage = preload("res://storage/ProtocolManager.gd")
 const ResourceStorage = preload("res://storage/ResourceStorage.gd")
+const TcpClient = preload("res://script/TcpClient.gd")
 
 @onready var dieAudio: AudioStreamPlayer = $DieAudio
 @onready var swooshAudio: AudioStreamPlayer = $SwooshAudio
@@ -70,4 +71,11 @@ func changeScene(scene: SCENE):
 func randomBackground():
 	currentBackground = RandomUtils.randomEle(backgrounds)
 	currentAnimation = RandomUtils.randomEle(birdAnimations)
+	pass
+
+
+
+# 网络连接服务器相关
+var tcpClient: TcpClient = TcpClient.new("127.0.0.1:16000")
+func startTcpClient():
 	pass

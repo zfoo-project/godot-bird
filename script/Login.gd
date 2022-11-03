@@ -4,12 +4,16 @@ const RandomUtils = preload("res://zfoo/RandomUtils.gd")
 
 func _ready():
 	$Timer.timeout.connect(onTimeout)
+	$Control/Login.connect("pressed", Callable(self, "login"))
 	pass
 
 
 func _process(delta):
 	pass
 
+func login():
+	Main.changeScene(Main.SCENE.Game)
+	pass
 
 func onTimeout():
 	var bird = preload("res://scene/effect/EffectFlyBird.tscn").instantiate()
