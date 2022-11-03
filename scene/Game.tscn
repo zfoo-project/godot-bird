@@ -1,13 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://cixunv12bwswq"]
+[gd_scene load_steps=17 format=3 uid="uid://bb3rpff8vrjhh"]
 
 [ext_resource type="PackedScene" uid="uid://d34k8bhduppp8" path="res://scene/Bird.tscn" id="1_57m10"]
 [ext_resource type="Script" path="res://script/Game.gd" id="1_cica3"]
 [ext_resource type="Texture2D" uid="uid://bw4k3kxyen6yg" path="res://image/land.png" id="3_ii7vv"]
 [ext_resource type="Texture2D" uid="uid://ollibr005jsd" path="res://image/bg_day.png" id="4_p31ru"]
-[ext_resource type="Texture2D" uid="uid://baywi268vk2wi" path="res://image/ui/0.png" id="5_ukhbt"]
-[ext_resource type="Texture2D" uid="uid://cy84765p4s40s" path="res://image/ui/1.png" id="6_x4pca"]
-[ext_resource type="Texture2D" uid="uid://dcceghnl5gjwq" path="res://image/ui/2.png" id="7_504rb"]
-[ext_resource type="Texture2D" uid="uid://db4jd354mqudu" path="res://image/ui/3.png" id="8_1habm"]
+[ext_resource type="Texture2D" uid="uid://baywi268vk2wi" path="res://image/hp/0.png" id="5_xq86p"]
+[ext_resource type="Texture2D" uid="uid://cy84765p4s40s" path="res://image/hp/1.png" id="6_ma6uf"]
+[ext_resource type="Texture2D" uid="uid://dcceghnl5gjwq" path="res://image/hp/2.png" id="7_3rdft"]
+[ext_resource type="Texture2D" uid="uid://db4jd354mqudu" path="res://image/hp/3.png" id="8_lplss"]
 [ext_resource type="Texture2D" uid="uid://dynec8127lrcn" path="res://image/bird1_0.png" id="9_cc2dn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fymwr"]
@@ -15,7 +15,7 @@ size = Vector2(1138, 102)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5frqc"]
 animations = [{
-"frames": [ExtResource("5_ukhbt"), ExtResource("6_x4pca"), ExtResource("7_504rb"), ExtResource("8_1habm")],
+"frames": [ExtResource("5_xq86p"), ExtResource("6_ma6uf"), ExtResource("7_3rdft"), ExtResource("8_lplss")],
 "loop": true,
 "name": &"default",
 "speed": 8.0
@@ -112,6 +112,7 @@ scale = Vector2(0.495238, 0.495238)
 frames = SubResource("SpriteFrames_5frqc")
 
 [node name="HP" type="Label" parent="UI/HP"]
+layout_mode = 0
 offset_left = 76.0
 offset_top = 17.0
 offset_right = 160.0
