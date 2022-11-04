@@ -90,7 +90,6 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="UserName" type="LineEdit" parent="Control"]
-layout_mode = 0
 offset_left = 464.0
 offset_top = 176.0
 offset_right = 688.0
@@ -102,7 +101,6 @@ placeholder_text = "账号名称（bird开头）"
 alignment = 1
 
 [node name="Password" type="LineEdit" parent="Control"]
-layout_mode = 0
 offset_left = 464.0
 offset_top = 248.0
 offset_right = 688.0
@@ -115,7 +113,6 @@ alignment = 1
 secret = true
 
 [node name="Login" type="Button" parent="Control"]
-layout_mode = 0
 offset_left = 496.0
 offset_top = 328.0
 offset_right = 640.0
@@ -128,7 +125,6 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_kmon0")
 text = "登录"
 
 [node name="Label" type="Label" parent="Control"]
-layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "v6.0.0"

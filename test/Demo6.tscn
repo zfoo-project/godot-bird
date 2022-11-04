@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4ws75118aefg"]
+
+[ext_resource type="Script" path="res://test/script/Demo6.gd" id="1_7oxp8"]
+
+[node name="Demo6" type="Node2D"]
+script = ExtResource("1_7oxp8")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
