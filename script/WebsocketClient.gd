@@ -1,5 +1,7 @@
 extends RefCounted
 
+# 此类暂时无法和java的websocket通信
+
 const StringUtils = preload("res://zfoo/StringUtils.gd")
 const TimeUtils = preload("res://zfoo/TimeUtils.gd")
 const ProtocolManager = preload("res://protocol/ProtocolManager.gd")
@@ -60,16 +62,17 @@ func sendSync(packet):
 	buffer.setWriteOffset(writeOffset)
 	var data = buffer.toPackedByteArray()
 	client.put_packet(data)
-	print(StringUtils.format("send packet [{}]", [packet]))
+	for b in data:
+		print(b)
+	print(StringUtils.format("send packet [{}] [length:{}]", [packet, data.size()]))
+	
 	
 
 func send(packet):
 	if packet == null:
 		printerr("null point exception")
-	print("dddddddddddddddddddddddddddddddddddddddd")
 	pushSendPacket(packet)
 	sendSemaphore.post()
-	print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
 
 func pushSendPacket(packet):
 	sendMutex.lock()
@@ -130,13 +133,10 @@ func tickConnect():
 
 func tickSend():
 	while true:
-		print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 		var packet = popSendPacket()
 		if packet == null:
-			print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
 			sendSemaphore.wait()
 			continue
-		print("ccccccccccccccccccccccccccccccccccccccccccccccccccccc")
 		client.poll()
 		
 		var status = client.get_ready_state()

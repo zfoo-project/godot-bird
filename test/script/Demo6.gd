@@ -21,6 +21,5 @@ func _process(delta):
 
 
 func _on_timer_timeout():
-	print("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz")
 	websocketClient.send(ScoreRankRequest.new())
 	pass
