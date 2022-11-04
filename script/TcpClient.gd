@@ -40,6 +40,10 @@ var receiveMutex: Mutex = Mutex.new()
 var sendMutex: Mutex = Mutex.new()
 var sendSemaphore: Semaphore = Semaphore.new()
 
+func isConnected() -> bool:
+	var status = client.get_status()
+	return true if status == StreamPeerTCP.STATUS_CONNECTED else false
+
 func pushReceivePacket(packet):
 	receiveMutex.lock()
 	receivePackets.push_back(packet)
@@ -49,11 +53,20 @@ func popReceivePacket():
 	var packet = null
 	if receivePackets.is_empty():
 		return packet
+	print("------------------------------")
+	print(receivePackets.size())
 	receiveMutex.lock()
 	packet = receivePackets.pop_front()
 	receiveMutex.unlock()
 	return packet
 
+# 查看服务器返回的第一个包
+func peekReceivePacket():
+	var packet = null
+	if receivePackets.is_empty():
+		return packet
+	return receivePackets.front()
+	
 func sendSync(packet):
 	var buffer = ByteBuffer.new()
 	buffer.writeRawInt(0)
@@ -64,7 +77,7 @@ func sendSync(packet):
 	buffer.setWriteOffset(writeOffset)
 	var data = buffer.toPackedByteArray()
 	client.put_data(data)
-	print(StringUtils.format("send packet [{}]", [packet]))
+	print(StringUtils.format("send packet [{}]", [packet.PROTOCOL_ID]))
 	
 
 func send(packet):
@@ -115,17 +128,14 @@ func tickConnect():
 					connectedTime = currentTime
 				if client.get_available_bytes() > 4:
 					var length = client.get_32()
-					print(length)
 					# tcp粘包拆包
 					var data = client.get_data(length)
 					if (data[0] == OK):
-						print(data)
 						var buffer = ByteBuffer.new()
 						buffer.writePackedByteArray(PackedByteArray(data[1]))
 						var packet = ProtocolManager.read(buffer)
-						print(packet)
 						pushReceivePacket(packet)
-						print(StringUtils.format("receive packet [{}]", [packet]))
+						print(StringUtils.format("receive packet [{}]", [packet.PROTOCOL_ID]))
 			_:
 				print("tcp client unknown")
 	pass

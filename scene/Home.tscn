@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bpggn6rfp70y2" path="res://scene/Background.tscn" id="1_3mncm"]
 [ext_resource type="Script" path="res://script/Home.gd" id="1_8nwth"]
-[ext_resource type="Texture2D" uid="uid://bw845aaa6sbnj" path="res://image/title.png" id="2_75urw"]
+[ext_resource type="Texture2D" uid="uid://bj0km8pnflson" path="res://image/titile7.png" id="3_idvbg"]
 [ext_resource type="Texture2D" uid="uid://dynec8127lrcn" path="res://image/bird1_0.png" id="3_rofjb"]
 [ext_resource type="Texture2D" uid="uid://1pqepk4bsrym" path="res://image/bird1_1.png" id="4_4ri0l"]
 [ext_resource type="Texture2D" uid="uid://co3v3ascl0p3o" path="res://image/bird1_2.png" id="5_itf6j"]
@@ -86,7 +86,7 @@ metadata/_edit_group_ = true
 
 [node name="Title" type="Sprite2D" parent="UI"]
 rotation = -0.523599
-texture = ExtResource("2_75urw")
+texture = ExtResource("3_idvbg")
 
 [node name="Bird" type="AnimatedSprite2D" parent="UI"]
 position = Vector2(0, 80)
@@ -105,6 +105,7 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="Start" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 513.0
 offset_top = 220.0
 offset_right = 629.0

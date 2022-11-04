@@ -89,7 +89,7 @@ autostart = true
 layout_mode = 3
 anchors_preset = 0
 
-[node name="UserName" type="LineEdit" parent="Control"]
+[node name="Account" type="LineEdit" parent="Control"]
 offset_left = 464.0
 offset_top = 176.0
 offset_right = 688.0

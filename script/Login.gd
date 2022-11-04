@@ -1,18 +1,48 @@
 extends Node2D
 
 const RandomUtils = preload("res://zfoo/RandomUtils.gd")
+const StringUtils = preload("res://zfoo/StringUtils.gd")
+const LoginRequest = preload("res://protocol/protocol/login/LoginRequest.gd")
+const LoginResponse = preload("res://protocol/protocol/login/LoginResponse.gd")
+const GetPlayerInfoRequest = preload("res://protocol/protocol/login/GetPlayerInfoRequest.gd")
+const GetPlayerInfoResponse = preload("res://protocol/protocol/login/GetPlayerInfoResponse.gd")
 
 func _ready():
 	$Timer.timeout.connect(onTimeout)
 	$Control/Login.connect("pressed", Callable(self, "login"))
+	Main.tcpClient.start()
+	Main.showLoading()
 	pass
 
 
 func _process(delta):
+	if (Main.tcpClient.isConnected()):
+		Main.unshowLoading()
+	var packet = Main.tcpClient.peekReceivePacket()
+	if packet == null:
+		return
+	if packet is LoginResponse:
+		Main.tcpClient.popReceivePacket()
+		Main.token = packet.token
+		print(StringUtils.format("收到登录令牌token:[{}]", [packet.token]))
+	elif packet is GetPlayerInfoResponse:
+		Main.tcpClient.popReceivePacket()
+		Main.playInfo = packet
+		Main.changeScene(Main.SCENE.Home)
+		Main.notify(StringUtils.format("[{}] 欢迎回来", [packet.playerInfo.name]))
 	pass
 
 func login():
-	Main.changeScene(Main.SCENE.Game)
+	var account = $Control/Account.text
+	var password = $Control/Password.text
+	print(account)
+	if StringUtils.isEmpty(account):
+		Main.notify("账号名称不能为空")
+		return
+	var request = LoginRequest.new()
+	request.account = account
+	request.password = password
+	Main.tcpClient.send(request)
 	pass
 
 func onTimeout():

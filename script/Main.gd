@@ -2,14 +2,17 @@ extends Node
 
 const FileUtils = preload("res://zfoo/FileUtils.gd")
 const RandomUtils = preload("res://zfoo/RandomUtils.gd")
+const StringUtils = preload("res://zfoo/StringUtils.gd")
 const ByteBufferStorage =preload("res://storage/ByteBuffer.gd")
 const ProtocolManagerStorage = preload("res://storage/ProtocolManager.gd")
 const ResourceStorage = preload("res://storage/ResourceStorage.gd")
 const TcpClient = preload("res://script/TcpClient.gd")
+const GetPlayerInfoResponse = preload("res://protocol/protocol/login/GetPlayerInfoResponse.gd")
 
 @onready var dieAudio: AudioStreamPlayer = $DieAudio
 @onready var swooshAudio: AudioStreamPlayer = $SwooshAudio
 @onready var transitionAnimation: AnimationPlayer = $Transition/AnimationPlayer
+@onready var loading: CanvasLayer = $Loading/CanvasLayer
 
 # 场景常量数据
 enum SCENE {Home, Game, Over}
@@ -73,9 +76,22 @@ func randomBackground():
 	currentAnimation = RandomUtils.randomEle(birdAnimations)
 	pass
 
+func showLoading():
+	loading.visible = true
+	$Loading/CanvasLayer/ColorRect.mouse_filter = Control.MOUSE_FILTER_STOP
 
+func unshowLoading():
+	loading.visible = false
+	$Loading/CanvasLayer/ColorRect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+func notify(message: String):
+	var notify = preload("res://scene/Notify.tscn").instantiate()
+	notify.message = message
+	add_child(notify)
+	print(message)
 
 # 网络连接服务器相关
 var tcpClient: TcpClient = TcpClient.new("127.0.0.1:16000")
-func startTcpClient():
-	pass
+# 登录令牌
+var token: String = StringUtils.EMPTY
+var playInfo: GetPlayerInfoResponse = null

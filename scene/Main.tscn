@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1he6mg0d54wk"]
+[gd_scene load_steps=10 format=3 uid="uid://d1he6mg0d54wk"]
 
 [ext_resource type="Script" path="res://script/Main.gd" id="1_31v4x"]
 [ext_resource type="AudioStream" uid="uid://dj3s6cg6cthyx" path="res://audio/die.wav" id="2_l07b6"]
 [ext_resource type="AudioStream" uid="uid://ddp61kf15rkay" path="res://audio/swoosh.wav" id="3_8madq"]
+[ext_resource type="Texture2D" uid="uid://4t10u10w0t7f" path="res://image/ui/LOADING_ICON_01.png" id="4_j0c71"]
+[ext_resource type="FontFile" uid="uid://dwo20txgiw2r7" path="res://font/HarmonyOS_Sans_SC_Medium.ttf" id="5_2ruvp"]
 
 [sub_resource type="Animation" id="Animation_mmgsd"]
 resource_name = "fade-in"
@@ -25,6 +27,27 @@ _data = {
 "fade-in": SubResource("Animation_mmgsd")
 }
 
+[sub_resource type="Animation" id="Animation_ood7s"]
+resource_name = "loading"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/TextureRect:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [6.28319, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1pk73"]
+_data = {
+"loading": SubResource("Animation_ood7s")
+}
+
 [node name="Main" type="Node"]
 script = ExtResource("1_31v4x")
 
@@ -45,9 +68,45 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0)
+color = Color(0, 0, 0, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Transition"]
 libraries = {
 "": SubResource("AnimationLibrary_sda2m")
+}
+
+[node name="Loading" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Loading"]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Loading/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.203922)
+
+[node name="TextureRect" type="TextureRect" parent="Loading/CanvasLayer"]
+offset_left = 527.0
+offset_top = 213.0
+offset_right = 607.0
+offset_bottom = 293.0
+pivot_offset = Vector2(40, 40)
+texture = ExtResource("4_j0c71")
+
+[node name="Label" type="Label" parent="Loading/CanvasLayer"]
+offset_left = 517.0
+offset_top = 313.0
+offset_right = 613.0
+offset_bottom = 337.0
+theme_override_fonts/font = ExtResource("5_2ruvp")
+text = "连接服务器中..."
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Loading"]
+autoplay = "loading"
+libraries = {
+"": SubResource("AnimationLibrary_1pk73")
 }

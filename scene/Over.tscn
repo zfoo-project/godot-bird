@@ -1,17 +1,26 @@
-[gd_scene load_steps=9 format=3 uid="uid://cc16ykvsxuoo3"]
+[gd_scene load_steps=12 format=3 uid="uid://cc16ykvsxuoo3"]
 
 [ext_resource type="PackedScene" uid="uid://bpggn6rfp70y2" path="res://scene/Background.tscn" id="1_3mncm"]
 [ext_resource type="Script" path="res://script/Over.gd" id="1_tv3r4"]
 [ext_resource type="Texture2D" uid="uid://uxnmn24o5rep" path="res://image/score_panel.png" id="2_kfclw"]
 [ext_resource type="Texture2D" uid="uid://dhkpaa8u3wkac" path="res://image/text_game_over.png" id="3_4uoks"]
-[ext_resource type="Texture2D" uid="uid://cl0px2bmjdblu" path="res://image/button_menu.png" id="4_qluxl"]
-[ext_resource type="Texture2D" uid="uid://pwmdmtvupegk" path="res://image/button_share.png" id="5_mex2y"]
-[ext_resource type="FontFile" uid="uid://y6i73v06b3es" path="res://font/FB.ttf" id="6_jwtg5"]
+[ext_resource type="FontFile" uid="uid://dwo20txgiw2r7" path="res://font/HarmonyOS_Sans_SC_Medium.ttf" id="5_inly1"]
+[ext_resource type="Texture2D" uid="uid://f5igud48a0od" path="res://image/medals_1.png" id="6_1xpvf"]
+[ext_resource type="Texture2D" uid="uid://ys47dntlq8dh" path="res://image/ui/UI_Popup_BTN2.png" id="7_g4k1x"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0c31e"]
-texture = ExtResource("4_qluxl")
-region_rect = Rect2(0, 0, 80, 28)
-modulate_color = Color(0.854902, 0.47451, 0.278431, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yd157"]
+texture = ExtResource("7_g4k1x")
+region_rect = Rect2(0, 0, 122, 51)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f7m2e"]
+texture = ExtResource("7_g4k1x")
+region_rect = Rect2(0, 0, 122, 51)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v6cwd"]
+texture = ExtResource("7_g4k1x")
+region_rect = Rect2(0, 0, 122, 51)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aulr8"]
 
 [node name="Over" type="Node2D"]
 script = ExtResource("1_tv3r4")
@@ -34,49 +43,19 @@ texture = ExtResource("2_kfclw")
 position = Vector2(565, 56)
 texture = ExtResource("3_4uoks")
 
-[node name="Menu" type="Button" parent="Control"]
-anchors_preset = -1
-anchor_left = 0.1975
-anchor_top = 0.113
-anchor_right = 0.1975
-anchor_bottom = 0.113
-offset_left = -2.0
-offset_top = 54.0
-offset_right = 86.0
-offset_bottom = 90.0
-scale = Vector2(1.5, 1.5)
-theme_override_styles/focus = SubResource("StyleBoxTexture_0c31e")
-icon = ExtResource("4_qluxl")
-flat = true
-metadata/_edit_use_anchors_ = true
-
-[node name="Share" type="Button" parent="Control"]
-anchors_preset = -1
-anchor_left = 0.24
-anchor_top = 0.1125
-anchor_right = 0.24
-anchor_bottom = 0.1125
-offset_left = 99.0
-offset_top = 55.0
-offset_right = 187.0
-offset_bottom = 91.0
-scale = Vector2(1.5, 1.5)
-icon = ExtResource("5_mex2y")
-flat = true
-metadata/_edit_use_anchors_ = true
-
 [node name="Score" type="Label" parent="Control"]
 anchors_preset = -1
-anchor_left = 0.251
-anchor_top = 0.0865
-anchor_right = 0.251
-anchor_bottom = 0.0865
+anchor_left = 0.249
+anchor_top = 0.0815
+anchor_right = 0.249
+anchor_bottom = 0.0855
 offset_left = 144.0
 offset_top = -51.0
 offset_right = 202.0
 offset_bottom = -25.0
 scale = Vector2(1.5, 1.5)
-theme_override_fonts/font = ExtResource("6_jwtg5")
+theme_override_fonts/font = ExtResource("5_inly1")
+theme_override_font_sizes/font_size = 25
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -84,17 +63,37 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Best" type="Label" parent="Control"]
 anchors_preset = -1
-anchor_left = 0.251
-anchor_top = 0.1035
-anchor_right = 0.251
-anchor_bottom = 0.1035
+anchor_left = 0.2495
+anchor_top = 0.1
+anchor_right = 0.2495
+anchor_bottom = 0.104
 offset_left = 144.0
 offset_top = -8.0
 offset_right = 202.0
 offset_bottom = 18.0
 scale = Vector2(1.5, 1.5)
-theme_override_fonts/font = ExtResource("6_jwtg5")
+theme_override_fonts/font = ExtResource("5_inly1")
+theme_override_font_sizes/font_size = 25
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+offset_left = 404.0
+offset_top = 128.0
+offset_right = 488.0
+offset_bottom = 212.0
+texture = ExtResource("6_1xpvf")
+
+[node name="Menu" type="Button" parent="Control"]
+offset_left = 476.0
+offset_top = 305.0
+offset_right = 620.0
+offset_bottom = 369.0
+theme_override_fonts/font = ExtResource("5_inly1")
+theme_override_styles/normal = SubResource("StyleBoxTexture_yd157")
+theme_override_styles/hover = SubResource("StyleBoxTexture_f7m2e")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_v6cwd")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_aulr8")
+text = "再来一次"
