@@ -33,11 +33,14 @@ func _process(delta):
 	pass
 
 func login():
-	var account = $Control/Account.text
+	var account: String = $Control/Account.text
 	var password = $Control/Password.text
 	print(account)
 	if StringUtils.isEmpty(account):
 		Main.notify("账号名称不能为空")
+		return
+	if !account.to_lower().begins_with("bird"):
+		Main.notify("账号名称需要用 bird 开头")
 		return
 	var request = LoginRequest.new()
 	request.account = account

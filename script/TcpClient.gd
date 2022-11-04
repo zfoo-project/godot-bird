@@ -53,8 +53,7 @@ func popReceivePacket():
 	var packet = null
 	if receivePackets.is_empty():
 		return packet
-	print("------------------------------")
-	print(receivePackets.size())
+	print(StringUtils.format("------------------------------ receive packet count [{}]", [receivePackets.size()]))
 	receiveMutex.lock()
 	packet = receivePackets.pop_front()
 	receiveMutex.unlock()

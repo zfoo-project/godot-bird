@@ -8,6 +8,9 @@ const ProtocolManagerStorage = preload("res://storage/ProtocolManager.gd")
 const ResourceStorage = preload("res://storage/ResourceStorage.gd")
 const TcpClient = preload("res://script/TcpClient.gd")
 const GetPlayerInfoResponse = preload("res://protocol/protocol/login/GetPlayerInfoResponse.gd")
+const BattleResultResponse = preload("res://protocol/protocol/battle/BattleResultResponse.gd")
+const CurrencyUpdateNotice = preload("res://protocol/protocol/CurrencyUpdateNotice.gd")
+const PlayerExpNotice = preload("res://protocol/protocol/PlayerExpNotice.gd")
 
 @onready var dieAudio: AudioStreamPlayer = $DieAudio
 @onready var swooshAudio: AudioStreamPlayer = $SwooshAudio
@@ -91,7 +94,23 @@ func notify(message: String):
 	print(message)
 
 # 网络连接服务器相关
-var tcpClient: TcpClient = TcpClient.new("127.0.0.1:16000")
+#var tcpClient: TcpClient = TcpClient.new("127.0.0.1:16000")
+var tcpClient: TcpClient = TcpClient.new("127.0.0.1:16000") if OS.has_feature("editor") else TcpClient.new("47.103.82.45:16000")
 # 登录令牌
 var token: String = StringUtils.EMPTY
 var playInfo: GetPlayerInfoResponse = null
+
+func _process(delta):
+	var packet = tcpClient.peekReceivePacket()
+	if packet == null:
+		return
+	if packet is BattleResultResponse:
+		tcpClient.popReceivePacket()
+		print(StringUtils.format("收到战斗结果:[{}]", [packet.score]))
+	elif packet is CurrencyUpdateNotice:
+		tcpClient.popReceivePacket()
+		print(StringUtils.format("[{}] 货币更新", [packet.currencyVo.gold]))
+	elif packet is PlayerExpNotice:
+		tcpClient.popReceivePacket()
+		notify(StringUtils.format("[level:{}][exp:{}] 经验刷新", [packet.level, packet.exp]))
+	pass

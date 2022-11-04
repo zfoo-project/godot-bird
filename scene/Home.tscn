@@ -126,10 +126,17 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_o10le")
 icon = ExtResource("14_ag2sf")
 flat = true
 
-[node name="RankList" type="ItemList" parent="Control"]
-visible = false
+[node name="ScrollContainer" type="ScrollContainer" parent="Control"]
 layout_mode = 0
-offset_right = 490.0
+offset_right = 383.0
 offset_bottom = 512.0
+
+[node name="RankList" type="ItemList" parent="Control/ScrollContainer"]
+visible = false
+layout_mode = 2
+offset_right = 383.0
+offset_bottom = 512.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("15_0bsti")
 theme_override_font_sizes/font_size = 25

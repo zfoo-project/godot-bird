@@ -7,7 +7,7 @@ const ScoreRankResponse =preload("res://protocol/protocol/cache/ScoreRankRespons
 const RankInfo = preload("res://protocol/protocol/common/RankInfo.gd")
 
 
-@onready var rankList: ItemList = $Control/RankList
+@onready var rankList: ItemList = $Control/ScrollContainer/RankList
 
 var ranks: Array[RankInfo] = []
 

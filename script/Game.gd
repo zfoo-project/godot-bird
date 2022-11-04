@@ -4,6 +4,7 @@ const RandomUtils = preload("res://zfoo/RandomUtils.gd")
 const StringUtils = preload("res://zfoo/StringUtils.gd")
 const Common = preload("res://script/Common.gd")
 const GodotObjectResource = preload("res://storage/GodotObjectResource.gd")
+const BattleResultRequest = preload("res://protocol/protocol/battle/BattleResultRequest.gd")
 
 @onready var camera2d: Camera2D = $Camera2d
 @onready var bird: RigidBody2D = $Bird
@@ -66,6 +67,10 @@ func endGame():
 	isOver = true
 	Main.point = bird.point
 	Main.changeScene(Main.SCENE.Over)
+	# 游戏结束，给服务器发消息，一个水管算10分
+	var request = BattleResultRequest.new()
+	request.score = bird.point * 10
+	Main.tcpClient.send(request)
 	pass
 
 func createPipe():
