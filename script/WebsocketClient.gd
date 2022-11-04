@@ -59,7 +59,7 @@ func sendSync(packet):
 	buffer.writeRawInt(writeOffset - 4)
 	buffer.setWriteOffset(writeOffset)
 	var data = buffer.toPackedByteArray()
-	client.send(data, WebSocketPeer.WRITE_MODE_BINARY)
+	client.put_packet(data)
 	print(StringUtils.format("send packet [{}]", [packet]))
 	
 
