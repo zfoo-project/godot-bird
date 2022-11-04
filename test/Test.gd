@@ -1,13 +1,13 @@
 extends Node2D
 
+const TimeUtils = preload("res://zfoo/TimeUtils.gd")
 
 func _ready():
-	var a = 100
-	print(clamp(90.1, 90, 200))
-	$TouchScreenButton.pressed.connect(test)
-	pass
-
-
-func test():
 	print("aaaaaaaaaaaaaaaaaaaaaaaaa")
+	print(TimeUtils.currentTimeMillis())
+	print(Time.get_datetime_string_from_system())
+	print(TimeUtils.timeToString(TimeUtils.currentTimeMillis()))
 	pass
+
+
+

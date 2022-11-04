@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="godot-bird"
-run/main_scene="res://scene/Home.tscn"
+run/main_scene="res://scene/Login.tscn"
 config/features=PackedStringArray("4.0")
 config/icon="res://icon.svg"
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dgtlwwsmtiwtn"]
+[gd_scene load_steps=21 format=3 uid="uid://dgtlwwsmtiwtn"]
 
 [ext_resource type="PackedScene" uid="uid://bpggn6rfp70y2" path="res://scene/Background.tscn" id="1_3mncm"]
 [ext_resource type="Script" path="res://script/Home.gd" id="1_8nwth"]
@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://3x7ym4gw2wdi" path="res://image/bird0_0.png" id="10_bghpi"]
 [ext_resource type="Texture2D" uid="uid://bhq2q5csrvf6c" path="res://image/bird0_1.png" id="11_5m7p4"]
 [ext_resource type="Texture2D" uid="uid://ffqyrvetr2n2" path="res://image/bird0_2.png" id="12_oult4"]
+[ext_resource type="Texture2D" uid="uid://bwf1bps7mrba4" path="res://image/button_score.png" id="14_ag2sf"]
+[ext_resource type="FontFile" uid="uid://dwo20txgiw2r7" path="res://font/HarmonyOS_Sans_SC_Medium.ttf" id="15_0bsti"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dyn88"]
 animations = [{
@@ -71,7 +73,7 @@ _data = {
 }
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o10le"]
-texture = ExtResource("6_xrh3e")
+texture = ExtResource("14_ag2sf")
 region_rect = Rect2(0, 0, 116, 70)
 modulate_color = Color(0, 0, 0, 1)
 
@@ -113,3 +115,21 @@ offset_bottom = 290.0
 theme_override_styles/focus = SubResource("StyleBoxTexture_o10le")
 icon = ExtResource("6_xrh3e")
 flat = true
+
+[node name="RankButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 737.0
+offset_top = 220.0
+offset_right = 861.0
+offset_bottom = 298.0
+theme_override_styles/focus = SubResource("StyleBoxTexture_o10le")
+icon = ExtResource("14_ag2sf")
+flat = true
+
+[node name="RankList" type="ItemList" parent="Control"]
+visible = false
+layout_mode = 0
+offset_right = 490.0
+offset_bottom = 512.0
+theme_override_fonts/font = ExtResource("15_0bsti")
+theme_override_font_sizes/font_size = 25
