@@ -7,7 +7,7 @@ const ScoreRankResponse =preload("res://protocol/protocol/cache/ScoreRankRespons
 const RankInfo = preload("res://protocol/protocol/common/RankInfo.gd")
 
 
-@onready var rankList: ItemList = $Control/ScrollContainer/RankList
+@onready var rankList: ItemList = $Control/RankList
 
 var ranks: Array[RankInfo] = []
 
@@ -34,6 +34,14 @@ func _process(delta):
 func startGame():
 	Main.changeScene(Main.SCENE.Game)
 	pass
+
+func _input(event):
+	if event is InputEventScreenDrag:
+		print(event)
+		rankList.ensure_current_is_visible() # Auto scroll to show currently selected item.
+		var scroll_bar: VScrollBar = rankList.get_v_scroll_bar()
+		var scroll_by: float = -event.velocity.y / 100
+		scroll_bar.value += scroll_by
 
 func showRank():
 	if (rankList.visible):

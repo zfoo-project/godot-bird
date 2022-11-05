@@ -126,12 +126,7 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_o10le")
 icon = ExtResource("14_ag2sf")
 flat = true
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Control"]
-layout_mode = 0
-offset_right = 383.0
-offset_bottom = 512.0
-
-[node name="RankList" type="ItemList" parent="Control/ScrollContainer"]
+[node name="RankList" type="ItemList" parent="Control"]
 visible = false
 layout_mode = 2
 offset_right = 383.0
