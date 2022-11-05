@@ -130,7 +130,7 @@ flat = true
 [node name="RankList" type="ItemList" parent="Control"]
 visible = false
 layout_mode = 0
-offset_right = 383.0
+offset_right = 459.0
 offset_bottom = 512.0
 size_flags_horizontal = 3
 size_flags_vertical = 3

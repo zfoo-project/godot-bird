@@ -114,6 +114,9 @@ func tickConnect():
 					printerr(StringUtils.format("status none [{}] host [{}:{}]", ["开始断线重连", host, port]))
 					noneTime = currentTime
 			StreamPeerTCP.STATUS_ERROR:
+				# 断线重连
+				client.disconnect_from_host()
+				client.connect_to_host(host, port)
 				if (currentTime - errorTime) > TimeUtils.MILLIS_PER_SECOND:
 					printerr(StringUtils.format("status error host [{}:{}]", [host, port]))
 					errorTime = currentTime

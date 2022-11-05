@@ -126,9 +126,9 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_kmon0")
 text = "登录"
 
 [node name="Label" type="Label" parent="Control"]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "v6.0.0"
+offset_right = 125.0
+offset_bottom = 26.0
+text = "v6.0.0   godot4.x"
 
 [node name="UI" type="Node2D" parent="."]
 position = Vector2(576, 96)

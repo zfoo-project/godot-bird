@@ -37,7 +37,6 @@ func startGame():
 
 func _input(event):
 	if event is InputEventScreenDrag:
-		print(event)
 		rankList.ensure_current_is_visible() # Auto scroll to show currently selected item.
 		var scroll_bar: VScrollBar = rankList.get_v_scroll_bar()
 		var scroll_by: float = -event.velocity.y / 50

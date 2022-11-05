@@ -65,12 +65,12 @@ func _process(delta):
 
 func endGame():
 	isOver = true
-	Main.point = bird.point
-	Main.changeScene(Main.SCENE.Over)
 	# 游戏结束，给服务器发消息，一个水管算10分
 	var request = BattleResultRequest.new()
 	request.score = bird.point * 5
 	Main.tcpClient.send(request)
+	Main.point = request.score
+	Main.changeScene(Main.SCENE.Over)
 	pass
 
 func createPipe():
