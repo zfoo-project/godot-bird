@@ -8,7 +8,7 @@ const ScoreRankResponse =preload("res://protocol/protocol/cache/ScoreRankRespons
 var client = StreamPeerTCP.new()
 
 func _ready():
-	# tcpClientTest()
+	#tcpClientTest1()
 	tcpClientTest2()
 	pass
 
@@ -27,7 +27,7 @@ func _process(delta):
 	
 
 func tcpClientTest1():
-	var result = client.connect_to_host("127.0.0.1", 9000)
+	var result = client.connect_to_host("127.0.0.1", 16000)
 	print(result)
 	client.poll()
 	print(client.get_status())

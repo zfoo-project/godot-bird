@@ -69,7 +69,7 @@ func endGame():
 	Main.changeScene(Main.SCENE.Over)
 	# 游戏结束，给服务器发消息，一个水管算10分
 	var request = BattleResultRequest.new()
-	request.score = bird.point * 10
+	request.score = bird.point * 5
 	Main.tcpClient.send(request)
 	pass
 
