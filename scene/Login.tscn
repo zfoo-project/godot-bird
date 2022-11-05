@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://begf4acapm88l"]
+[gd_scene load_steps=18 format=3 uid="uid://begf4acapm88l"]
 
 [ext_resource type="Script" path="res://script/Login.gd" id="1_8883d"]
 [ext_resource type="PackedScene" uid="uid://bpggn6rfp70y2" path="res://scene/Background.tscn" id="1_xhk51"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d0k38jvbuasdf" path="res://image/ui/UI_Main_MessageBox.png" id="4_3srp8"]
 [ext_resource type="Texture2D" uid="uid://ys47dntlq8dh" path="res://image/ui/UI_Popup_BTN2.png" id="5_lkx08"]
 [ext_resource type="Texture2D" uid="uid://bj0km8pnflson" path="res://image/titile7.png" id="5_r1l1y"]
+[ext_resource type="AudioStream" uid="uid://c1ihpx6ioyxv5" path="res://audio/Enine-Bass-Rebels.mp3" id="7_vbsb5"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0lggc"]
 texture = ExtResource("4_3srp8")
@@ -90,7 +91,6 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="Account" type="LineEdit" parent="Control"]
-layout_mode = 0
 offset_left = 464.0
 offset_top = 176.0
 offset_right = 688.0
@@ -102,7 +102,6 @@ placeholder_text = "账号名称（bird开头）"
 alignment = 1
 
 [node name="Password" type="LineEdit" parent="Control"]
-layout_mode = 0
 offset_left = 464.0
 offset_top = 248.0
 offset_right = 688.0
@@ -115,7 +114,6 @@ alignment = 1
 secret = true
 
 [node name="Login" type="Button" parent="Control"]
-layout_mode = 0
 offset_left = 496.0
 offset_top = 328.0
 offset_right = 640.0
@@ -128,7 +126,6 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_kmon0")
 text = "登录"
 
 [node name="Label" type="Label" parent="Control"]
-layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "v6.0.0"
@@ -147,3 +144,7 @@ autoplay = "title"
 libraries = {
 "": SubResource("AnimationLibrary_f2j7k")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_vbsb5")
+autoplay = true

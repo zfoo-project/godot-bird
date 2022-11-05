@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dgtlwwsmtiwtn"]
+[gd_scene load_steps=22 format=3 uid="uid://dgtlwwsmtiwtn"]
 
 [ext_resource type="PackedScene" uid="uid://bpggn6rfp70y2" path="res://scene/Background.tscn" id="1_3mncm"]
 [ext_resource type="Script" path="res://script/Home.gd" id="1_8nwth"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://ffqyrvetr2n2" path="res://image/bird0_2.png" id="12_oult4"]
 [ext_resource type="Texture2D" uid="uid://bwf1bps7mrba4" path="res://image/button_score.png" id="14_ag2sf"]
 [ext_resource type="FontFile" uid="uid://dwo20txgiw2r7" path="res://font/HarmonyOS_Sans_SC_Medium.ttf" id="15_0bsti"]
+[ext_resource type="AudioStream" uid="uid://emoen87sij2h" path="res://audio/Freedom-Trail-Studio.mp3" id="16_ecpid"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dyn88"]
 animations = [{
@@ -107,6 +108,7 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="Start" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 513.0
 offset_top = 220.0
 offset_right = 629.0
@@ -116,6 +118,7 @@ icon = ExtResource("6_xrh3e")
 flat = true
 
 [node name="RankButton" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 737.0
 offset_top = 220.0
 offset_right = 861.0
@@ -126,9 +129,14 @@ flat = true
 
 [node name="RankList" type="ItemList" parent="Control"]
 visible = false
+layout_mode = 0
 offset_right = 383.0
 offset_bottom = 512.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("15_0bsti")
 theme_override_font_sizes/font_size = 25
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_ecpid")
+autoplay = true
