@@ -51,7 +51,7 @@ func login():
 func onTimeout():
 	var bird = preload("res://scene/effect/EffectFlyBird.tscn").instantiate()
 	var createPositionY = randf_range(5, 500)
-	bird.position.x = -100
+	bird.position.x = -10
 	bird.position.y = createPositionY
 	bird.get_node("Bird").animation = RandomUtils.randomEle(Main.birdAnimations)
 	bird.speed = RandomUtils.randomIntRange(50, 500)

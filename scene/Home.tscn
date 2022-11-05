@@ -107,7 +107,6 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="Start" type="Button" parent="Control"]
-layout_mode = 0
 offset_left = 513.0
 offset_top = 220.0
 offset_right = 629.0
@@ -117,7 +116,6 @@ icon = ExtResource("6_xrh3e")
 flat = true
 
 [node name="RankButton" type="Button" parent="Control"]
-layout_mode = 0
 offset_left = 737.0
 offset_top = 220.0
 offset_right = 861.0
@@ -128,7 +126,6 @@ flat = true
 
 [node name="RankList" type="ItemList" parent="Control"]
 visible = false
-layout_mode = 2
 offset_right = 383.0
 offset_bottom = 512.0
 size_flags_horizontal = 3
