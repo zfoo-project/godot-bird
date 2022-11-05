@@ -39,7 +39,7 @@ func login():
 	if StringUtils.isEmpty(account):
 		Main.notify("账号名称不能为空")
 		return
-	if !account.to_lower().begins_with("bird"):
+	if !account.to_lower().begins_with("bird") && !OS.has_feature("editor"):
 		Main.notify("账号名称需要用 bird 开头")
 		return
 	var request = LoginRequest.new()
