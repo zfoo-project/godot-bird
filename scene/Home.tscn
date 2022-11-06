@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dgtlwwsmtiwtn"]
+[gd_scene load_steps=29 format=3 uid="uid://dgtlwwsmtiwtn"]
 
 [ext_resource type="PackedScene" uid="uid://bpggn6rfp70y2" path="res://scene/Background.tscn" id="1_3mncm"]
 [ext_resource type="Script" path="res://script/Home.gd" id="1_8nwth"]
@@ -17,6 +17,8 @@
 [ext_resource type="FontFile" uid="uid://dwo20txgiw2r7" path="res://font/HarmonyOS_Sans_SC_Medium.ttf" id="15_0bsti"]
 [ext_resource type="Texture2D" uid="uid://n05dnlm5xib2" path="res://image/ui/UI_Tutorial_PCDialog.png" id="15_6vpau"]
 [ext_resource type="AudioStream" uid="uid://emoen87sij2h" path="res://audio/Freedom-Trail-Studio.mp3" id="16_ecpid"]
+[ext_resource type="Texture2D" uid="uid://c7doyqimg0tum" path="res://image/currency/icon_offline_gold.png" id="17_jn7v0"]
+[ext_resource type="Texture2D" uid="uid://b2gw8wyd0m175" path="res://image/currency/icon_offline_gem.png" id="18_24tf2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dyn88"]
 animations = [{
@@ -124,7 +126,43 @@ libraries = {
 layout_mode = 3
 anchors_preset = 0
 
+[node name="Currency" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Currency"]
+position = Vector2(24, 24)
+scale = Vector2(0.380165, 0.380165)
+texture = ExtResource("17_jn7v0")
+
+[node name="Gold" type="Label" parent="Control/Currency"]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 12.0
+offset_right = 101.0
+offset_bottom = 38.0
+text = "100000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Gem" type="Label" parent="Control/Currency"]
+layout_mode = 1
+offset_left = 164.0
+offset_top = 12.0
+offset_right = 219.0
+offset_bottom = 38.0
+text = "100000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D2" type="Sprite2D" parent="Control/Currency"]
+position = Vector2(139, 25)
+scale = Vector2(0.413223, 0.413223)
+texture = ExtResource("18_24tf2")
+
 [node name="Start" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 513.0
 offset_top = 220.0
 offset_right = 629.0
@@ -134,6 +172,7 @@ icon = ExtResource("6_xrh3e")
 flat = true
 
 [node name="RankButton" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 451.0
 offset_top = 304.0
 offset_right = 575.0
@@ -143,6 +182,7 @@ icon = ExtResource("14_ag2sf")
 flat = true
 
 [node name="Chat" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 603.0
 offset_top = 307.0
 offset_right = 691.0
@@ -156,6 +196,7 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_kirkd")
 
 [node name="RankList" type="ItemList" parent="Control"]
 visible = false
+layout_mode = 0
 offset_right = 459.0
 offset_bottom = 512.0
 size_flags_horizontal = 3
@@ -165,18 +206,20 @@ theme_override_font_sizes/font_size = 25
 
 [node name="ChatPanel" type="Control" parent="Control"]
 visible = false
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="MessageList" type="ItemList" parent="Control/ChatPanel"]
+layout_mode = 0
 offset_left = 705.0
 offset_right = 1152.0
 offset_bottom = 512.0
 theme_override_fonts/font = ExtResource("15_0bsti")
 
 [node name="LineEdit" type="LineEdit" parent="Control/ChatPanel"]
+layout_mode = 0
 offset_left = 316.0
 offset_right = 705.0
 offset_bottom = 56.0
@@ -184,6 +227,7 @@ theme_override_fonts/font = ExtResource("15_0bsti")
 placeholder_text = "输入要发送的内容"
 
 [node name="Button" type="Button" parent="Control/ChatPanel"]
+layout_mode = 0
 offset_left = 525.0
 offset_top = 71.0
 offset_right = 618.0
