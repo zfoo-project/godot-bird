@@ -1,9 +1,11 @@
+const PROTOCOL_ID = 112
 
 
 var key: String
 var value: String
 
-const PROTOCOL_ID = 112
+func get_class() -> String:
+	return "PairString"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

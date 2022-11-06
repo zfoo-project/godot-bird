@@ -1,8 +1,10 @@
+const PROTOCOL_ID = 1301
 
 
 var message: String
 
-const PROTOCOL_ID = 1301
+func get_class() -> String:
+	return "TestResponse"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

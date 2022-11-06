@@ -1,10 +1,12 @@
+const PROTOCOL_ID = 0
 
 
 var signalId: int
 var executorConsistentHash: int
 var client: bool
 
-const PROTOCOL_ID = 0
+func get_class() -> String:
+	return "SignalAttachment"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

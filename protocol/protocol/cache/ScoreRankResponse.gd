@@ -1,10 +1,12 @@
+const PROTOCOL_ID = 3003
 const PlayerInfo = preload("res://protocol/protocol/common/PlayerInfo.gd")
 const RankInfo = preload("res://protocol/protocol/common/RankInfo.gd")
 
 
 var ranks: Array[RankInfo]
 
-const PROTOCOL_ID = 3003
+func get_class() -> String:
+	return "ScoreRankResponse"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

@@ -1,3 +1,4 @@
+const PROTOCOL_ID = 1005
 const PlayerInfo = preload("res://protocol/protocol/common/PlayerInfo.gd")
 const CurrencyVo = preload("res://protocol/protocol/common/CurrencyVo.gd")
 
@@ -5,7 +6,8 @@ const CurrencyVo = preload("res://protocol/protocol/common/CurrencyVo.gd")
 var playerInfo: PlayerInfo
 var currencyVo: CurrencyVo
 
-const PROTOCOL_ID = 1005
+func get_class() -> String:
+	return "GetPlayerInfoResponse"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

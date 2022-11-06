@@ -1,9 +1,11 @@
+const PROTOCOL_ID = 1100
 const CurrencyVo = preload("res://protocol/protocol/common/CurrencyVo.gd")
 
 
 var currencyVo: CurrencyVo
 
-const PROTOCOL_ID = 1100
+func get_class() -> String:
+	return "CurrencyUpdateNotice"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

@@ -1,8 +1,10 @@
+const PROTOCOL_ID = 104
 
 
 var time: int
 
-const PROTOCOL_ID = 104
+func get_class() -> String:
+	return "Pong"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

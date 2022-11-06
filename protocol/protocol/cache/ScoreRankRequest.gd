@@ -1,8 +1,10 @@
-
-
-
-
 const PROTOCOL_ID = 3002
+
+
+
+
+func get_class() -> String:
+	return "ScoreRankRequest"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

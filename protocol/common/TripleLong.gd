@@ -1,10 +1,12 @@
+const PROTOCOL_ID = 114
 
 
 var left: int
 var middle: int
 var right: int
 
-const PROTOCOL_ID = 114
+func get_class() -> String:
+	return "TripleLong"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

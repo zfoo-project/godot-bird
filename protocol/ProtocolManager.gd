@@ -40,6 +40,11 @@ const BattleScoreAsk = preload("res://protocol/protocol/cache/BattleScoreAsk.gd"
 const BattleScoreAnswer = preload("res://protocol/protocol/cache/BattleScoreAnswer.gd")
 const ScoreRankRequest = preload("res://protocol/protocol/cache/ScoreRankRequest.gd")
 const ScoreRankResponse = preload("res://protocol/protocol/cache/ScoreRankResponse.gd")
+const ChatMessage = preload("res://protocol/protocol/chat/ChatMessage.gd")
+const GroupChatMessageNotice = preload("res://protocol/protocol/chat/GroupChatMessageNotice.gd")
+const GroupChatRequest = preload("res://protocol/protocol/chat/GroupChatRequest.gd")
+const GroupHistoryMessageRequest = preload("res://protocol/protocol/chat/GroupHistoryMessageRequest.gd")
+const GroupHistoryMessageResponse = preload("res://protocol/protocol/chat/GroupHistoryMessageResponse.gd")
 
 const protocols: Dictionary = {
 	0: SignalAttachment,
@@ -83,7 +88,12 @@ const protocols: Dictionary = {
 	3000: BattleScoreAsk,
 	3001: BattleScoreAnswer,
 	3002: ScoreRankRequest,
-	3003: ScoreRankResponse
+	3003: ScoreRankResponse,
+	4000: ChatMessage,
+	4001: GroupChatMessageNotice,
+	4002: GroupChatRequest,
+	4003: GroupHistoryMessageRequest,
+	4004: GroupHistoryMessageResponse
 }
 
 static func getProtocol(protocolId: int):

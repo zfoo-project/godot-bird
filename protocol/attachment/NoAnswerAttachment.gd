@@ -1,8 +1,10 @@
+const PROTOCOL_ID = 4
 
 
 var executorConsistentHash: int
 
-const PROTOCOL_ID = 4
+func get_class() -> String:
+	return "NoAnswerAttachment"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

@@ -1,3 +1,4 @@
+const PROTOCOL_ID = 402
 const PlayerInfo = preload("res://protocol/protocol/common/PlayerInfo.gd")
 
 
@@ -5,7 +6,8 @@ var playerInfo: PlayerInfo
 var time: int
 var score: int
 
-const PROTOCOL_ID = 402
+func get_class() -> String:
+	return "RankInfo"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

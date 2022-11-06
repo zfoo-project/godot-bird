@@ -1,8 +1,10 @@
+const PROTOCOL_ID = 1004
 
 
 var token: String
 
-const PROTOCOL_ID = 1004
+func get_class() -> String:
+	return "GetPlayerInfoRequest"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

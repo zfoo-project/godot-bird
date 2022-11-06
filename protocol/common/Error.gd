@@ -1,10 +1,12 @@
+const PROTOCOL_ID = 101
 
 
 var module: int
 var errorCode: int
 var errorMessage: String
 
-const PROTOCOL_ID = 101
+func get_class() -> String:
+	return "Error"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

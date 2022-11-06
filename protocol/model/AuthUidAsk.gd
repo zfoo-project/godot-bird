@@ -1,10 +1,12 @@
+const PROTOCOL_ID = 22
 
 
 var gatewayHostAndPort: String
 var sid: int
 var uid: int
 
-const PROTOCOL_ID = 22
+func get_class() -> String:
+	return "AuthUidAsk"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

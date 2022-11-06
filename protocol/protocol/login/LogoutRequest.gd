@@ -1,8 +1,10 @@
-
-
-
-
 const PROTOCOL_ID = 1002
+
+
+
+
+func get_class() -> String:
+	return "LogoutRequest"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

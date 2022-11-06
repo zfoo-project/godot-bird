@@ -1,8 +1,10 @@
+const PROTOCOL_ID = 21
 
 
 var uid: int
 
-const PROTOCOL_ID = 21
+func get_class() -> String:
+	return "AuthUidToGatewayConfirm"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

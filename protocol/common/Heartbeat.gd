@@ -1,8 +1,10 @@
-
-
-
-
 const PROTOCOL_ID = 102
+
+
+
+
+func get_class() -> String:
+	return "Heartbeat"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

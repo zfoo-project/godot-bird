@@ -1,3 +1,4 @@
+const PROTOCOL_ID = 1201
 
 
 var userId: int
@@ -5,7 +6,8 @@ var gold: int
 var gem: int
 var energy: int
 
-const PROTOCOL_ID = 1201
+func get_class() -> String:
+	return "AdminCurrencyAsk"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

@@ -1,8 +1,10 @@
+const PROTOCOL_ID = 1006
 
 
 var score: int
 
-const PROTOCOL_ID = 1006
+func get_class() -> String:
+	return "BattleResultRequest"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

@@ -1,9 +1,11 @@
+const PROTOCOL_ID = 2
 
 
 var host: String
 var port: int
 
-const PROTOCOL_ID = 2
+func get_class() -> String:
+	return "UdpAttachment"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

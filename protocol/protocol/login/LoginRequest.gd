@@ -1,9 +1,11 @@
+const PROTOCOL_ID = 1000
 
 
 var account: String
 var password: String
 
-const PROTOCOL_ID = 1000
+func get_class() -> String:
+	return "LoginRequest"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

@@ -1,3 +1,4 @@
+const PROTOCOL_ID = 400
 
 
 var id: int
@@ -6,7 +7,8 @@ var avatar: String
 var level: int
 var exp: int
 
-const PROTOCOL_ID = 400
+func get_class() -> String:
+	return "PlayerInfo"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

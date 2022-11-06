@@ -1,9 +1,11 @@
+const PROTOCOL_ID = 1101
 
 
 var level: int
 var exp: int
 
-const PROTOCOL_ID = 1101
+func get_class() -> String:
+	return "PlayerExpNotice"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

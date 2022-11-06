@@ -1,3 +1,4 @@
+const PROTOCOL_ID = 1
 const SignalAttachment = preload("res://protocol/attachment/SignalAttachment.gd")
 
 
@@ -8,7 +9,8 @@ var executorConsistentHash: int
 var client: bool
 var signalAttachment: SignalAttachment
 
-const PROTOCOL_ID = 1
+func get_class() -> String:
+	return "GatewayAttachment"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

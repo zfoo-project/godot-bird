@@ -1,9 +1,11 @@
+const PROTOCOL_ID = 111
 
 
 var key: int
 var value: int
 
-const PROTOCOL_ID = 111
+func get_class() -> String:
+	return "PairLong"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

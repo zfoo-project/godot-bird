@@ -1,10 +1,12 @@
+const PROTOCOL_ID = 401
 
 
 var energy: int
 var gem: int
 var gold: int
 
-const PROTOCOL_ID = 401
+func get_class() -> String:
+	return "CurrencyVo"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

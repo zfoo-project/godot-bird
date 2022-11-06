@@ -1,10 +1,12 @@
+const PROTOCOL_ID = 3
 
 
 var uid: int
 var useExecutorConsistentHash: bool
 var executorConsistentHash: int
 
-const PROTOCOL_ID = 3
+func get_class() -> String:
+	return "HttpAttachment"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

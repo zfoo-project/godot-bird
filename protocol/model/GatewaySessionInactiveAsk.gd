@@ -1,10 +1,12 @@
+const PROTOCOL_ID = 23
 
 
 var gatewayHostAndPort: String
 var sid: int
 var uid: int
 
-const PROTOCOL_ID = 23
+func get_class() -> String:
+	return "GatewaySessionInactiveAsk"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

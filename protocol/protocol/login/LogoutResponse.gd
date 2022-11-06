@@ -1,9 +1,11 @@
+const PROTOCOL_ID = 1003
 
 
 var uid: int
 var sid: int
 
-const PROTOCOL_ID = 1003
+func get_class() -> String:
+	return "LogoutResponse"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

@@ -1,10 +1,12 @@
+const PROTOCOL_ID = 1200
 
 
 var userId: int
 var playerLevel: int
 var playerExp: int
 
-const PROTOCOL_ID = 1200
+func get_class() -> String:
+	return "AdminPlayerLevelAsk"
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

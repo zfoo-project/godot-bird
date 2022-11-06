@@ -35,7 +35,6 @@ func _process(delta):
 func login():
 	var account: String = $Control/Account.text
 	var password = $Control/Password.text
-	print(account)
 	if StringUtils.isEmpty(account):
 		Main.notify("账号名称不能为空")
 		return
