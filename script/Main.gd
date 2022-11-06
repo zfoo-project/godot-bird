@@ -109,6 +109,7 @@ func _process(delta):
 		print(StringUtils.format("收到战斗结果:[{}]", [packet.score]))
 	elif packet is CurrencyUpdateNotice:
 		tcpClient.popReceivePacket()
+		playInfo.currencyVo = packet.currencyVo
 		print(StringUtils.format("[{}] 货币更新", [packet.currencyVo.gold]))
 	elif packet is PlayerExpNotice:
 		tcpClient.popReceivePacket()
