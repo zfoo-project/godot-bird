@@ -90,18 +90,18 @@ mouse_filter = 2
 color = Color(1, 1, 1, 0.203922)
 
 [node name="TextureRect" type="TextureRect" parent="Loading/CanvasLayer"]
-offset_left = 527.0
-offset_top = 213.0
-offset_right = 607.0
-offset_bottom = 293.0
+offset_left = 528.0
+offset_top = 187.0
+offset_right = 608.0
+offset_bottom = 267.0
 pivot_offset = Vector2(40, 40)
 texture = ExtResource("4_j0c71")
 
 [node name="Label" type="Label" parent="Loading/CanvasLayer"]
 offset_left = 517.0
-offset_top = 313.0
-offset_right = 613.0
-offset_bottom = 337.0
+offset_top = 285.0
+offset_right = 625.0
+offset_bottom = 309.0
 theme_override_fonts/font = ExtResource("5_2ruvp")
 text = "连接服务器中..."
 
