@@ -5,8 +5,8 @@ extends Sprite2D
 var speed = 400
 
 func _ready():
-	print(get_parent().get_node("Pipe1/Up").get_rid())
-	print(get_parent().get_node("Pipe2/Up").get_rid())
+	print(get_parent().get_node("Pipe1/Down").get_rid())
+	print(get_parent().get_node("Pipe2/Down").get_rid())
 
 func _process(delta):
 	var velocity = Vector2.ZERO # The player's movement vector.
@@ -43,6 +43,20 @@ func rayTest1():
 func rayTest2():
 	var space_rid = get_world_2d().space
 	var space_state = PhysicsServer2D.space_get_direct_state(space_rid)
+	var ray: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(to_global(Vector2(0, 0)), to_global(Vector2(100, 0)))
+	# use global coordinates, not local to node
+	var result: Dictionary = space_state.intersect_ray(ray)
+	if !result.is_empty():
+		print("------------------------------------------------------------")
+		for key in result:
+			print("key-------")
+			print(key)
+			print("value--------")
+			print(result[key])
+	pass
+
+func rayTest3():
+	var space_state = get_world_2d().direct_space_state
 	var ray: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(to_global(Vector2(0, 0)), to_global(Vector2(100, 0)))
 	# use global coordinates, not local to node
 	var result: Dictionary = space_state.intersect_ray(ray)
