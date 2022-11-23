@@ -11,8 +11,8 @@ script/source = "extends Sprite2D
 var speed = 400
 
 func _ready():
-	print(get_parent().get_node(\"Pipe1/Up\").get_rid())
-	print(get_parent().get_node(\"Pipe2/Up\").get_rid())
+	print(get_parent().get_node(\"Pipe1/Down\").get_rid())
+	print(get_parent().get_node(\"Pipe2/Down\").get_rid())
 
 func _process(delta):
 	var velocity = Vector2.ZERO # The player's movement vector.
