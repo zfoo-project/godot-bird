@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgkklcqgkjjaa"]
+
+[ext_resource type="Texture2D" uid="uid://doqx2efbtllrr" path="res://icon.svg" id="1_5xlbh"]
+[ext_resource type="PackedScene" uid="uid://x2j8ifdnka4d" path="res://scene/Pipe.tscn" id="2_ht7wp"]
+[ext_resource type="Script" path="res://test/script/Demo7-RayCast2D.gd" id="2_v855y"]
+
+[node name="Demo7-RayCast2D" type="Node2D"]
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(130, 138)
+texture = ExtResource("1_5xlbh")
+script = ExtResource("2_v855y")
+
+[node name="RayCast2D" type="RayCast2D" parent="Player"]
+target_position = Vector2(153, -1)
+
+[node name="Pipe" parent="." instance=ExtResource("2_ht7wp")]
+position = Vector2(735, 299)
