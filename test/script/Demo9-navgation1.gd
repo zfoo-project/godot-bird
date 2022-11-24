@@ -5,19 +5,18 @@ extends Node2D
 @onready var player : CharacterBody2D = $Player
 @onready var line2D : Line2D = $Line2D
 
-var speed = 400
+var speed = 250
 
 func _physics_process(delta):
 	if nav_2d.is_navigation_finished() || nav_2d.get_final_location() == Vector2.ZERO:
 		return
 	
-	var target = nav_2d.get_next_location()
-	var direction = (target - player.position).normalized() * speed
+	var next_location = nav_2d.get_next_location()
+	var direction = player.global_position.direction_to(next_location)
 	
-	player.velocity = direction
-	nav_2d.set_velocity(direction)
+	nav_2d.set_velocity(direction * speed)
+	player.velocity = direction * speed
 	player.move_and_slide()
-	line2D.points = nav_2d.get_nav_path()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not event is InputEventMouseButton:
@@ -26,4 +25,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	var playerPosition = player.global_position
 	var mousePosition = event.global_position
 	nav_2d.set_target_location(mousePosition)
+	nav_2d.get_next_location()
+	var navPath = nav_2d.get_nav_path()
+	line2D.points = navPath
 
+
+
+func _on_navigation_agent_2d_velocity_computed(safe_velocity):
+	pass

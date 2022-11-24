@@ -225,7 +225,6 @@ script = ExtResource("1_dkniy")
 metadata/_edit_group_ = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Player"]
-target_desired_distance = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("RectangleShape2D_a6pxs")
