@@ -219,9 +219,6 @@ metadata/_edit_group_ = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Player"]
 path_desired_distance = 20.0
-target_desired_distance = 20.0
-path_max_distance = 20.0
-avoidance_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("RectangleShape2D_trtn8")

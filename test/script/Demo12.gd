@@ -1,9 +1,8 @@
 extends Node2D
 
-
-@onready var nav_2d : NavigationAgent2D = $Player/NavigationAgent2D
-@onready var player : CharacterBody2D = $Player
-@onready var line2D : Line2D = $Line2D
+@onready var line2D: Line2D = $Line2D
+@onready var tilemap = $TileMap
+@onready var player: CharacterBody2D = $Player
 
 var speed : = 400
 var path : = PackedVector2Array()
@@ -12,7 +11,7 @@ var path : = PackedVector2Array()
 func _physics_process(delta: float) -> void:
 	if path.is_empty():
 		return
-	var move_distance : = speed * delta
+	var move_distance = speed * delta
 	move_along_path(move_distance)
 	player.move_and_slide()
 
@@ -35,9 +34,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 	var playerPosition = player.global_position
 	var mousePosition = event.global_position
-	nav_2d.set_target_location(mousePosition)
-	nav_2d.get_next_location()
-	var navPath = nav_2d.get_nav_path()
+	var startCellPosition = tilemap.local_to_map(playerPosition)
+	var endCellPosition = tilemap.local_to_map(mousePosition)
+	var navPath = tilemap.get_nav_path(startCellPosition, endCellPosition)
 	line2D.points = navPath
 	path = navPath
 
