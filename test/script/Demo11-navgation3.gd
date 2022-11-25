@@ -9,8 +9,8 @@ const speed = 300
 var scope=60#射线长度/范围
 
 var ray_direction=[]
-var dir=Vector2.ZERO
-var velo=Vector2.ZERO
+var direction = Vector2.ZERO
+var lastPosition = Vector2.ZERO
 
 func _ready():
 	ray_direction.resize(8)
@@ -23,10 +23,8 @@ func _physics_process(delta):
 	if nav_2d.is_navigation_finished() || nav_2d.get_final_location() == Vector2.ZERO:
 		return
 	#只有在发出寻路指令时才进行ray的判断
-	set_ray_true()
-	var desired_velocity=dir*speed
-	velo=velo.lerp(desired_velocity, 0.05)
-	velocity=velo
+	updateDirection()
+	velocity = velocity.move_toward(direction * speed, 10)
 	move_and_slide()
 		
 func _unhandled_input(event: InputEvent) -> void:
@@ -36,20 +34,21 @@ func _unhandled_input(event: InputEvent) -> void:
 		var navPath = nav_2d.get_nav_path()
 		get_parent().get_node("Line2D").points = navPath
 		
-# 判定ray的方向是否与行进方向一致,负方向的ray将被舍弃(标记为0)
-func set_ray_true():
-	dir = Vector2.ZERO
+
+func updateDirection():
+	direction = Vector2.ZERO
 	
 	var direct_space_state = get_world_2d().direct_space_state
-
+	
 	# 如果有碰撞，则8个方向中寻找一个没有发生碰撞并且不是相反方向的继续移动
 	for i in 8:
 		# 只取目标方向60度角以内的方向
 		var dotValue = ray_direction[i].dot((nav_2d.get_next_location() - position).normalized())
-		if dotValue < cos(deg_to_rad(60)):
+		if dotValue < 0:
 			continue
 		# 判断ray是否碰撞到碰撞体，取第一个没有发生碰撞的方向射线
 		var direction_params = PhysicsRayQueryParameters2D.create(position, position + ray_direction[i] * scope, 0xFFFFFFFF, [self.get_rid()])
 		if (direct_space_state.intersect_ray(direction_params).is_empty()):
-			dir += ray_direction[i] * dotValue
-	dir = dir.normalized()
+			direction += ray_direction[i] * dotValue
+	direction = direction.normalized()
+	lastPosition = position
