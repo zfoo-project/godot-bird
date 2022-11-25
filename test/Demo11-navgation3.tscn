@@ -226,5 +226,3 @@ shape = SubResource("RectangleShape2D_a6pxs")
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_liwal")
-
-[node name="Line2D2" type="Line2D" parent="."]
