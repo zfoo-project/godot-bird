@@ -201,7 +201,7 @@ sources/0 = SubResource("TileSetAtlasSource_8t6eo")
 sources/1 = SubResource("TileSetAtlasSource_xu0e8")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a6pxs"]
-size = Vector2(48, 48)
+size = Vector2(62, 62)
 
 [node name="Demo11-navgation3" type="Node2D"]
 
@@ -225,3 +225,5 @@ shape = SubResource("RectangleShape2D_a6pxs")
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_liwal")
+
+[node name="Line2D2" type="Line2D" parent="."]
