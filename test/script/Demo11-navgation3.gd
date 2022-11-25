@@ -6,7 +6,7 @@ extends CharacterBody2D
 
 @onready var nav_2d: NavigationAgent2D = $NavigationAgent2D
 const speed = 300
-var scope=400#射线长度/范围
+var scope=60#射线长度/范围
 
 var ray_direction=[]
 var dir=Vector2.ZERO
@@ -40,22 +40,16 @@ func _unhandled_input(event: InputEvent) -> void:
 func set_ray_true():
 	dir = Vector2.ZERO
 	
-	var next_position = nav_2d.get_next_location()
 	var direct_space_state = get_world_2d().direct_space_state
-	var params = PhysicsRayQueryParameters2D.create(position, next_position, 0xFFFFFFFF, [self.get_rid()])
-	var result = direct_space_state.intersect_ray(params)
-	# 如果和目标点没有碰撞，直接返回，用当前位置到下一个点的位置当作方向
-	if (result.is_empty()):
-		dir = (next_position - position).normalized()
-		return
+
 	# 如果有碰撞，则8个方向中寻找一个没有发生碰撞并且不是相反方向的继续移动
 	for i in 8:
-		#舍去方向相反的ray
-		var dotValue = ray_direction[i].dot(next_position - position)
-		if dotValue < 0:
+		# 只取目标方向60度角以内的方向
+		var dotValue = ray_direction[i].dot((nav_2d.get_next_location() - position).normalized())
+		if dotValue < cos(deg_to_rad(60)):
 			continue
 		# 判断ray是否碰撞到碰撞体，取第一个没有发生碰撞的方向射线
 		var direction_params = PhysicsRayQueryParameters2D.create(position, position + ray_direction[i] * scope, 0xFFFFFFFF, [self.get_rid()])
 		if (direct_space_state.intersect_ray(direction_params).is_empty()):
-			dir = ray_direction[i].normalized()
-			break
+			dir += ray_direction[i] * dotValue
+	dir = dir.normalized()
