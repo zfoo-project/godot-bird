@@ -29,7 +29,3 @@ func _unhandled_input(event: InputEvent) -> void:
 	var navPath = nav_2d.get_nav_path()
 	line2D.points = navPath
 
-
-
-func _on_navigation_agent_2d_velocity_computed(safe_velocity):
-	pass
