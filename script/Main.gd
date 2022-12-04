@@ -44,7 +44,7 @@ func _init():
 	# 加载配置表的数据
 	var buffer = ByteBufferStorage.new()
 
-	var poolByteArray = FileUtils.readFileToByteArray("res://godot_resource_storage.bin.tres")
+	var poolByteArray = FileUtils.readFileToByteArray("res://godot_resource_storage.bin.txt")
 	buffer.writePackedByteArray(poolByteArray)
 	var packet = ProtocolManagerStorage.read(buffer)
 	resourceStorage = packet
