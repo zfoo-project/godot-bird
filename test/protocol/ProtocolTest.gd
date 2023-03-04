@@ -83,7 +83,7 @@ func _ready():
 
 func test():
 	var buffer = ByteBuffer.new()
-	var poolByteArray = FileUtils.readFileToByteArray("res://test/gdProtocol/ComplexObject.cfg")
+	var poolByteArray = FileUtils.readFileToByteArray("res://test/protocol/ComplexObject.txt")
 	buffer.writePackedByteArray(poolByteArray)
 	
 	var packet = ProtocolManager.read(buffer)
