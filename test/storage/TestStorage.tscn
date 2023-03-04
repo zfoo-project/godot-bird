@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://lffp5h2brtsv"]
-
-[ext_resource type="Script" path="res://test/storage/TestStorage.gd" id="1_fcksf"]
-
-[node name="TestStorage" type="Node2D"]
-script = ExtResource("1_fcksf")

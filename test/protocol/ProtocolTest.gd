@@ -5,6 +5,11 @@ const ProtocolManager = preload("res://protocoltest/ProtocolManager.gd")
 const ByteBuffer = preload("res://protocoltest/ByteBuffer.gd")
 const FileUtils = preload("res://zfoo/FileUtils.gd")
 
+# 测试参数
+#op.setFoldProtocol(true);
+#op.setProtocolPath("D:\\github\\godot-bird\\protocoltest");
+#op.getGenerateLanguages().add(CodeLanguage.GdScript);
+
 func _ready():
 	var buffer = ByteBuffer.new()
 	
