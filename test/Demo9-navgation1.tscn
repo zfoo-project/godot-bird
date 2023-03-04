@@ -1,29 +1,62 @@
-[gd_scene load_steps=13 format=3 uid="uid://cjeeq1aqa8fsn"]
+[gd_scene load_steps=13 format=3 uid="uid://bne2efagx3mlq"]
 
-[ext_resource type="Script" path="res://test/script/Demo9-navgation1.gd" id="1_q5xwm"]
 [ext_resource type="Texture2D" uid="uid://doqx2efbtllrr" path="res://icon.svg" id="1_xybxl"]
 [ext_resource type="Texture2D" uid="uid://p4pqa7iei236" path="res://image/tile/Modern_Office-48-48.png" id="2_r1dqh"]
 [ext_resource type="Texture2D" uid="uid://ck50d48lkd4st" path="res://image/tile/Modern_Office_Decoration-48-48.png" id="3_rmb1d"]
 
+[sub_resource type="GDScript" id="GDScript_kgr05"]
+script/source = "extends Node2D
+
+
+@onready var nav_2d : NavigationAgent2D = $Player/NavigationAgent2D
+@onready var player : CharacterBody2D = $Player
+@onready var line2D : Line2D = $Line2D
+
+var speed = 250
+
+func _physics_process(delta):
+	if nav_2d.is_navigation_finished() || nav_2d.get_final_location() == Vector2.ZERO:
+		return
+	
+	var next_location = nav_2d.get_next_location()
+	var direction = player.global_position.direction_to(next_location)
+	
+	nav_2d.set_velocity(direction * speed)
+	player.velocity = direction * speed
+	player.move_and_slide()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not event is InputEventMouseButton:
+		return
+		
+	var playerPosition = player.global_position
+	var mousePosition = event.global_position
+	nav_2d.set_target_location(mousePosition)
+	nav_2d.get_next_location()
+	var navPath = nav_2d.get_nav_path()
+	line2D.points = navPath
+
+"
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_clkkn"]
 vertices = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
-polygons = [PackedInt32Array(0, 1, 2, 3)]
-outlines = [PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)]
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_xaefp"]
 vertices = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
-polygons = [PackedInt32Array(0, 1, 2, 3)]
-outlines = [PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)]
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_2lmyw"]
 vertices = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
-polygons = [PackedInt32Array(0, 1, 2, 3)]
-outlines = [PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)]
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_a5ek5"]
 vertices = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
-polygons = [PackedInt32Array(0, 1, 2, 3)]
-outlines = [PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)]
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)])
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8t6eo"]
 texture = ExtResource("2_r1dqh")
@@ -204,7 +237,7 @@ sources/1 = SubResource("TileSetAtlasSource_xu0e8")
 size = Vector2(48, 48)
 
 [node name="Demo9-navgation1" type="Node2D"]
-script = ExtResource("1_q5xwm")
+script = SubResource("GDScript_kgr05")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_wbfmu")
@@ -218,7 +251,6 @@ position = Vector2(76, 66)
 metadata/_edit_group_ = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Player"]
-path_desired_distance = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("RectangleShape2D_trtn8")

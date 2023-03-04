@@ -8,8 +8,8 @@
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_q1c87"]
 vertices = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
-polygons = [PackedInt32Array(0, 1, 2, 3)]
-outlines = [PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)]
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)])
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6jf7r"]
 texture = ExtResource("1_lctex")

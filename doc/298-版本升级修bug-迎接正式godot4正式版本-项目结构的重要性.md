@@ -14,3 +14,7 @@
 
 - 新建立的线程里面的代码无法断点，只能打印日志查看；如果里面有报错线程就会立即退出，不会有如何警告
   ![Image text](image/298/img_5.png)
+
+- 废弃的类，直接删除
+  ![Image text](image/298/img_6.png)
+  ![Image text](image/298/img_7.png)
