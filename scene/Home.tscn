@@ -22,17 +22,44 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dyn88"]
 animations = [{
-"frames": [ExtResource("3_rofjb"), ExtResource("4_4ri0l"), ExtResource("5_itf6j")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rofjb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4ri0l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_itf6j")
+}],
 "loop": true,
 "name": &"blue",
 "speed": 8.0
 }, {
-"frames": [ExtResource("7_sl34s"), ExtResource("8_1g2pb"), ExtResource("9_83qvx")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_sl34s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_1g2pb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_83qvx")
+}],
 "loop": true,
 "name": &"red",
 "speed": 8.0
 }, {
-"frames": [ExtResource("10_bghpi"), ExtResource("11_5m7p4"), ExtResource("12_oult4")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_bghpi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_5m7p4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_oult4")
+}],
 "loop": true,
 "name": &"yellow",
 "speed": 8.0
@@ -112,9 +139,8 @@ texture = ExtResource("3_idvbg")
 
 [node name="Bird" type="AnimatedSprite2D" parent="UI"]
 position = Vector2(0, 80)
-frames = SubResource("SpriteFrames_dyn88")
+sprite_frames = SubResource("SpriteFrames_dyn88")
 animation = &"blue"
-playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
 autoplay = "title"
@@ -138,6 +164,7 @@ scale = Vector2(0.380165, 0.380165)
 texture = ExtResource("17_jn7v0")
 
 [node name="Gold" type="Label" parent="Control/Currency"]
+layout_mode = 0
 offset_left = 46.0
 offset_top = 12.0
 offset_right = 101.0
@@ -147,6 +174,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Gem" type="Label" parent="Control/Currency"]
+layout_mode = 0
 offset_left = 164.0
 offset_top = 12.0
 offset_right = 219.0
@@ -161,6 +189,7 @@ scale = Vector2(0.413223, 0.413223)
 texture = ExtResource("18_24tf2")
 
 [node name="Start" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 513.0
 offset_top = 220.0
 offset_right = 629.0
@@ -170,6 +199,7 @@ icon = ExtResource("6_xrh3e")
 flat = true
 
 [node name="RankButton" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 451.0
 offset_top = 304.0
 offset_right = 575.0
@@ -179,6 +209,7 @@ icon = ExtResource("14_ag2sf")
 flat = true
 
 [node name="Chat" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 603.0
 offset_top = 307.0
 offset_right = 691.0
@@ -192,6 +223,7 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_kirkd")
 
 [node name="RankList" type="ItemList" parent="Control"]
 visible = false
+layout_mode = 0
 offset_right = 459.0
 offset_bottom = 512.0
 size_flags_horizontal = 3
@@ -207,12 +239,14 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="MessageList" type="ItemList" parent="Control/ChatPanel"]
+layout_mode = 0
 offset_left = 705.0
 offset_right = 1152.0
 offset_bottom = 512.0
 theme_override_fonts/font = ExtResource("15_0bsti")
 
 [node name="LineEdit" type="LineEdit" parent="Control/ChatPanel"]
+layout_mode = 0
 offset_left = 316.0
 offset_right = 705.0
 offset_bottom = 56.0
@@ -220,6 +254,7 @@ theme_override_fonts/font = ExtResource("15_0bsti")
 placeholder_text = "输入要发送的内容"
 
 [node name="Button" type="Button" parent="Control/ChatPanel"]
+layout_mode = 0
 offset_left = 525.0
 offset_top = 71.0
 offset_right = 618.0

@@ -7,7 +7,16 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5gwkt"]
 animations = [{
-"frames": [ExtResource("2_pvktk"), ExtResource("3_ca3bf"), ExtResource("4_awpri")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_pvktk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ca3bf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_awpri")
+}],
 "loop": true,
 "name": &"default",
 "speed": 10.0
@@ -24,8 +33,7 @@ script = ExtResource("1_le88f")
 
 [node name="AnimatedSprite2d" type="AnimatedSprite2D" parent="Area2d"]
 scale = Vector2(0.3, 0.3)
-frames = SubResource("SpriteFrames_5gwkt")
-playing = true
+sprite_frames = SubResource("SpriteFrames_5gwkt")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Area2d"]
 shape = SubResource("CircleShape2D_ek45h")

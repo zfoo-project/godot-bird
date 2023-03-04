@@ -24,17 +24,44 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1pjba"]
 animations = [{
-"frames": [ExtResource("1_fqmow"), ExtResource("2_ny1j2"), ExtResource("3_ppqto")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_fqmow")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ny1j2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ppqto")
+}],
 "loop": true,
 "name": &"blue",
 "speed": 10.0
 }, {
-"frames": [ExtResource("4_ogibt"), ExtResource("5_r63fk"), ExtResource("6_2x83s")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ogibt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_r63fk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_2x83s")
+}],
 "loop": true,
 "name": &"red",
 "speed": 10.0
 }, {
-"frames": [ExtResource("7_sbqk8"), ExtResource("8_ool5u"), ExtResource("9_5nu3n")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_sbqk8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ool5u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5nu3n")
+}],
 "loop": true,
 "name": &"yellow",
 "speed": 10.0
@@ -42,7 +69,16 @@ animations = [{
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_uemlu"]
 animations = [{
-"frames": [ExtResource("11_dliiv"), ExtResource("12_mgp6w"), ExtResource("13_k7ccg")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_dliiv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_mgp6w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_k7ccg")
+}],
 "loop": true,
 "name": &"default",
 "speed": 15.0
@@ -56,14 +92,13 @@ z_index = 15
 script = ExtResource("1_fpmxp")
 
 [node name="AnimatedSprite2d" type="AnimatedSprite2D" parent="."]
-frames = SubResource("SpriteFrames_1pjba")
+sprite_frames = SubResource("SpriteFrames_1pjba")
 animation = &"blue"
 
 [node name="SpeedUp" type="AnimatedSprite2D" parent="."]
 visible = false
 scale = Vector2(0.3, 0.3)
-frames = SubResource("SpriteFrames_uemlu")
-playing = true
+sprite_frames = SubResource("SpriteFrames_uemlu")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_wqpkg")

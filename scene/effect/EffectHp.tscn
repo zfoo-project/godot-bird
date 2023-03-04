@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=8 format=3 uid="uid://cuo2qlugpq54o"]
 
 [ext_resource type="Texture2D" uid="uid://baywi268vk2wi" path="res://image/hp/0.png" id="1_6exyr"]
 [ext_resource type="Script" path="res://script/effect/EffectHp.gd" id="1_qpmat"]
@@ -8,7 +8,19 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5gwkt"]
 animations = [{
-"frames": [ExtResource("1_6exyr"), ExtResource("2_o4mm5"), ExtResource("3_agv0t"), ExtResource("4_wta8t")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_6exyr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_o4mm5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_agv0t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wta8t")
+}],
 "loop": true,
 "name": &"default",
 "speed": 8.0
@@ -25,8 +37,7 @@ script = ExtResource("1_qpmat")
 
 [node name="AnimatedSprite2d" type="AnimatedSprite2D" parent="Area2d"]
 scale = Vector2(0.5, 0.5)
-frames = SubResource("SpriteFrames_5gwkt")
-playing = true
+sprite_frames = SubResource("SpriteFrames_5gwkt")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Area2d"]
 shape = SubResource("CircleShape2D_ek45h")

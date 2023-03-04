@@ -9,7 +9,22 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jdedr"]
 animations = [{
-"frames": [ExtResource("2_lig4d"), ExtResource("3_wuvwc"), ExtResource("4_fwpu6"), ExtResource("5_mao3y"), ExtResource("6_v8iox")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_lig4d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wuvwc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_fwpu6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_mao3y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_v8iox")
+}],
 "loop": false,
 "name": &"default",
 "speed": 10.0
@@ -20,4 +35,4 @@ z_index = 200
 script = ExtResource("1_87nka")
 
 [node name="AnimatedSprite2d" type="AnimatedSprite2D" parent="."]
-frames = SubResource("SpriteFrames_jdedr")
+sprite_frames = SubResource("SpriteFrames_jdedr")

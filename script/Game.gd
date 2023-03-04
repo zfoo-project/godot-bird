@@ -30,6 +30,7 @@ func _ready():
 	$ParallaxBackground/ParallaxLayer/Background.texture = Main.currentBackground
 	bird.hpChangedEvent.connect(onHpChangedEvent)
 	bird.attackEvent.connect(onAttackEvent)
+	birdSpeedUpEffect.emitting = false
 	changeHp(bird.hp)
 	# 以当前小鸟的位置，每隔pipeInterval间距生成水管
 	for i in range(20):

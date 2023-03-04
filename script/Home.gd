@@ -28,6 +28,7 @@ func _ready():
 	Main.randomBackground()
 	$Background/Background.texture = Main.currentBackground
 	$UI/Bird.animation = Main.currentAnimation
+	$UI/Bird.play()
 	$Control/Currency/Gold.text = String.num_int64(Main.playInfo.currencyVo.gold)
 	$Control/Currency/Gem.text = String.num_int64(Main.playInfo.currencyVo.gem)
 	pass

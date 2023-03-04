@@ -52,7 +52,9 @@ func onTimeout():
 	var createPositionY = randf_range(5, 500)
 	bird.position.x = -10
 	bird.position.y = createPositionY
-	bird.get_node("Bird").animation = RandomUtils.randomEle(Main.birdAnimations)
 	bird.speed = RandomUtils.randomIntRange(30, 500)
+	var birdNode: AnimatedSprite2D = bird.get_node("Bird")
+	birdNode.animation = RandomUtils.randomEle(Main.birdAnimations)
+	birdNode.play()
 	add_child(bird)
 	pass

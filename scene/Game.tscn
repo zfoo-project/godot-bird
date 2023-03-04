@@ -15,7 +15,19 @@ size = Vector2(1138, 102)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5frqc"]
 animations = [{
-"frames": [ExtResource("5_xq86p"), ExtResource("6_ma6uf"), ExtResource("7_3rdft"), ExtResource("8_lplss")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_xq86p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ma6uf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3rdft")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_lplss")
+}],
 "loop": true,
 "name": &"default",
 "speed": 8.0
@@ -51,7 +63,6 @@ position = Vector2(100, 200)
 
 [node name="Camera2d" type="Camera2D" parent="."]
 anchor_mode = 0
-current = true
 
 [node name="Pipes" type="Node2D" parent="."]
 
@@ -109,7 +120,7 @@ anchors_preset = 0
 [node name="AnimatedSprite2d" type="AnimatedSprite2D" parent="UI/HP"]
 position = Vector2(45, 43)
 scale = Vector2(0.495238, 0.495238)
-frames = SubResource("SpriteFrames_5frqc")
+sprite_frames = SubResource("SpriteFrames_5frqc")
 
 [node name="HP" type="Label" parent="UI/HP"]
 layout_mode = 0
