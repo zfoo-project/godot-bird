@@ -17,6 +17,11 @@ static func read(buffer):
 	if (!buffer.readBool()):
 		return null
 	var packet = buffer.newInstance(PROTOCOL_ID)
-	var list0 = buffer.readPacketArray(402)
-	packet.ranks = list0
+	var result0 = []
+	var size2 = buffer.readInt()
+	if (size2 > 0):
+		for index1 in range(size2):
+			var result3 = buffer.readPacket(402)
+			result0.append(result3)
+	packet.ranks = result0
 	return packet
