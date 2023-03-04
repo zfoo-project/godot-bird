@@ -10,3 +10,7 @@
 
 - Array -> Array[xxx]，泛型转换错误
   ![Image text](image/298/img_4.png)
+
+
+- 新建立的线程里面的代码无法断点，只能打印日志查看；如果里面有报错线程就会立即退出，不会有如何警告
+  ![Image text](image/298/img_5.png)

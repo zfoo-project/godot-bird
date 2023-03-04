@@ -17,6 +17,6 @@ static func read(buffer):
 	if (!buffer.readBool()):
 		return null
 	var packet = buffer.newInstance(PROTOCOL_ID)
-	var list0: Array[RankInfo] = buffer.readPacketArray(402) as Array[RankInfo]
+	var list0 = buffer.readPacketArray(402)
 	packet.ranks = list0
 	return packet
