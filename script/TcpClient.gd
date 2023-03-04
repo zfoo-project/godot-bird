@@ -45,11 +45,9 @@ func isConnected() -> bool:
 	return true if status == StreamPeerTCP.STATUS_CONNECTED else false
 
 func pushReceivePacket(packet):
-	print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
 	receiveMutex.lock()
 	receivePackets.push_back(packet)
 	receiveMutex.unlock()
-	print("cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc")
 
 func popReceivePacket():
 	var packet = null
@@ -127,11 +125,10 @@ func tickConnect():
 					print(StringUtils.format("status connecting host [{}:{}]", [host, port]))
 					connectingTime = currentTime
 			StreamPeerTCP.STATUS_CONNECTED:
-				if (currentTime - connectedTime) > 2000:
+				if (currentTime - connectedTime) > TimeUtils.MILLIS_PER_MINUTE:
 					print(StringUtils.format("status connected host [{}:{}]", [host, port]))
 					connectedTime = currentTime
 				if client.get_available_bytes() > 4:
-					print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 					var length = client.get_32()
 					# tcp粘包拆包
 					var data = client.get_data(length)
@@ -140,10 +137,8 @@ func tickConnect():
 						buffer.writePackedByteArray(PackedByteArray(data[1]))
 						var packet = ProtocolManager.read(buffer)
 						pushReceivePacket(packet)
-						print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
 						print(packet)
 						print(StringUtils.format("receive packet [{}] [{}]", [packet.PROTOCOL_ID, packet.toString()]))
-						print("fffffffffffffffffffffffffffffffffffffffffffffffffff")
 			_:
 				print("tcp client unknown")
 	pass
