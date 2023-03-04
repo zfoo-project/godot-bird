@@ -13,17 +13,44 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_csp04"]
 animations = [{
-"frames": [ExtResource("2_yvfnl"), ExtResource("3_cdnc0"), ExtResource("4_jftcc")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_yvfnl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_cdnc0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jftcc")
+}],
 "loop": true,
 "name": &"blue",
 "speed": 8.0
 }, {
-"frames": [ExtResource("5_s7vge"), ExtResource("6_1yg6m"), ExtResource("7_o7nbb")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_s7vge")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1yg6m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_o7nbb")
+}],
 "loop": true,
 "name": &"red",
 "speed": 8.0
 }, {
-"frames": [ExtResource("8_b47i4"), ExtResource("9_knoa8"), ExtResource("10_clqkc")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_b47i4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_knoa8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_clqkc")
+}],
 "loop": true,
 "name": &"yellow",
 "speed": 8.0
@@ -33,8 +60,7 @@ animations = [{
 script = ExtResource("1_tls4u")
 
 [node name="Bird" type="AnimatedSprite2D" parent="."]
-frames = SubResource("SpriteFrames_csp04")
+sprite_frames = SubResource("SpriteFrames_csp04")
 animation = &"blue"
-playing = true
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

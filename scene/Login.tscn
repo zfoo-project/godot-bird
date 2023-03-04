@@ -10,20 +10,12 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0lggc"]
 texture = ExtResource("4_3srp8")
-margin_left = 22.0
-margin_top = 19.0
-margin_right = 25.0
-margin_bottom = 23.0
 region_rect = Rect2(0, 0, 265, 85)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kho4r"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4lsov"]
 texture = ExtResource("4_3srp8")
-margin_left = 25.0
-margin_top = 19.0
-margin_right = 25.0
-margin_bottom = 20.0
 region_rect = Rect2(0, 0, 265, 85)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xjcxh"]
@@ -92,6 +84,7 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="Account" type="LineEdit" parent="Control"]
+layout_mode = 0
 offset_left = 464.0
 offset_top = 176.0
 offset_right = 688.0
@@ -103,6 +96,7 @@ placeholder_text = "账号名称（bird开头）"
 alignment = 1
 
 [node name="Password" type="LineEdit" parent="Control"]
+layout_mode = 0
 offset_left = 464.0
 offset_top = 248.0
 offset_right = 688.0
@@ -115,6 +109,7 @@ alignment = 1
 secret = true
 
 [node name="Login" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 496.0
 offset_top = 328.0
 offset_right = 640.0
@@ -127,6 +122,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_kmon0")
 text = "登录"
 
 [node name="Label" type="Label" parent="Control"]
+layout_mode = 0
 offset_right = 125.0
 offset_bottom = 26.0
 theme_override_fonts/font = ExtResource("3_gn64u")

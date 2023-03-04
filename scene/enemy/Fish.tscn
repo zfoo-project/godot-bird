@@ -10,7 +10,25 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x2eia"]
 animations = [{
-"frames": [ExtResource("2_3w17r"), ExtResource("3_enqu2"), ExtResource("4_u6m3o"), ExtResource("5_nj4tb"), ExtResource("6_vlvwi"), ExtResource("7_jqwe6")],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3w17r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_enqu2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_u6m3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_nj4tb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_vlvwi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_jqwe6")
+}],
 "loop": true,
 "name": &"default",
 "speed": 12.0
@@ -25,8 +43,8 @@ script = ExtResource("1_n46u1")
 
 [node name="AnimatedSprite2d" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
-frames = SubResource("SpriteFrames_x2eia")
-playing = true
+sprite_frames = SubResource("SpriteFrames_x2eia")
+autoplay = "default"
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_j4uw0")
