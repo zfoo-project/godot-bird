@@ -20,6 +20,7 @@ func _init(url: String):
 
 func start():
 	var result = client.connect_to_url(url)
+	client.set_no_delay(true)
 	connectThread.start(Callable(self, "tickConnect"))
 	sendThread.start(Callable(self, "tickSend"))
 	print(StringUtils.format("websocket client connect threadId:[{}] connect:[{}]", [connectThread.get_id(), result]))
@@ -61,9 +62,10 @@ func sendSync(packet):
 	buffer.writeRawInt(writeOffset - 4)
 	buffer.setWriteOffset(writeOffset)
 	var data = buffer.toPackedByteArray()
-	client.put_packet(data)
+	client.send(data, client.WRITE_MODE_BINARY)
 	for b in data:
 		print(b)
+	print(client.was_string_packet())
 	print(StringUtils.format("send packet [{}] [length:{}]", [packet, data.size()]))
 	
 	
