@@ -3,7 +3,7 @@ const PROTOCOL_ID = 3002
 
 
 
-func get_class() -> String:
+func toString() -> String:
 	return "ScoreRankRequest"
 
 static func write(buffer, packet):

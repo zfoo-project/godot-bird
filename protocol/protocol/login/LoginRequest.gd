@@ -4,7 +4,7 @@ const PROTOCOL_ID = 1000
 var account: String
 var password: String
 
-func get_class() -> String:
+func toString() -> String:
 	return "LoginRequest"
 
 static func write(buffer, packet):

@@ -3,7 +3,7 @@ const PROTOCOL_ID = 104
 
 var time: int
 
-func get_class() -> String:
+func toString() -> String:
 	return "Pong"
 
 static func write(buffer, packet):

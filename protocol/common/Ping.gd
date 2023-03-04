@@ -3,7 +3,7 @@ const PROTOCOL_ID = 103
 
 
 
-func get_class() -> String:
+func toString() -> String:
 	return "Ping"
 
 static func write(buffer, packet):

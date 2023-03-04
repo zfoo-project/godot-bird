@@ -4,7 +4,7 @@ const PROTOCOL_ID = 1101
 var level: int
 var exp: int
 
-func get_class() -> String:
+func toString() -> String:
 	return "PlayerExpNotice"
 
 static func write(buffer, packet):

@@ -5,7 +5,7 @@ var left: String
 var middle: String
 var right: String
 
-func get_class() -> String:
+func toString() -> String:
 	return "TripleString"
 
 static func write(buffer, packet):

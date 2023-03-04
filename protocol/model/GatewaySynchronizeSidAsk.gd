@@ -4,7 +4,7 @@ const PROTOCOL_ID = 24
 var gatewayHostAndPort: String
 var sidMap: Dictionary
 
-func get_class() -> String:
+func toString() -> String:
 	return "GatewaySynchronizeSidAsk"
 
 static func write(buffer, packet):

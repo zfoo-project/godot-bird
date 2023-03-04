@@ -5,7 +5,7 @@ var gatewayHostAndPort: String
 var sid: int
 var uid: int
 
-func get_class() -> String:
+func toString() -> String:
 	return "GatewaySessionInactiveAsk"
 
 static func write(buffer, packet):

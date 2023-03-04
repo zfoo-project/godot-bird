@@ -3,7 +3,7 @@ const PROTOCOL_ID = 1004
 
 var token: String
 
-func get_class() -> String:
+func toString() -> String:
 	return "GetPlayerInfoRequest"
 
 static func write(buffer, packet):

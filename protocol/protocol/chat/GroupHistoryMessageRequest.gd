@@ -3,7 +3,7 @@ const PROTOCOL_ID = 4003
 
 var lastMessageId: int
 
-func get_class() -> String:
+func toString() -> String:
 	return "GroupHistoryMessageRequest"
 
 static func write(buffer, packet):

@@ -3,7 +3,7 @@ const PROTOCOL_ID = 1001
 
 var token: String
 
-func get_class() -> String:
+func toString() -> String:
 	return "LoginResponse"
 
 static func write(buffer, packet):

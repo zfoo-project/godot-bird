@@ -5,7 +5,7 @@ var userId: int
 var playerLevel: int
 var playerExp: int
 
-func get_class() -> String:
+func toString() -> String:
 	return "AdminPlayerLevelAsk"
 
 static func write(buffer, packet):

@@ -6,7 +6,7 @@ var playerInfo: PlayerInfo
 var time: int
 var score: int
 
-func get_class() -> String:
+func toString() -> String:
 	return "RankInfo"
 
 static func write(buffer, packet):

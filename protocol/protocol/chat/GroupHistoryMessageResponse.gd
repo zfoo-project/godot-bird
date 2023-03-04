@@ -4,7 +4,7 @@ const ChatMessage = preload("res://protocol/protocol/chat/ChatMessage.gd")
 
 var chatMessages: Array[ChatMessage]
 
-func get_class() -> String:
+func toString() -> String:
 	return "GroupHistoryMessageResponse"
 
 static func write(buffer, packet):

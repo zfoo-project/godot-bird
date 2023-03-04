@@ -4,7 +4,7 @@ const PROTOCOL_ID = 113
 var key: int
 var value: String
 
-func get_class() -> String:
+func toString() -> String:
 	return "PairLS"
 
 static func write(buffer, packet):

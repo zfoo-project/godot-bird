@@ -3,7 +3,7 @@ const PROTOCOL_ID = 1002
 
 
 
-func get_class() -> String:
+func toString() -> String:
 	return "LogoutRequest"
 
 static func write(buffer, packet):

@@ -5,7 +5,7 @@ var left: int
 var middle: String
 var right: String
 
-func get_class() -> String:
+func toString() -> String:
 	return "TripleLSS"
 
 static func write(buffer, packet):

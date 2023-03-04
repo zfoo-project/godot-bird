@@ -8,7 +8,7 @@ var name: String
 var message: String
 var timestamp: int
 
-func get_class() -> String:
+func toString() -> String:
 	return "ChatMessage"
 
 static func write(buffer, packet):

@@ -6,7 +6,7 @@ const CurrencyVo = preload("res://protocol/protocol/common/CurrencyVo.gd")
 var playerInfo: PlayerInfo
 var currencyVo: CurrencyVo
 
-func get_class() -> String:
+func toString() -> String:
 	return "GetPlayerInfoResponse"
 
 static func write(buffer, packet):

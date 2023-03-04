@@ -5,7 +5,7 @@ var module: int
 var code: int
 var message: String
 
-func get_class() -> String:
+func toString() -> String:
 	return "Message"
 
 static func write(buffer, packet):

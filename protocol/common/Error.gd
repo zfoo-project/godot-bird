@@ -5,7 +5,7 @@ var module: int
 var errorCode: int
 var errorMessage: String
 
-func get_class() -> String:
+func toString() -> String:
 	return "Error"
 
 static func write(buffer, packet):

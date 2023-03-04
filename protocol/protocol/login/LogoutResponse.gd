@@ -4,7 +4,7 @@ const PROTOCOL_ID = 1003
 var uid: int
 var sid: int
 
-func get_class() -> String:
+func toString() -> String:
 	return "LogoutResponse"
 
 static func write(buffer, packet):

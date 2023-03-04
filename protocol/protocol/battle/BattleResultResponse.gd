@@ -3,7 +3,7 @@ const PROTOCOL_ID = 1007
 
 var score: int
 
-func get_class() -> String:
+func toString() -> String:
 	return "BattleResultResponse"
 
 static func write(buffer, packet):

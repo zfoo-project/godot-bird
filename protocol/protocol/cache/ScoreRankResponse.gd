@@ -5,7 +5,7 @@ const RankInfo = preload("res://protocol/protocol/common/RankInfo.gd")
 
 var ranks: Array[RankInfo]
 
-func get_class() -> String:
+func toString() -> String:
 	return "ScoreRankResponse"
 
 static func write(buffer, packet):

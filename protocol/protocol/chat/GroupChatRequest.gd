@@ -3,7 +3,7 @@ const PROTOCOL_ID = 4002
 
 var message: String
 
-func get_class() -> String:
+func toString() -> String:
 	return "GroupChatRequest"
 
 static func write(buffer, packet):

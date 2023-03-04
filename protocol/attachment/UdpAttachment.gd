@@ -4,7 +4,7 @@ const PROTOCOL_ID = 2
 var host: String
 var port: int
 
-func get_class() -> String:
+func toString() -> String:
 	return "UdpAttachment"
 
 static func write(buffer, packet):

@@ -76,7 +76,7 @@ func sendSync(packet):
 	buffer.setWriteOffset(writeOffset)
 	var data = buffer.toPackedByteArray()
 	client.put_data(data)
-	print(StringUtils.format("send packet [{}] [{}]", [packet.PROTOCOL_ID, packet.get_class()]))
+	print(StringUtils.format("send packet [{}] [{}]", [packet.PROTOCOL_ID, packet.toString()]))
 	
 
 func send(packet):
@@ -137,7 +137,7 @@ func tickConnect():
 						buffer.writePackedByteArray(PackedByteArray(data[1]))
 						var packet = ProtocolManager.read(buffer)
 						pushReceivePacket(packet)
-						print(StringUtils.format("receive packet [{}] [{}]", [packet.PROTOCOL_ID, packet.get_class()]))
+						print(StringUtils.format("receive packet [{}] [{}]", [packet.PROTOCOL_ID, packet.toString()]))
 			_:
 				print("tcp client unknown")
 	pass

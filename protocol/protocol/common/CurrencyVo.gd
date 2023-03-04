@@ -5,7 +5,7 @@ var energy: int
 var gem: int
 var gold: int
 
-func get_class() -> String:
+func toString() -> String:
 	return "CurrencyVo"
 
 static func write(buffer, packet):

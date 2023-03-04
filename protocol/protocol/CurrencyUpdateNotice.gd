@@ -4,7 +4,7 @@ const CurrencyVo = preload("res://protocol/protocol/common/CurrencyVo.gd")
 
 var currencyVo: CurrencyVo
 
-func get_class() -> String:
+func toString() -> String:
 	return "CurrencyUpdateNotice"
 
 static func write(buffer, packet):

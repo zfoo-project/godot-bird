@@ -3,7 +3,7 @@ const PROTOCOL_ID = 1301
 
 var message: String
 
-func get_class() -> String:
+func toString() -> String:
 	return "TestResponse"
 
 static func write(buffer, packet):

@@ -7,7 +7,7 @@ var avatar: String
 var level: int
 var exp: int
 
-func get_class() -> String:
+func toString() -> String:
 	return "PlayerInfo"
 
 static func write(buffer, packet):
