@@ -1,4 +1,5 @@
 const PROTOCOL_ID = 101
+const PROTOCOL_CLASS_NAME = "NormalObject"
 const ObjectA = preload("res://protocoltest/packet/ObjectA.gd")
 const ObjectB = preload("res://protocoltest/packet/ObjectB.gd")
 
@@ -22,8 +23,30 @@ var mm: Dictionary
 var s: Array[int]
 var ssss: Array[String]
 
-func toString() -> String:
-	return "NormalObject"
+func map() -> Dictionary:
+	var map = {}
+	map["a"] = a
+	map["aaa"] = aaa
+	map["b"] = b
+	map["c"] = c
+	map["d"] = d
+	map["e"] = e
+	map["f"] = f
+	map["g"] = g
+	map["jj"] = jj
+	map["kk"] = kk
+	map["l"] = l
+	map["ll"] = ll
+	map["lll"] = lll
+	map["llll"] = llll
+	map["m"] = m
+	map["mm"] = mm
+	map["s"] = s
+	map["ssss"] = ssss
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

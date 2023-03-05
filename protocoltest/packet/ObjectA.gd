@@ -1,4 +1,5 @@
 const PROTOCOL_ID = 102
+const PROTOCOL_CLASS_NAME = "ObjectA"
 const ObjectB = preload("res://protocoltest/packet/ObjectB.gd")
 
 
@@ -6,8 +7,15 @@ var a: int
 var m: Dictionary
 var objectB: ObjectB
 
-func toString() -> String:
-	return "ObjectA"
+func map() -> Dictionary:
+	var map = {}
+	map["a"] = a
+	map["m"] = m
+	map["objectB"] = objectB
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

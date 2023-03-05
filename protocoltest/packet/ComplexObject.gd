@@ -1,4 +1,5 @@
 const PROTOCOL_ID = 100
+const PROTOCOL_CLASS_NAME = "ComplexObject"
 const ObjectA = preload("res://protocoltest/packet/ObjectA.gd")
 const ObjectB = preload("res://protocoltest/packet/ObjectB.gd")
 
@@ -61,8 +62,65 @@ var sssss: Array
 var myCompatible: int
 var myObject: ObjectA
 
-func toString() -> String:
-	return "ComplexObject"
+func map() -> Dictionary:
+	var map = {}
+	map["a"] = a
+	map["aa"] = aa
+	map["aaa"] = aaa
+	map["aaaa"] = aaaa
+	map["b"] = b
+	map["bb"] = bb
+	map["bbb"] = bbb
+	map["bbbb"] = bbbb
+	map["c"] = c
+	map["cc"] = cc
+	map["ccc"] = ccc
+	map["cccc"] = cccc
+	map["d"] = d
+	map["dd"] = dd
+	map["ddd"] = ddd
+	map["dddd"] = dddd
+	map["e"] = e
+	map["ee"] = ee
+	map["eee"] = eee
+	map["eeee"] = eeee
+	map["f"] = f
+	map["ff"] = ff
+	map["fff"] = fff
+	map["ffff"] = ffff
+	map["g"] = g
+	map["gg"] = gg
+	map["ggg"] = ggg
+	map["gggg"] = gggg
+	map["h"] = h
+	map["hh"] = hh
+	map["hhh"] = hhh
+	map["hhhh"] = hhhh
+	map["jj"] = jj
+	map["jjj"] = jjj
+	map["kk"] = kk
+	map["kkk"] = kkk
+	map["l"] = l
+	map["ll"] = ll
+	map["lll"] = lll
+	map["llll"] = llll
+	map["lllll"] = lllll
+	map["m"] = m
+	map["mm"] = mm
+	map["mmm"] = mmm
+	map["mmmm"] = mmmm
+	map["mmmmm"] = mmmmm
+	map["s"] = s
+	map["ss"] = ss
+	map["sss"] = sss
+	map["ssss"] = ssss
+	map["sssss"] = sssss
+	map["myCompatible"] = myCompatible
+	map["myObject"] = myObject
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

@@ -1,10 +1,16 @@
 const PROTOCOL_ID = 103
+const PROTOCOL_CLASS_NAME = "ObjectB"
 
 
 var flag: bool
 
-func toString() -> String:
-	return "ObjectB"
+func map() -> Dictionary:
+	var map = {}
+	map["flag"] = flag
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):
