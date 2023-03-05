@@ -1,10 +1,16 @@
 const PROTOCOL_ID = 4003
+const PROTOCOL_CLASS_NAME = "GroupHistoryMessageRequest"
 
 
 var lastMessageId: int
 
-func toString() -> String:
-	return "GroupHistoryMessageRequest"
+func map() -> Dictionary:
+	var map = {}
+	map["lastMessageId"] = lastMessageId
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

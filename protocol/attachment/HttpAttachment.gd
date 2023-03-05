@@ -1,12 +1,20 @@
 const PROTOCOL_ID = 3
+const PROTOCOL_CLASS_NAME = "HttpAttachment"
 
 
 var uid: int
 var useTaskExecutorHashParam: bool
 var taskExecutorHashParam: int
 
-func toString() -> String:
-	return "HttpAttachment"
+func map() -> Dictionary:
+	var map = {}
+	map["uid"] = uid
+	map["useTaskExecutorHashParam"] = useTaskExecutorHashParam
+	map["taskExecutorHashParam"] = taskExecutorHashParam
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

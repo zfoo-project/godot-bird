@@ -1,11 +1,17 @@
 const PROTOCOL_ID = 4004
+const PROTOCOL_CLASS_NAME = "GroupHistoryMessageResponse"
 const ChatMessage = preload("res://protocol/protocol/chat/ChatMessage.gd")
 
 
 var chatMessages: Array[ChatMessage]
 
-func toString() -> String:
-	return "GroupHistoryMessageResponse"
+func map() -> Dictionary:
+	var map = {}
+	map["chatMessages"] = chatMessages
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

@@ -1,4 +1,5 @@
 const PROTOCOL_ID = 1
+const PROTOCOL_CLASS_NAME = "GatewayAttachment"
 const SignalAttachment = preload("res://protocol/attachment/SignalAttachment.gd")
 
 
@@ -9,8 +10,18 @@ var taskExecutorHashParam: int
 var client: bool
 var signalAttachment: SignalAttachment
 
-func toString() -> String:
-	return "GatewayAttachment"
+func map() -> Dictionary:
+	var map = {}
+	map["sid"] = sid
+	map["uid"] = uid
+	map["useTaskExecutorHashParam"] = useTaskExecutorHashParam
+	map["taskExecutorHashParam"] = taskExecutorHashParam
+	map["client"] = client
+	map["signalAttachment"] = signalAttachment
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

@@ -1,12 +1,20 @@
 const PROTOCOL_ID = 23
+const PROTOCOL_CLASS_NAME = "GatewaySessionInactiveAsk"
 
 
 var gatewayHostAndPort: String
 var sid: int
 var uid: int
 
-func toString() -> String:
-	return "GatewaySessionInactiveAsk"
+func map() -> Dictionary:
+	var map = {}
+	map["gatewayHostAndPort"] = gatewayHostAndPort
+	map["sid"] = sid
+	map["uid"] = uid
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

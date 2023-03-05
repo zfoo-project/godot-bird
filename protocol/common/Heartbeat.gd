@@ -1,10 +1,16 @@
 const PROTOCOL_ID = 102
+const PROTOCOL_CLASS_NAME = "Heartbeat"
 
 
 
 
-func toString() -> String:
-	return "Heartbeat"
+func map() -> Dictionary:
+	var map = {}
+
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

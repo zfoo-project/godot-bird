@@ -1,4 +1,5 @@
 const PROTOCOL_ID = 1201
+const PROTOCOL_CLASS_NAME = "AdminCurrencyAsk"
 
 
 var userId: int
@@ -6,8 +7,16 @@ var gold: int
 var gem: int
 var energy: int
 
-func toString() -> String:
-	return "AdminCurrencyAsk"
+func map() -> Dictionary:
+	var map = {}
+	map["userId"] = userId
+	map["gold"] = gold
+	map["gem"] = gem
+	map["energy"] = energy
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

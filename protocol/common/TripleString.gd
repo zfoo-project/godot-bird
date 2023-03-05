@@ -1,12 +1,20 @@
 const PROTOCOL_ID = 115
+const PROTOCOL_CLASS_NAME = "TripleString"
 
 
 var left: String
 var middle: String
 var right: String
 
-func toString() -> String:
-	return "TripleString"
+func map() -> Dictionary:
+	var map = {}
+	map["left"] = left
+	map["middle"] = middle
+	map["right"] = right
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

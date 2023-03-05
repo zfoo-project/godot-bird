@@ -1,12 +1,18 @@
 const PROTOCOL_ID = 3003
+const PROTOCOL_CLASS_NAME = "ScoreRankResponse"
 const PlayerInfo = preload("res://protocol/protocol/common/PlayerInfo.gd")
 const RankInfo = preload("res://protocol/protocol/common/RankInfo.gd")
 
 
 var ranks: Array[RankInfo]
 
-func toString() -> String:
-	return "ScoreRankResponse"
+func map() -> Dictionary:
+	var map = {}
+	map["ranks"] = ranks
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

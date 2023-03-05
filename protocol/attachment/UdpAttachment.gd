@@ -1,11 +1,18 @@
 const PROTOCOL_ID = 2
+const PROTOCOL_CLASS_NAME = "UdpAttachment"
 
 
 var host: String
 var port: int
 
-func toString() -> String:
-	return "UdpAttachment"
+func map() -> Dictionary:
+	var map = {}
+	map["host"] = host
+	map["port"] = port
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

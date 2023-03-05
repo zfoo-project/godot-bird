@@ -1,11 +1,18 @@
 const PROTOCOL_ID = 1003
+const PROTOCOL_CLASS_NAME = "LogoutResponse"
 
 
 var uid: int
 var sid: int
 
-func toString() -> String:
-	return "LogoutResponse"
+func map() -> Dictionary:
+	var map = {}
+	map["uid"] = uid
+	map["sid"] = sid
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

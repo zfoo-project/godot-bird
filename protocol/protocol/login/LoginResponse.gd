@@ -1,10 +1,16 @@
 const PROTOCOL_ID = 1001
+const PROTOCOL_CLASS_NAME = "LoginResponse"
 
 
 var token: String
 
-func toString() -> String:
-	return "LoginResponse"
+func map() -> Dictionary:
+	var map = {}
+	map["token"] = token
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

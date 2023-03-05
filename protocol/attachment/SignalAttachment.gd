@@ -1,12 +1,20 @@
 const PROTOCOL_ID = 0
+const PROTOCOL_CLASS_NAME = "SignalAttachment"
 
 
 var signalId: int
 var taskExecutorHash: int
 var client: bool
 
-func toString() -> String:
-	return "SignalAttachment"
+func map() -> Dictionary:
+	var map = {}
+	map["signalId"] = signalId
+	map["taskExecutorHash"] = taskExecutorHash
+	map["client"] = client
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

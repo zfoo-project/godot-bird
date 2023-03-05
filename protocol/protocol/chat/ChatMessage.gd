@@ -1,4 +1,5 @@
 const PROTOCOL_ID = 4000
+const PROTOCOL_CLASS_NAME = "ChatMessage"
 
 
 var id: int
@@ -8,8 +9,18 @@ var name: String
 var message: String
 var timestamp: int
 
-func toString() -> String:
-	return "ChatMessage"
+func map() -> Dictionary:
+	var map = {}
+	map["id"] = id
+	map["sendId"] = sendId
+	map["avatar"] = avatar
+	map["name"] = name
+	map["message"] = message
+	map["timestamp"] = timestamp
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

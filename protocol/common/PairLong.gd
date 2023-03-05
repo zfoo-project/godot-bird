@@ -1,11 +1,18 @@
 const PROTOCOL_ID = 111
+const PROTOCOL_CLASS_NAME = "PairLong"
 
 
 var key: int
 var value: int
 
-func toString() -> String:
-	return "PairLong"
+func map() -> Dictionary:
+	var map = {}
+	map["key"] = key
+	map["value"] = value
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

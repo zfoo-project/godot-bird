@@ -1,11 +1,18 @@
 const PROTOCOL_ID = 24
+const PROTOCOL_CLASS_NAME = "GatewaySynchronizeSidAsk"
 
 
 var gatewayHostAndPort: String
 var sidMap: Dictionary
 
-func toString() -> String:
-	return "GatewaySynchronizeSidAsk"
+func map() -> Dictionary:
+	var map = {}
+	map["gatewayHostAndPort"] = gatewayHostAndPort
+	map["sidMap"] = sidMap
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

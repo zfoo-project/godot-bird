@@ -1,12 +1,20 @@
 const PROTOCOL_ID = 1200
+const PROTOCOL_CLASS_NAME = "AdminPlayerLevelAsk"
 
 
 var userId: int
 var playerLevel: int
 var playerExp: int
 
-func toString() -> String:
-	return "AdminPlayerLevelAsk"
+func map() -> Dictionary:
+	var map = {}
+	map["userId"] = userId
+	map["playerLevel"] = playerLevel
+	map["playerExp"] = playerExp
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

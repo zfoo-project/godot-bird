@@ -1,10 +1,16 @@
 const PROTOCOL_ID = 4002
+const PROTOCOL_CLASS_NAME = "GroupChatRequest"
 
 
 var message: String
 
-func toString() -> String:
-	return "GroupChatRequest"
+func map() -> Dictionary:
+	var map = {}
+	map["message"] = message
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

@@ -1,11 +1,17 @@
 const PROTOCOL_ID = 1100
+const PROTOCOL_CLASS_NAME = "CurrencyUpdateNotice"
 const CurrencyVo = preload("res://protocol/protocol/common/CurrencyVo.gd")
 
 
 var currencyVo: CurrencyVo
 
-func toString() -> String:
-	return "CurrencyUpdateNotice"
+func map() -> Dictionary:
+	var map = {}
+	map["currencyVo"] = currencyVo
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

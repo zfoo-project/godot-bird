@@ -1,12 +1,20 @@
 const PROTOCOL_ID = 22
+const PROTOCOL_CLASS_NAME = "AuthUidAsk"
 
 
 var gatewayHostAndPort: String
 var sid: int
 var uid: int
 
-func toString() -> String:
-	return "AuthUidAsk"
+func map() -> Dictionary:
+	var map = {}
+	map["gatewayHostAndPort"] = gatewayHostAndPort
+	map["sid"] = sid
+	map["uid"] = uid
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

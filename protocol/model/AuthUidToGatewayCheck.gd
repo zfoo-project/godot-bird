@@ -1,10 +1,16 @@
 const PROTOCOL_ID = 20
+const PROTOCOL_CLASS_NAME = "AuthUidToGatewayCheck"
 
 
 var uid: int
 
-func toString() -> String:
-	return "AuthUidToGatewayCheck"
+func map() -> Dictionary:
+	var map = {}
+	map["uid"] = uid
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

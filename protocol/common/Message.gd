@@ -1,12 +1,20 @@
 const PROTOCOL_ID = 100
+const PROTOCOL_CLASS_NAME = "Message"
 
 
 var module: int
 var code: int
 var message: String
 
-func toString() -> String:
-	return "Message"
+func map() -> Dictionary:
+	var map = {}
+	map["module"] = module
+	map["code"] = code
+	map["message"] = message
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

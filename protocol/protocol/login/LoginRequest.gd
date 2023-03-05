@@ -1,11 +1,18 @@
 const PROTOCOL_ID = 1000
+const PROTOCOL_CLASS_NAME = "LoginRequest"
 
 
 var account: String
 var password: String
 
-func toString() -> String:
-	return "LoginRequest"
+func map() -> Dictionary:
+	var map = {}
+	map["account"] = account
+	map["password"] = password
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

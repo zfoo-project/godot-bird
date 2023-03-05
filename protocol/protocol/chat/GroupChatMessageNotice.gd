@@ -1,11 +1,17 @@
 const PROTOCOL_ID = 4001
+const PROTOCOL_CLASS_NAME = "GroupChatMessageNotice"
 const ChatMessage = preload("res://protocol/protocol/chat/ChatMessage.gd")
 
 
 var chatMessage: ChatMessage
 
-func toString() -> String:
-	return "GroupChatMessageNotice"
+func map() -> Dictionary:
+	var map = {}
+	map["chatMessage"] = chatMessage
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

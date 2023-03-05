@@ -1,11 +1,18 @@
 const PROTOCOL_ID = 3000
+const PROTOCOL_CLASS_NAME = "BattleScoreAsk"
 
 
 var playerId: int
 var score: int
 
-func toString() -> String:
-	return "BattleScoreAsk"
+func map() -> Dictionary:
+	var map = {}
+	map["playerId"] = playerId
+	map["score"] = score
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

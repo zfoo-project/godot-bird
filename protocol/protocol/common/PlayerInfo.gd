@@ -1,4 +1,5 @@
 const PROTOCOL_ID = 400
+const PROTOCOL_CLASS_NAME = "PlayerInfo"
 
 
 var id: int
@@ -7,8 +8,17 @@ var avatar: String
 var level: int
 var exp: int
 
-func toString() -> String:
-	return "PlayerInfo"
+func map() -> Dictionary:
+	var map = {}
+	map["id"] = id
+	map["name"] = name
+	map["avatar"] = avatar
+	map["level"] = level
+	map["exp"] = exp
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

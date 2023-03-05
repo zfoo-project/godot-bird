@@ -1,10 +1,16 @@
 const PROTOCOL_ID = 1002
+const PROTOCOL_CLASS_NAME = "LogoutRequest"
 
 
 
 
-func toString() -> String:
-	return "LogoutRequest"
+func map() -> Dictionary:
+	var map = {}
+
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):

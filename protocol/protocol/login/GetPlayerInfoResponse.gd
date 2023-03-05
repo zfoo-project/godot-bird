@@ -1,4 +1,5 @@
 const PROTOCOL_ID = 1005
+const PROTOCOL_CLASS_NAME = "GetPlayerInfoResponse"
 const PlayerInfo = preload("res://protocol/protocol/common/PlayerInfo.gd")
 const CurrencyVo = preload("res://protocol/protocol/common/CurrencyVo.gd")
 
@@ -6,8 +7,14 @@ const CurrencyVo = preload("res://protocol/protocol/common/CurrencyVo.gd")
 var playerInfo: PlayerInfo
 var currencyVo: CurrencyVo
 
-func toString() -> String:
-	return "GetPlayerInfoResponse"
+func map() -> Dictionary:
+	var map = {}
+	map["playerInfo"] = playerInfo
+	map["currencyVo"] = currencyVo
+	return map
+
+func _to_string() -> String:
+	return JSON.stringify(map())
 
 static func write(buffer, packet):
 	if (buffer.writePacketFlag(packet)):
