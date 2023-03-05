@@ -126,7 +126,7 @@ layout_mode = 0
 offset_right = 125.0
 offset_bottom = 26.0
 theme_override_fonts/font = ExtResource("3_gn64u")
-text = "v7.3.0   godot4.x  灵魂小鸟"
+text = "v7.4.0   godot4.x  stable小鸟"
 
 [node name="UI" type="Node2D" parent="."]
 position = Vector2(576, 96)
