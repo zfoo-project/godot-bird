@@ -11,6 +11,9 @@ const GetPlayerInfoResponse = preload("res://protocol/protocol/login/GetPlayerIn
 const BattleResultResponse = preload("res://protocol/protocol/battle/BattleResultResponse.gd")
 const CurrencyUpdateNotice = preload("res://protocol/protocol/CurrencyUpdateNotice.gd")
 const PlayerExpNotice = preload("res://protocol/protocol/PlayerExpNotice.gd")
+const PlayerInfo = preload("res://protocol/protocol/common/PlayerInfo.gd")
+const CurrencyVo = preload("res://protocol/protocol/common/CurrencyVo.gd")
+
 
 @onready var dieAudio: AudioStreamPlayer = $DieAudio
 @onready var swooshAudio: AudioStreamPlayer = $SwooshAudio
@@ -39,6 +42,9 @@ var point: int = 0
 # excel配置表数据
 var resourceStorage: ResourceStorage
 
+# 玩家信息
+var playInfo: GetPlayerInfoResponse = null
+
 func _init():
 	print("开始加载配置表")
 	# 加载配置表的数据
@@ -53,6 +59,11 @@ func _init():
 		print(packet.objectResources[key].id)
 	
 	print("配置表加载完成")
+	
+	# 给个默认值
+	playInfo = GetPlayerInfoResponse.new()
+	playInfo.playerInfo = PlayerInfo.new()
+	playInfo.currencyVo = CurrencyVo.new()
 	pass
 
 func _ready():
@@ -98,7 +109,6 @@ func notify(message: String):
 var tcpClient: TcpClient = TcpClient.new("127.0.0.1:16000") if OS.has_feature("editor") else TcpClient.new("47.103.82.45:16000")
 # 登录令牌
 var token: String = StringUtils.EMPTY
-var playInfo: GetPlayerInfoResponse = null
 
 func _process(delta):
 	var packet = tcpClient.peekReceivePacket()
