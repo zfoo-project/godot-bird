@@ -105,15 +105,19 @@ func send(packet):
 func asyncAsk(packet):
 	if packet == null:
 		printerr("null point exception")
+	var currentTime = Time.get_unix_time_from_system() * 1000
 	var attachment: SignalAttachment = SignalAttachment.new()
 	var signalId = uuidInt()
 	attachment.signalId = signalId
+	attachment.timestamp = currentTime
 	attachment.client = true
 	addToSendQueue(EncodedPacketInfo.new(packet, attachment))
 	# add attachment
 	signalAttachmentMutex.lock()
 	signalAttachmentMap[signalId] = attachment
 	for key in signalAttachmentMap.keys():
+		if signalAttachmentMap[key].timestamp - currentTime > 60000:
+			signalAttachmentMap.erase(key) # remove timeout packet
 		pass
 	signalAttachmentMutex.unlock()
 	var returnPacket = await attachment.PacketSignal
