@@ -67,6 +67,10 @@ func _init():
 	pass
 
 func _ready():
+	Main.tcpClient.registerReceiver(CurrencyUpdateNotice, Callable(self, "atCurrencyUpdateNotice"))
+	Main.tcpClient.registerReceiver(BattleResultResponse, Callable(self, "atBattleResultResponse"))
+	Main.tcpClient.registerReceiver(PlayerExpNotice, Callable(self, "atPlayerExpNotice"))
+	
 	swooshAudio.play()
 	transitionAnimation.play("fade-in")
 	await transitionAnimation.animation_finished
@@ -110,19 +114,19 @@ var tcpClient: TcpClient = TcpClient.new("127.0.0.1:16000") if OS.has_feature("e
 # 登录令牌
 var token: String = StringUtils.EMPTY
 
+func atCurrencyUpdateNotice(response: CurrencyUpdateNotice):
+	playInfo.currencyVo = response.currencyVo
+	print(StringUtils.format("[{}] 货币更新", [response.currencyVo.gold]))
+	pass
+	
+func atBattleResultResponse(response: BattleResultResponse):
+	print(StringUtils.format("收到战斗结果:[{}]", [response.score]))
+	pass
+	
+func atPlayerExpNotice(response: PlayerExpNotice):
+	notify(StringUtils.format("[level:{}][exp:{}] 经验刷新", [response.level, response.exp]))
+	pass
+
 func _process(delta):
 	tcpClient.update()
-	var packet = tcpClient.peekReceivePacket()
-	if packet == null:
-		return
-	if packet is BattleResultResponse:
-		tcpClient.popReceivePacket()
-		print(StringUtils.format("收到战斗结果:[{}]", [packet.score]))
-	elif packet is CurrencyUpdateNotice:
-		tcpClient.popReceivePacket()
-		playInfo.currencyVo = packet.currencyVo
-		print(StringUtils.format("[{}] 货币更新", [packet.currencyVo.gold]))
-	elif packet is PlayerExpNotice:
-		tcpClient.popReceivePacket()
-		notify(StringUtils.format("[level:{}][exp:{}] 经验刷新", [packet.level, packet.exp]))
 	pass

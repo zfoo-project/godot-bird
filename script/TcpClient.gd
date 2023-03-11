@@ -63,6 +63,8 @@ var sendQueue: Array[EncodedPacketInfo] = []
 
 # SignalBridge
 var signalAttachmentMap: Dictionary = {}
+# PacketBus
+var packetBus: Dictionary = {}
 
 
 func isConnected() -> bool:
@@ -70,6 +72,20 @@ func isConnected() -> bool:
 	return true if status == StreamPeerTCP.STATUS_CONNECTED else false
 	pass
 
+func registerReceiver(protocol, callable: Callable):
+	if packetBus.has(protocol.PROTOCOL_ID):
+		var old = packetBus[protocol.PROTOCOL_ID]
+		printerr(format("duplicate [protocol:{}] receiver [old:{}] [new:{}]", [protocol, old, callable]))
+		return
+	packetBus[protocol.PROTOCOL_ID] = callable
+	pass
+
+func removeReceiver(receiver):
+	for key in packetBus.keys():
+		var callable: Callable = packetBus[key]
+		if callable.get_object_id() == receiver.get_instance_id():
+			packetBus.erase(key)
+	pass
 
 func popReceivePacket():
 	if receiveQueue.is_empty():
@@ -156,8 +172,11 @@ func decodeAndReceive():
 			attachment = ProtocolManager.read(buffer)
 			var clientAttachment = signalAttachmentMap[attachment.signalId]
 			clientAttachment.emit_signal("PacketSignal", packet)
-			return
-		receiveQueue.push_back(DecodedPacketInfo.new(packet, attachment))
+		else:
+			if !packetBus.has(packet.PROTOCOL_ID):
+				printerr(format("[protocol:{}][protocolId:{}] has no registration, please register for this protocol", [packet.PROTOCOL_CLASS_NAME, packet.PROTOCOL_ID]))
+				return
+			packetBus[packet.PROTOCOL_ID].call(packet)
 	pass
 
 

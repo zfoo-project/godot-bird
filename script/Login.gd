@@ -12,24 +12,28 @@ func _ready():
 	$Control/Login.connect("pressed", Callable(self, "login"))
 	Main.tcpClient.start()
 	Main.showLoading()
+	Main.tcpClient.registerReceiver(LoginResponse, Callable(self, "atLoginResponse"))
+	Main.tcpClient.registerReceiver(GetPlayerInfoResponse, Callable(self, "atGetPlayerInfoResponse"))
 	pass
 
+func _exit_tree():
+	Main.tcpClient.removeReceiver(self)
+	pass
 
 func _process(delta):
 	if (Main.tcpClient.isConnected()):
 		Main.unshowLoading()
-	var packet = Main.tcpClient.peekReceivePacket()
-	if packet == null:
-		return
-	if packet is LoginResponse:
-		Main.tcpClient.popReceivePacket()
-		Main.token = packet.token
-		print(StringUtils.format("收到登录令牌token:[{}]", [packet.token]))
-	elif packet is GetPlayerInfoResponse:
-		Main.tcpClient.popReceivePacket()
-		Main.playInfo = packet
-		Main.changeScene(Main.SCENE.Home)
-		Main.notify(StringUtils.format("[{}] 欢迎回来", [packet.playerInfo.name]))
+	pass
+
+func atLoginResponse(response: LoginResponse):
+	Main.token = response.token
+	print(StringUtils.format("收到登录令牌token:[{}]", [response.token]))
+	pass
+
+func atGetPlayerInfoResponse(response: GetPlayerInfoResponse):
+	Main.playInfo = response
+	Main.changeScene(Main.SCENE.Home)
+	Main.notify(StringUtils.format("[{}] 欢迎回来", [response.playerInfo.name]))
 	pass
 
 func login():
