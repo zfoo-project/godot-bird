@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8hkjyfbxhjya"]
+
+[ext_resource type="Script" path="res://test/await/AwaitTest.gd" id="1_ivjex"]
+
+[node name="AwaitTest" type="Node2D"]
+script = ExtResource("1_ivjex")
+
+[node name="StartAwait" type="Button" parent="."]
+offset_left = 303.0
+offset_top = 153.0
+offset_right = 443.0
+offset_bottom = 210.0
+text = "start await"
+
+[node name="EmitSignal" type="Button" parent="."]
+offset_left = 537.0
+offset_top = 152.0
+offset_right = 678.0
+offset_bottom = 207.0
+text = "emit signal"
