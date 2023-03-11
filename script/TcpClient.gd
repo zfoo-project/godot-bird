@@ -149,6 +149,8 @@ func decodeAndReceive():
 		var buffer = ByteBuffer.new()
 		buffer.writePackedByteArray(PackedByteArray(data[1]))
 		var packet = ProtocolManager.read(buffer)
+		print(format("receive packet [{}]", [packet.PROTOCOL_CLASS_NAME]))
+		print(packet.map())
 		var attachment: SignalAttachment = null
 		if buffer.isReadable() && buffer.readBool():
 			attachment = ProtocolManager.read(buffer)
@@ -156,8 +158,6 @@ func decodeAndReceive():
 			clientAttachment.emit_signal("PacketSignal", packet)
 			return
 		receiveQueue.push_back(DecodedPacketInfo.new(packet, attachment))
-		print(format("receive packet [{}]", [packet.PROTOCOL_CLASS_NAME]))
-		print(packet.map())
 	pass
 
 

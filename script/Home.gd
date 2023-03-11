@@ -31,33 +31,16 @@ func _ready():
 	$UI/Bird.play()
 	$Control/Currency/Gold.text = String.num_int64(Main.playInfo.currencyVo.gold)
 	$Control/Currency/Gem.text = String.num_int64(Main.playInfo.currencyVo.gem)
-	var re = await Main.tcpClient.asyncAsk(ScoreRankRequest.new())
-	print("000000000000000000000000000000000000000000000000000000000000000")
-	print(re)
 	pass
 
 func _process(delta):
 	var packet = Main.tcpClient.peekReceivePacket()
 	if packet == null:
 		return
-	if packet is ScoreRankResponse:
-		Main.tcpClient.popReceivePacket()
-		ranks = packet.ranks
-		updateRankList()
-		print(StringUtils.format("收到排行榜信息ranks:[{}]", [packet.ranks.size()]))
 	if packet is GroupChatMessageNotice:
 		Main.tcpClient.popReceivePacket()
 		messages.push_front(packet.chatMessage)
 		print(StringUtils.format("收到聊天信息message:[{}]", [packet.chatMessage.message]))
-		updateMessageList()
-	if packet is GroupHistoryMessageResponse:
-		Main.tcpClient.popReceivePacket()
-		for chatMessage in packet.chatMessages:
-			if messages.any(func(it: ChatMessage): return it.id == chatMessage.id):
-				continue
-			messages.push_back(chatMessage)
-		messages.sort_custom(func(a, b): return a.id > b.id)
-		print(StringUtils.format("收到聊天历史记录size:[{}]", [packet.chatMessages.size()]))
 		updateMessageList()
 	pass
 
@@ -76,7 +59,10 @@ func showRank():
 		rankList.visible = false
 	else:
 		rankList.visible = true
-		Main.tcpClient.send(ScoreRankRequest.new())
+		var scoreRankResponse: ScoreRankResponse = await Main.tcpClient.asyncAsk(ScoreRankRequest.new())
+		ranks = scoreRankResponse.ranks
+		updateRankList()
+		print(StringUtils.format("收到排行榜信息ranks:[{}]", [scoreRankResponse.ranks.size()]))
 	pass
 
 func updateRankList():
@@ -107,7 +93,14 @@ func showChat():
 		var request = GroupHistoryMessageRequest.new()
 		if !messages.is_empty():
 			request.lastMessageId = messages.back().id
-		Main.tcpClient.send(request)
+		var groupHistoryMessageResponse: GroupHistoryMessageResponse = await Main.tcpClient.asyncAsk(request)
+		for chatMessage in groupHistoryMessageResponse.chatMessages:
+			if messages.any(func(it: ChatMessage): return it.id == chatMessage.id):
+				continue
+			messages.push_back(chatMessage)
+		messages.sort_custom(func(a, b): return a.id > b.id)
+		updateMessageList()
+		print(StringUtils.format("收到聊天历史记录size:[{}]", [groupHistoryMessageResponse.chatMessages.size()]))
 	pass
 
 func sendMessage():
