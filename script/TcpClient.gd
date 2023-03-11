@@ -32,6 +32,8 @@ func start():
 class EncodedPacketInfo:
 	extends RefCounted
 	
+	signal PacketSignal(packet: RefCounted)
+	
 	var packet: RefCounted
 	var attachment: SignalAttachment
 	
@@ -67,7 +69,6 @@ var sendSemaphore: Semaphore = Semaphore.new()
 # SignalBridge
 var signalAttachmentMap: Dictionary = {}
 var signalAttachmentMutex: Mutex = Mutex.new()
-signal PacketSignal(signalId: int, packet: RefCounted)
 
 
 func isConnected() -> bool:
@@ -111,7 +112,8 @@ func asyncAsk(packet):
 	attachment.signalId = signalId
 	attachment.timestamp = currentTime
 	attachment.client = true
-	addToSendQueue(EncodedPacketInfo.new(packet, attachment))
+	var encodedPacketInfo: EncodedPacketInfo = EncodedPacketInfo.new(packet, attachment)
+	addToSendQueue(encodedPacketInfo)
 	# add attachment
 	signalAttachmentMutex.lock()
 	signalAttachmentMap[signalId] = attachment
@@ -120,7 +122,8 @@ func asyncAsk(packet):
 			signalAttachmentMap.erase(key) # remove timeout packet
 		pass
 	signalAttachmentMutex.unlock()
-	var returnPacket = await attachment.PacketSignal
+	print("33333333333333333333333333333333333333333333333")
+	var returnPacket = await encodedPacketInfo.PacketSignal
 	# remove attachment
 	signalAttachmentMutex.lock()
 	signalAttachmentMap.erase(signalId)
@@ -160,8 +163,10 @@ func decodeAndReceive():
 		var packet = ProtocolManager.read(buffer)
 		var attachment: SignalAttachment = null
 		if buffer.isReadable() && buffer.readBool():
+			print("11111111111111111111111111111111111111111111111111111111111")
 			attachment = ProtocolManager.read(buffer)
 			var clientAttachment = signalAttachmentMap[attachment.signalId]
+			print("11111111111111111111111111111111111111111111111111111111111")
 			clientAttachment.emit("PacketSignal", packet)
 			return
 		addToReceiveQueue(DecodedPacketInfo.new(packet, attachment))

@@ -31,6 +31,9 @@ func _ready():
 	$UI/Bird.play()
 	$Control/Currency/Gold.text = String.num_int64(Main.playInfo.currencyVo.gold)
 	$Control/Currency/Gem.text = String.num_int64(Main.playInfo.currencyVo.gem)
+	var re = await Main.tcpClient.asyncAsk(ScoreRankRequest.new())
+	print("000000000000000000000000000000000000000000000000000000000000000")
+	print(re)
 	pass
 
 func _process(delta):
