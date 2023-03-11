@@ -111,6 +111,7 @@ var tcpClient: TcpClient = TcpClient.new("127.0.0.1:16000") if OS.has_feature("e
 var token: String = StringUtils.EMPTY
 
 func _process(delta):
+	tcpClient.update()
 	var packet = tcpClient.peekReceivePacket()
 	if packet == null:
 		return
