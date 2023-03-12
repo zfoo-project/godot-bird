@@ -5,3 +5,8 @@
 
 - 2.主动注册消息的接受
   ![Image text](image/299/img_1.png)
+
+
+### await语法就是yield的语法糖
+
+![Image text](image/299/img_2.png)
