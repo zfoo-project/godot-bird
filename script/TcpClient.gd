@@ -87,21 +87,6 @@ func removeReceiver(receiver):
 			packetBus.erase(key)
 	pass
 
-func popReceivePacket():
-	if receiveQueue.is_empty():
-		return null
-	print(format("------------------------------ receive packet count [{}]", [receiveQueue.size()]))
-	var decodedPacketInfo: DecodedPacketInfo = receiveQueue.pop_front()
-	return decodedPacketInfo.packet
-	pass
-
-# 查看服务器返回的第一个包
-func peekReceivePacket():
-	if receiveQueue.is_empty():
-		return null
-	return receiveQueue.front().packet
-	pass
-
 
 func send(packet):
 	if packet == null:

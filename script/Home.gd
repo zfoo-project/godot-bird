@@ -31,18 +31,19 @@ func _ready():
 	$UI/Bird.play()
 	$Control/Currency/Gold.text = String.num_int64(Main.playInfo.currencyVo.gold)
 	$Control/Currency/Gem.text = String.num_int64(Main.playInfo.currencyVo.gem)
+	Main.tcpClient.registerReceiver(GroupChatMessageNotice, Callable(self, "atGroupChatMessageNotice"))
 	pass
 
-func _process(delta):
-	var packet = Main.tcpClient.peekReceivePacket()
-	if packet == null:
-		return
-	if packet is GroupChatMessageNotice:
-		Main.tcpClient.popReceivePacket()
-		messages.push_front(packet.chatMessage)
-		print(StringUtils.format("收到聊天信息message:[{}]", [packet.chatMessage.message]))
-		updateMessageList()
+func _exit_tree():
+	Main.tcpClient.removeReceiver(self)
 	pass
+
+func atGroupChatMessageNotice(response: GroupChatMessageNotice):
+	messages.push_front(response.chatMessage)
+	print(StringUtils.format("收到聊天信息message:[{}]", [response.chatMessage.message]))
+	updateMessageList()
+	pass
+
 
 func startGame():
 	Main.changeScene(Main.SCENE.Game)
@@ -114,6 +115,7 @@ func sendMessage():
 	var request = GroupChatRequest.new()
 	request.message = message
 	Main.tcpClient.send(request)
+	pass
 	
 
 func updateMessageList():
