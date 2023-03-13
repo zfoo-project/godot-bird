@@ -56,7 +56,7 @@ var noneTime: int = 0
 var errorTime: int = 0
 var connectingTime: int = 0
 var connectedTime: int = 0
-var uuid = 0
+var uuid: int = 0
 
 var receiveQueue: Array[DecodedPacketInfo] = []
 var sendQueue: Array[EncodedPacketInfo] = []
