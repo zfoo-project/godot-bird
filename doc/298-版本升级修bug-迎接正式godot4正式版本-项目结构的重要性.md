@@ -22,6 +22,6 @@
   ![Image text](image/298/img_2.png)
   ![Image text](image/298/img_3.png)
 
-- 版本兼容，多谢测试用例，一个质量高的项目测试工程应该要和主工程相当
+- 版本兼容，多写测试用例，一个质量高的项目测试工程应该要和主工程相当
   ![Image text](image/298/img_10.png)
   ![Image text](image/298/img_11.png)
