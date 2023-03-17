@@ -20,6 +20,7 @@ func start():
 	client.connect_to_host(host, port)
 	pass
 
+# It is necessary to call update every once in a while to start the network to send and receive
 func update():
 	tickConnect()
 	tickSend()
