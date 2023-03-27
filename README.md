@@ -1,5 +1,18 @@
-# godot-bird，鸟了个鸟
+# godot-bird（鸟了个鸟）powered by godot 4.0
 
-- 前端：[godot](https://github.com/godotengine/godot)
+- frontend：[godot](https://github.com/godotengine/godot)
 
-- 后端：[zfoo](https://github.com/zfoo-project/zfoo) ，运行前先使用Maven install [zfoo](https://github.com/zfoo-project/zfoo)
+- backend：[zfoo](https://github.com/zfoo-project/zfoo) ，Use Maven install before running [zfoo](https://github.com/zfoo-project/zfoo)
+
+- support await grammar of net request
+
+```
+var groupHistoryMessageResponse: GroupHistoryMessageResponse = await Main.tcpClient.asyncAsk(request)
+```
+
+- including GDScript serialization and deserialization.
+```
+ProtocolManager.write(buffer, ScoreRankRequest.new())
+
+var request = ProtocolManager.read(buffer)
+```
