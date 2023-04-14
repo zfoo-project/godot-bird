@@ -26,15 +26,15 @@ func update():
 	tickSend()
 	pass
 
-	
+
 class EncodedPacketInfo:
 	extends RefCounted
-	
+
 	signal PacketSignal(packet: RefCounted)
-	
+
 	var packet: RefCounted
 	var attachment: SignalAttachment
-	
+
 	func _init(packet: RefCounted, attachment: SignalAttachment):
 		self.packet = packet
 		self.attachment = attachment
@@ -43,10 +43,10 @@ class EncodedPacketInfo:
 
 class DecodedPacketInfo:
 	extends RefCounted
-	
+
 	var packet: RefCounted
 	var attachment: SignalAttachment
-	
+
 	func _init(packet: RefCounted, attachment: SignalAttachment):
 		self.packet = packet
 		self.attachment = attachment
@@ -112,7 +112,7 @@ func asyncAsk(packet):
 	signalAttachmentMap[signalId] = encodedPacketInfo
 	for key in signalAttachmentMap.keys():
 		var oldAttachment = signalAttachmentMap[key].attachment
-		if oldAttachment != null && oldAttachment.timestamp - currentTime > 60000:
+		if oldAttachment != null && currentTime - oldAttachment.timestamp > 60000:
 			signalAttachmentMap.erase(key) # remove timeout packet
 		pass
 	var returnPacket = await encodedPacketInfo.PacketSignal
@@ -121,7 +121,7 @@ func asyncAsk(packet):
 	return returnPacket
 	pass
 
-	
+
 func encodeAndSend(encodedPacketInfo: EncodedPacketInfo):
 	var packet = encodedPacketInfo.packet
 	var attachment = encodedPacketInfo.attachment
@@ -141,7 +141,7 @@ func encodeAndSend(encodedPacketInfo: EncodedPacketInfo):
 	client.put_data(data)
 	print(format("send packet [{}] [{}]", [packet.PROTOCOL_ID, packet._to_string()]))
 	pass
-	
+
 
 func decodeAndReceive():
 	var length = client.get_32()
