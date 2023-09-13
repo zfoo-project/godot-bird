@@ -16,9 +16,9 @@ dest_files=["res://.godot/imported/medals_1.png-07984b9abc452239f7c407cddb6ed612
 [params]
 
 compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
