@@ -35,96 +35,40 @@ var g: bool
 var gg: bool
 var ggg: Array[bool]
 var gggg: Array[bool]
-var h: String
-var hh: String
-var hhh: Array[String]
-var hhhh: Array[String]
 var jj: String
 var jjj: Array[String]
 var kk: ObjectA
 var kkk: Array[ObjectA]
 var l: Array[int]
-var ll: Array
-var lll: Array
+var ll: Array	# Array<Array<Array<number>>>
+var lll: Array	# Array<Array<ObjectA>>
 var llll: Array[String]
-var lllll: Array
-var m: Dictionary
-var mm: Dictionary
-var mmm: Dictionary
-var mmmm: Dictionary
-var mmmmm: Dictionary
+var lllll: Array	# Array<Map<number, string>>
+var m: Dictionary	# Map<number, string>
+var mm: Dictionary	# Map<number, ObjectA>
+var mmm: Dictionary	# Map<ObjectA, Array<number>>
+var mmmm: Dictionary	# Map<Array<Array<ObjectA>>, Array<Array<Array<number>>>>
+var mmmmm: Dictionary	# Map<Array<Map<number, string>>, Set<Map<number, string>>>
 var s: Array[int]
-var ss: Array
-var sss: Array
+var ss: Array	# Set<Set<Array<number>>>
+var sss: Array	# Set<Set<ObjectA>>
 var ssss: Array[String]
-var sssss: Array
+var sssss: Array	# Set<Map<number, string>>
 # 如果要修改协议并且兼容老协议，需要加上Compatible注解，按照增加的顺序添加order
 var myCompatible: int
 var myObject: ObjectA
 
-func map() -> Dictionary:
-	var map = {}
-	map["a"] = a
-	map["aa"] = aa
-	map["aaa"] = aaa
-	map["aaaa"] = aaaa
-	map["b"] = b
-	map["bb"] = bb
-	map["bbb"] = bbb
-	map["bbbb"] = bbbb
-	map["c"] = c
-	map["cc"] = cc
-	map["ccc"] = ccc
-	map["cccc"] = cccc
-	map["d"] = d
-	map["dd"] = dd
-	map["ddd"] = ddd
-	map["dddd"] = dddd
-	map["e"] = e
-	map["ee"] = ee
-	map["eee"] = eee
-	map["eeee"] = eeee
-	map["f"] = f
-	map["ff"] = ff
-	map["fff"] = fff
-	map["ffff"] = ffff
-	map["g"] = g
-	map["gg"] = gg
-	map["ggg"] = ggg
-	map["gggg"] = gggg
-	map["h"] = h
-	map["hh"] = hh
-	map["hhh"] = hhh
-	map["hhhh"] = hhhh
-	map["jj"] = jj
-	map["jjj"] = jjj
-	map["kk"] = kk
-	map["kkk"] = kkk
-	map["l"] = l
-	map["ll"] = ll
-	map["lll"] = lll
-	map["llll"] = llll
-	map["lllll"] = lllll
-	map["m"] = m
-	map["mm"] = mm
-	map["mmm"] = mmm
-	map["mmmm"] = mmmm
-	map["mmmmm"] = mmmmm
-	map["s"] = s
-	map["ss"] = ss
-	map["sss"] = sss
-	map["ssss"] = ssss
-	map["sssss"] = sssss
-	map["myCompatible"] = myCompatible
-	map["myObject"] = myObject
-	return map
-
 func _to_string() -> String:
-	return JSON.stringify(map())
+	const jsonTemplate = "{a:{}, aa:{}, aaa:{}, aaaa:{}, b:{}, bb:{}, bbb:{}, bbbb:{}, c:{}, cc:{}, ccc:{}, cccc:{}, d:{}, dd:{}, ddd:{}, dddd:{}, e:{}, ee:{}, eee:{}, eeee:{}, f:{}, ff:{}, fff:{}, ffff:{}, g:{}, gg:{}, ggg:{}, gggg:{}, jj:'{}', jjj:{}, kk:{}, kkk:{}, l:{}, ll:{}, lll:{}, llll:{}, lllll:{}, m:{}, mm:{}, mmm:{}, mmmm:{}, mmmmm:{}, s:{}, ss:{}, sss:{}, ssss:{}, sssss:{}, myCompatible:{}, myObject:{}}"
+	var params = [self.a, self.aa, JSON.stringify(self.aaa), JSON.stringify(self.aaaa), self.b, self.bb, JSON.stringify(self.bbb), JSON.stringify(self.bbbb), self.c, self.cc, JSON.stringify(self.ccc), JSON.stringify(self.cccc), self.d, self.dd, JSON.stringify(self.ddd), JSON.stringify(self.dddd), self.e, self.ee, JSON.stringify(self.eee), JSON.stringify(self.eeee), self.f, self.ff, JSON.stringify(self.fff), JSON.stringify(self.ffff), self.g, self.gg, JSON.stringify(self.ggg), JSON.stringify(self.gggg), self.jj, JSON.stringify(self.jjj), self.kk, JSON.stringify(self.kkk), JSON.stringify(self.l), JSON.stringify(self.ll), JSON.stringify(self.lll), JSON.stringify(self.llll), JSON.stringify(self.lllll), JSON.stringify(self.m), JSON.stringify(self.mm), JSON.stringify(self.mmm), JSON.stringify(self.mmmm), JSON.stringify(self.mmmmm), JSON.stringify(self.s), JSON.stringify(self.ss), JSON.stringify(self.sss), JSON.stringify(self.ssss), JSON.stringify(self.sssss), self.myCompatible, self.myObject]
+	return jsonTemplate.format(params, "{}")
 
 static func write(buffer, packet):
-	if (buffer.writePacketFlag(packet)):
+	if (packet == null):
+		buffer.writeInt(0)
 		return
+	var beforeWriteIndex = buffer.getWriteOffset()
+	buffer.writeInt(36962)
 	buffer.writeByte(packet.a)
 	buffer.writeByte(packet.aa)
 	buffer.writeByteArray(packet.aaa)
@@ -153,10 +97,6 @@ static func write(buffer, packet):
 	buffer.writeBool(packet.gg)
 	buffer.writeBooleanArray(packet.ggg)
 	buffer.writeBooleanArray(packet.gggg)
-	buffer.writeChar(packet.h)
-	buffer.writeChar(packet.hh)
-	buffer.writeCharArray(packet.hhh)
-	buffer.writeCharArray(packet.hhhh)
 	buffer.writeString(packet.jj)
 	buffer.writeStringArray(packet.jjj)
 	buffer.writePacket(packet.kk, 102)
@@ -264,10 +204,14 @@ static func write(buffer, packet):
 			buffer.writeIntStringMap(element18)
 	buffer.writeInt(packet.myCompatible)
 	buffer.writePacket(packet.myObject, 102)
+	buffer.adjustPadding(36962, beforeWriteIndex)
+	pass
 
 static func read(buffer):
-	if (!buffer.readBool()):
+	var length = buffer.readInt()
+	if (length == 0):
 		return null
+	var beforeReadIndex = buffer.getReadOffset()
 	var packet = buffer.newInstance(PROTOCOL_ID)
 	var result19 = buffer.readByte()
 	packet.a = result19
@@ -325,141 +269,133 @@ static func read(buffer):
 	packet.ggg = array45
 	var array46 = buffer.readBooleanArray()
 	packet.gggg = array46
-	var result47 = buffer.readChar()
-	packet.h = result47
-	var result48 = buffer.readChar()
-	packet.hh = result48
-	var array49 = buffer.readCharArray()
-	packet.hhh = array49
-	var array50 = buffer.readCharArray()
-	packet.hhhh = array50
-	var result51 = buffer.readString()
-	packet.jj = result51
-	var array52 = buffer.readStringArray()
-	packet.jjj = array52
-	var result53 = buffer.readPacket(102)
-	packet.kk = result53
-	var array54 = buffer.readPacketArray(102)
-	packet.kkk = array54
-	var list55 = buffer.readIntArray()
-	packet.l = list55
-	var result56 = []
-	var size58 = buffer.readInt()
-	if (size58 > 0):
-		for index57 in range(size58):
-			var result59 = []
-			var size61 = buffer.readInt()
-			if (size61 > 0):
-				for index60 in range(size61):
-					var list62 = buffer.readIntArray()
-					result59.append(list62)
-			result56.append(result59)
-	packet.ll = result56
-	var result63 = []
-	var size65 = buffer.readInt()
-	if (size65 > 0):
-		for index64 in range(size65):
-			var list66 = buffer.readPacketArray(102)
-			result63.append(list66)
-	packet.lll = result63
-	var list67 = buffer.readStringArray()
-	packet.llll = list67
-	var result68 = []
-	var size70 = buffer.readInt()
-	if (size70 > 0):
-		for index69 in range(size70):
-			var map71 = buffer.readIntStringMap()
-			result68.append(map71)
-	packet.lllll = result68
-	var map72 = buffer.readIntStringMap()
-	packet.m = map72
-	var map73 = buffer.readIntPacketMap(102)
-	packet.mm = map73
-	var result74 = {}
-	var size75 = buffer.readInt()
-	if (size75 > 0):
-		for index76 in range(size75):
-			var result77 = buffer.readPacket(102)
-			var list78 = buffer.readIntArray()
-			result74[result77] = list78
-	packet.mmm = result74
-	var result79 = {}
-	var size80 = buffer.readInt()
-	if (size80 > 0):
-		for index81 in range(size80):
+	var result47 = buffer.readString()
+	packet.jj = result47
+	var array48 = buffer.readStringArray()
+	packet.jjj = array48
+	var result49 = buffer.readPacket(102)
+	packet.kk = result49
+	var array50 = buffer.readPacketArray(102)
+	packet.kkk = array50
+	var list51 = buffer.readIntArray()
+	packet.l = list51
+	var result52 = []
+	var size54 = buffer.readInt()
+	if (size54 > 0):
+		for index53 in range(size54):
+			var result55 = []
+			var size57 = buffer.readInt()
+			if (size57 > 0):
+				for index56 in range(size57):
+					var list58 = buffer.readIntArray()
+					result55.append(list58)
+			result52.append(result55)
+	packet.ll = result52
+	var result59 = []
+	var size61 = buffer.readInt()
+	if (size61 > 0):
+		for index60 in range(size61):
+			var list62 = buffer.readPacketArray(102)
+			result59.append(list62)
+	packet.lll = result59
+	var list63 = buffer.readStringArray()
+	packet.llll = list63
+	var result64 = []
+	var size66 = buffer.readInt()
+	if (size66 > 0):
+		for index65 in range(size66):
+			var map67 = buffer.readIntStringMap()
+			result64.append(map67)
+	packet.lllll = result64
+	var map68 = buffer.readIntStringMap()
+	packet.m = map68
+	var map69 = buffer.readIntPacketMap(102)
+	packet.mm = map69
+	var result70 = {}
+	var size71 = buffer.readInt()
+	if (size71 > 0):
+		for index72 in range(size71):
+			var result73 = buffer.readPacket(102)
+			var list74 = buffer.readIntArray()
+			result70[result73] = list74
+	packet.mmm = result70
+	var result75 = {}
+	var size76 = buffer.readInt()
+	if (size76 > 0):
+		for index77 in range(size76):
+			var result78 = []
+			var size80 = buffer.readInt()
+			if (size80 > 0):
+				for index79 in range(size80):
+					var list81 = buffer.readPacketArray(102)
+					result78.append(list81)
 			var result82 = []
 			var size84 = buffer.readInt()
 			if (size84 > 0):
 				for index83 in range(size84):
-					var list85 = buffer.readPacketArray(102)
-					result82.append(list85)
-			var result86 = []
-			var size88 = buffer.readInt()
-			if (size88 > 0):
-				for index87 in range(size88):
-					var result89 = []
-					var size91 = buffer.readInt()
-					if (size91 > 0):
-						for index90 in range(size91):
-							var list92 = buffer.readIntArray()
-							result89.append(list92)
-					result86.append(result89)
-			result79[result82] = result86
-	packet.mmmm = result79
-	var result93 = {}
-	var size94 = buffer.readInt()
-	if (size94 > 0):
-		for index95 in range(size94):
+					var result85 = []
+					var size87 = buffer.readInt()
+					if (size87 > 0):
+						for index86 in range(size87):
+							var list88 = buffer.readIntArray()
+							result85.append(list88)
+					result82.append(result85)
+			result75[result78] = result82
+	packet.mmmm = result75
+	var result89 = {}
+	var size90 = buffer.readInt()
+	if (size90 > 0):
+		for index91 in range(size90):
+			var result92 = []
+			var size94 = buffer.readInt()
+			if (size94 > 0):
+				for index93 in range(size94):
+					var map95 = buffer.readIntStringMap()
+					result92.append(map95)
 			var result96 = []
 			var size98 = buffer.readInt()
 			if (size98 > 0):
 				for index97 in range(size98):
 					var map99 = buffer.readIntStringMap()
 					result96.append(map99)
-			var result100 = []
-			var size102 = buffer.readInt()
-			if (size102 > 0):
-				for index101 in range(size102):
-					var map103 = buffer.readIntStringMap()
-					result100.append(map103)
-			result93[result96] = result100
-	packet.mmmmm = result93
-	var set104 = buffer.readIntArray()
-	packet.s = set104
-	var result105 = []
-	var size107 = buffer.readInt()
-	if (size107 > 0):
-		for index106 in range(size107):
-			var result108 = []
-			var size110 = buffer.readInt()
-			if (size110 > 0):
-				for index109 in range(size110):
-					var list111 = buffer.readIntArray()
-					result108.append(list111)
-			result105.append(result108)
-	packet.ss = result105
-	var result112 = []
-	var size114 = buffer.readInt()
-	if (size114 > 0):
-		for index113 in range(size114):
-			var set115 = buffer.readPacketArray(102)
-			result112.append(set115)
-	packet.sss = result112
-	var set116 = buffer.readStringArray()
-	packet.ssss = set116
-	var result117 = []
-	var size119 = buffer.readInt()
-	if (size119 > 0):
-		for index118 in range(size119):
-			var map120 = buffer.readIntStringMap()
-			result117.append(map120)
-	packet.sssss = result117
-	if (!buffer.isReadable()):
-		return packet
-	var result121 = buffer.readInt()
-	packet.myCompatible = result121
-	if (!buffer.isReadable()):
-		return packet
-	var result122 = buffer.readPacket(102)
-	packet.myObject = result122
+			result89[result92] = result96
+	packet.mmmmm = result89
+	var set100 = buffer.readIntArray()
+	packet.s = set100
+	var result101 = []
+	var size103 = buffer.readInt()
+	if (size103 > 0):
+		for index102 in range(size103):
+			var result104 = []
+			var size106 = buffer.readInt()
+			if (size106 > 0):
+				for index105 in range(size106):
+					var list107 = buffer.readIntArray()
+					result104.append(list107)
+			result101.append(result104)
+	packet.ss = result101
+	var result108 = []
+	var size110 = buffer.readInt()
+	if (size110 > 0):
+		for index109 in range(size110):
+			var set111 = buffer.readPacketArray(102)
+			result108.append(set111)
+	packet.sss = result108
+	var set112 = buffer.readStringArray()
+	packet.ssss = set112
+	var result113 = []
+	var size115 = buffer.readInt()
+	if (size115 > 0):
+		for index114 in range(size115):
+			var map116 = buffer.readIntStringMap()
+			result113.append(map116)
+	packet.sssss = result113
+	if buffer.compatibleRead(beforeReadIndex, length):
+		var result117 = buffer.readInt()
+		packet.myCompatible = result117;
+	if buffer.compatibleRead(beforeReadIndex, length):
+		var result118 = buffer.readPacket(102)
+		packet.myObject = result118;
+	if (length > 0):
+		buffer.setReadOffset(beforeReadIndex + length)
 	return packet

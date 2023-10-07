@@ -16,9 +16,9 @@ dest_files=["res://.godot/imported/UI_Popup_Tab_A_03.png-632a5f855ea2f2fe12b8d44
 [params]
 
 compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false

@@ -16,9 +16,9 @@ dest_files=["res://.godot/imported/UI_Main_Common_BG_02.png-09ff754170f0b01db660
 [params]
 
 compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false

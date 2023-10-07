@@ -16,9 +16,9 @@ dest_files=["res://.godot/imported/bird2_2.png-139dd45a69eeca00d97d22a65172fdfa.
 [params]
 
 compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false

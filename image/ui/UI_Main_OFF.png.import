@@ -16,9 +16,9 @@ dest_files=["res://.godot/imported/UI_Main_OFF.png-1e4f2b97e7fbaa0285cd3d22e4689
 [params]
 
 compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
