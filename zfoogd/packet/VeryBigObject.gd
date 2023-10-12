@@ -1,7 +1,7 @@
 const PROTOCOL_ID = 1
 const PROTOCOL_CLASS_NAME = "VeryBigObject"
-const ObjectA = preload("res://protocoltest/packet/ObjectA.gd")
-const ObjectB = preload("res://protocoltest/packet/ObjectB.gd")
+const ObjectA = preload("res://zfoogd/packet/ObjectA.gd")
+const ObjectB = preload("res://zfoogd/packet/ObjectB.gd")
 
 
 var a1: int

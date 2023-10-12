@@ -1,8 +1,8 @@
 extends Node2D
 
 
-const ProtocolManager = preload("res://protocoltest/ProtocolManager.gd")
-const ByteBuffer = preload("res://protocoltest/ByteBuffer.gd")
+const ProtocolManager = preload("res://zfoogd/ProtocolManager.gd")
+const ByteBuffer = preload("res://zfoogd/ByteBuffer.gd")
 const FileUtils = preload("res://zfoo/FileUtils.gd")
 
 # 测试参数

@@ -1,10 +1,10 @@
-const EmptyObject = preload("res://protocoltest/packet/EmptyObject.gd")
-const VeryBigObject = preload("res://protocoltest/packet/VeryBigObject.gd")
-const ComplexObject = preload("res://protocoltest/packet/ComplexObject.gd")
-const NormalObject = preload("res://protocoltest/packet/NormalObject.gd")
-const ObjectA = preload("res://protocoltest/packet/ObjectA.gd")
-const ObjectB = preload("res://protocoltest/packet/ObjectB.gd")
-const SimpleObject = preload("res://protocoltest/packet/SimpleObject.gd")
+const EmptyObject = preload("res://zfoogd/packet/EmptyObject.gd")
+const VeryBigObject = preload("res://zfoogd/packet/VeryBigObject.gd")
+const ComplexObject = preload("res://zfoogd/packet/ComplexObject.gd")
+const NormalObject = preload("res://zfoogd/packet/NormalObject.gd")
+const ObjectA = preload("res://zfoogd/packet/ObjectA.gd")
+const ObjectB = preload("res://zfoogd/packet/ObjectB.gd")
+const SimpleObject = preload("res://zfoogd/packet/SimpleObject.gd")
 
 const protocols: Dictionary = {
 	0: EmptyObject,

@@ -1,7 +1,7 @@
 const PROTOCOL_ID = 100
 const PROTOCOL_CLASS_NAME = "ComplexObject"
-const ObjectA = preload("res://protocoltest/packet/ObjectA.gd")
-const ObjectB = preload("res://protocoltest/packet/ObjectB.gd")
+const ObjectA = preload("res://zfoogd/packet/ObjectA.gd")
+const ObjectB = preload("res://zfoogd/packet/ObjectB.gd")
 
 # 复杂的对象，包括了各种复杂的结构，数组，List，Set，Map
 # byte类型，最简单的整形

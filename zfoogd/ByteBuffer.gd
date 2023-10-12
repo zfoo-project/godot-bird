@@ -1,4 +1,4 @@
-const ProtocolManager = preload("res://protocoltest/ProtocolManager.gd")
+const ProtocolManager = preload("res://zfoogd/ProtocolManager.gd")
 
 const EMPTY: String = ""
 
@@ -26,9 +26,10 @@ func adjustPadding(predictionLength: int, beforeWriteIndex: int) -> void:
 	else:
 		buffer.seek(currentWriteIndex - length)
 		var retainedByteBuf = buffer.get_partial_data(length)
-		setWriteOffset(beforeWriteIndex)
+		buffer.seek(beforeWriteIndex)
 		writeInt(length)
-		writePackedByteArray(retainedByteBuf[1])
+		buffer.put_partial_data(retainedByteBuf)
+		setWriteOffset(getWriteOffset() + length)
 	pass
 
 func compatibleRead(beforeReadIndex: int, length: int) -> bool:
