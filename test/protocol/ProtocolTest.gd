@@ -79,21 +79,22 @@ func _ready():
 	buffer.writeString(strValue)
 	assert(strValue == buffer.readString())
 	
-	buffer.writeChar(strValue)
-	assert(strValue[0] == buffer.readChar())
-	buffer.writeChar("")
-	assert(ByteBuffer.EMPTY == buffer.readChar())
 	test()
 
 
 func test():
 	var buffer = ByteBuffer.new()
-	var poolByteArray = FileUtils.readFileToByteArray("res://test/protocol/ComplexObject.txt")
+	#var poolByteArray = FileUtils.readFileToByteArray("res://test/protocol/normal-no-compatible.txt")
+	#var poolByteArray = FileUtils.readFileToByteArray("res://test/protocol/normal-inner-compatible.txt")
+	#var poolByteArray = FileUtils.readFileToByteArray("res://test/protocol/normal-out-compatible.txt")
+	#var poolByteArray = FileUtils.readFileToByteArray("res://test/protocol/normal-out-inner-compatible.txt")
+	var poolByteArray = FileUtils.readFileToByteArray("res://test/protocol/normal-out-inner-inner-compatible.txt")
+
 	buffer.writePackedByteArray(poolByteArray)
 	
 	var packet = ProtocolManager.read(buffer)
 	print(packet)
-	packet.myCompatible = 0
+
 	var newByteBuffer = ByteBuffer.new()
 	ProtocolManager.write(newByteBuffer, packet);
 	print(newByteBuffer.getWriteOffset())

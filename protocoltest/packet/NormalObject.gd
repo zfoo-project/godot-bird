@@ -18,39 +18,24 @@ var l: Array[int]
 var ll: Array[int]
 var lll: Array[ObjectA]
 var llll: Array[String]
-var m: Dictionary
-var mm: Dictionary
+var m: Dictionary	# Map<number, string>
+var mm: Dictionary	# Map<number, ObjectA>
 var s: Array[int]
 var ssss: Array[String]
-
-func map() -> Dictionary:
-	var map = {}
-	map["a"] = a
-	map["aaa"] = aaa
-	map["b"] = b
-	map["c"] = c
-	map["d"] = d
-	map["e"] = e
-	map["f"] = f
-	map["g"] = g
-	map["jj"] = jj
-	map["kk"] = kk
-	map["l"] = l
-	map["ll"] = ll
-	map["lll"] = lll
-	map["llll"] = llll
-	map["m"] = m
-	map["mm"] = mm
-	map["s"] = s
-	map["ssss"] = ssss
-	return map
+var outCompatibleValue: int
+var outCompatibleValue2: int
 
 func _to_string() -> String:
-	return JSON.stringify(map())
+	const jsonTemplate = "{a:{}, aaa:{}, b:{}, c:{}, d:{}, e:{}, f:{}, g:{}, jj:'{}', kk:{}, l:{}, ll:{}, lll:{}, llll:{}, m:{}, mm:{}, s:{}, ssss:{}, outCompatibleValue:{}, outCompatibleValue2:{}}"
+	var params = [self.a, JSON.stringify(self.aaa), self.b, self.c, self.d, self.e, self.f, self.g, self.jj, self.kk, JSON.stringify(self.l), JSON.stringify(self.ll), JSON.stringify(self.lll), JSON.stringify(self.llll), JSON.stringify(self.m), JSON.stringify(self.mm), JSON.stringify(self.s), JSON.stringify(self.ssss), self.outCompatibleValue, self.outCompatibleValue2]
+	return jsonTemplate.format(params, "{}")
 
 static func write(buffer, packet):
-	if (buffer.writePacketFlag(packet)):
+	if (packet == null):
+		buffer.writeInt(0)
 		return
+	var beforeWriteIndex = buffer.getWriteOffset()
+	buffer.writeInt(857)
 	buffer.writeByte(packet.a)
 	buffer.writeByteArray(packet.aaa)
 	buffer.writeShort(packet.b)
@@ -69,10 +54,16 @@ static func write(buffer, packet):
 	buffer.writeIntPacketMap(packet.mm, 102)
 	buffer.writeIntArray(packet.s)
 	buffer.writeStringArray(packet.ssss)
+	buffer.writeInt(packet.outCompatibleValue)
+	buffer.writeInt(packet.outCompatibleValue2)
+	buffer.adjustPadding(857, beforeWriteIndex)
+	pass
 
 static func read(buffer):
-	if (!buffer.readBool()):
+	var length = buffer.readInt()
+	if (length == 0):
 		return null
+	var beforeReadIndex = buffer.getReadOffset()
 	var packet = buffer.newInstance(PROTOCOL_ID)
 	var result0 = buffer.readByte()
 	packet.a = result0
@@ -110,4 +101,12 @@ static func read(buffer):
 	packet.s = set16
 	var set17 = buffer.readStringArray()
 	packet.ssss = set17
+	if buffer.compatibleRead(beforeReadIndex, length):
+		var result18 = buffer.readInt()
+		packet.outCompatibleValue = result18;
+	if buffer.compatibleRead(beforeReadIndex, length):
+		var result19 = buffer.readInt()
+		packet.outCompatibleValue2 = result19;
+	if (length > 0):
+		buffer.setReadOffset(beforeReadIndex + length)
 	return packet

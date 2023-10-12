@@ -1,3 +1,4 @@
+const EmptyObject = preload("res://protocoltest/packet/EmptyObject.gd")
 const VeryBigObject = preload("res://protocoltest/packet/VeryBigObject.gd")
 const ComplexObject = preload("res://protocoltest/packet/ComplexObject.gd")
 const NormalObject = preload("res://protocoltest/packet/NormalObject.gd")
@@ -6,7 +7,8 @@ const ObjectB = preload("res://protocoltest/packet/ObjectB.gd")
 const SimpleObject = preload("res://protocoltest/packet/SimpleObject.gd")
 
 const protocols: Dictionary = {
-	0: VeryBigObject,
+	0: EmptyObject,
+	1: VeryBigObject,
 	100: ComplexObject,
 	101: NormalObject,
 	102: ObjectA,
@@ -28,7 +30,7 @@ static func write(buffer, packet):
 	protocol.write(buffer, packet)
 
 static func read(buffer):
-	var protocolId = buffer.readShort();
+	var protocolId = buffer.readShort()
 	var protocol = protocols[protocolId]
-	var packet = protocol.read(buffer);
-	return packet;
+	var packet = protocol.read(buffer)
+	return packet
