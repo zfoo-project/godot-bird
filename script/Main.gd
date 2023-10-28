@@ -1,12 +1,13 @@
 extends Node
 
+const TcpClient = preload("res://script/TcpClient.gd")
+const TcpClientThreads = preload("res://script/TcpClientThreads.gd")
 const FileUtils = preload("res://zfoo/FileUtils.gd")
 const RandomUtils = preload("res://zfoo/RandomUtils.gd")
 const StringUtils = preload("res://zfoo/StringUtils.gd")
 const ByteBufferStorage =preload("res://storage/ByteBuffer.gd")
 const ProtocolManagerStorage = preload("res://storage/ProtocolManager.gd")
 const ResourceStorage = preload("res://storage/ResourceStorage.gd")
-const TcpClient = preload("res://script/TcpClient.gd")
 const GetPlayerInfoResponse = preload("res://protocol/protocol/login/GetPlayerInfoResponse.gd")
 const BattleResultResponse = preload("res://protocol/protocol/battle/BattleResultResponse.gd")
 const CurrencyUpdateNotice = preload("res://protocol/protocol/CurrencyUpdateNotice.gd")
@@ -110,7 +111,7 @@ func notify(message: String):
 
 # 网络连接服务器相关
 #var tcpClient: TcpClient = TcpClient.new("127.0.0.1:16000")
-var tcpClient: TcpClient = TcpClient.new("127.0.0.1:16000") if OS.has_feature("editor") else TcpClient.new("47.103.82.45:16000")
+var tcpClient: TcpClientThreads = TcpClientThreads.new("127.0.0.1:16000") if OS.has_feature("editor") else TcpClientThreads.new("47.103.82.45:16000")
 # 登录令牌
 var token: String = StringUtils.EMPTY
 

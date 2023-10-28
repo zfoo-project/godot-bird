@@ -28,7 +28,16 @@ func start():
 	print(format("tcp client send threadId:[{}]", [sendThread.get_id()]))
 	pass
 
-	
+func update():
+	var packet = popReceivePacket()
+	if packet == null:
+		return
+	if !packetBus.has(packet.PROTOCOL_ID):
+		printerr(format("[protocol:{}][protocolId:{}] has no registration, please register for this protocol", [packet.PROTOCOL_CLASS_NAME, packet.PROTOCOL_ID]))
+		return
+	packetBus[packet.PROTOCOL_ID].call(packet)
+	pass
+
 class EncodedPacketInfo:
 	extends RefCounted
 	
@@ -70,10 +79,27 @@ var sendSemaphore: Semaphore = Semaphore.new()
 var signalAttachmentMap: Dictionary = {}
 var signalAttachmentMutex: Mutex = Mutex.new()
 
+# PacketBus
+var packetBus: Dictionary = {}
 
 func isConnected() -> bool:
 	var status = client.get_status()
 	return true if status == StreamPeerTCP.STATUS_CONNECTED else false
+	pass
+
+func registerReceiver(protocol, callable: Callable):
+	if packetBus.has(protocol.PROTOCOL_ID):
+		var old = packetBus[protocol.PROTOCOL_ID]
+		printerr(format("duplicate [protocol:{}] receiver [old:{}] [new:{}]", [protocol, old, callable]))
+		return
+	packetBus[protocol.PROTOCOL_ID] = callable
+	pass
+
+func removeReceiver(receiver):
+	for key in packetBus.keys():
+		var callable: Callable = packetBus[key]
+		if callable.get_object_id() == receiver.get_instance_id():
+			packetBus.erase(key)
 	pass
 
 
@@ -99,7 +125,6 @@ func send(packet):
 	if packet == null:
 		printerr("null point exception")
 	addToSendQueue(EncodedPacketInfo.new(packet, null))
-	sendSemaphore.post()
 	pass
 
 
@@ -124,6 +149,7 @@ func asyncAsk(packet):
 	signalAttachmentMutex.unlock()
 	print("33333333333333333333333333333333333333333333333")
 	var returnPacket = await encodedPacketInfo.PacketSignal
+	print("33333333333333333333333333333333333333333333333xxxxxxxxxxxxxxxxxxxxxxxxx")
 	# remove attachment
 	signalAttachmentMutex.lock()
 	signalAttachmentMap.erase(signalId)
@@ -178,6 +204,7 @@ func addToSendQueue(encodedPacketInfo: EncodedPacketInfo):
 	sendMutex.lock()
 	sendQueue.push_back(encodedPacketInfo)
 	sendMutex.unlock()
+	sendSemaphore.post()
 	pass
 
 func addToReceiveQueue(decodedPacketInfo: DecodedPacketInfo):
@@ -204,15 +231,15 @@ func tickConnect():
 				# 断线重连
 				client.disconnect_from_host()
 				client.connect_to_host(host, port)
-				if (currentTime - errorTime) > 1:
+				if (currentTime - errorTime) > 3:
 					printerr(format("status error host [{}:{}]", [host, port]))
 					errorTime = currentTime
 			StreamPeerTCP.STATUS_CONNECTING:
-				if (currentTime - connectingTime) > 1:
+				if (currentTime - connectingTime) > 3:
 					print(format("status connecting host [{}:{}]", [host, port]))
 					connectingTime = currentTime
 			StreamPeerTCP.STATUS_CONNECTED:
-				if (currentTime - connectedTime) > 1:
+				if (currentTime - connectedTime) > 60:
 					print(format("status connected host [{}:{}]", [host, port]))
 					connectedTime = currentTime
 				if client.get_available_bytes() > 4:
@@ -254,8 +281,6 @@ func tickSend():
 # 格式化字符串
 func format(template: String, args: Array) -> String:
 	return template.format(args, "{}")
-	pass
-
 
 var uuid = 0
 var uuidMutex: Mutex = Mutex.new()
@@ -265,4 +290,3 @@ func uuidInt() -> int:
 	var id = uuid
 	uuidMutex.unlock()
 	return id
-	pass

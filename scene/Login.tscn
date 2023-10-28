@@ -138,10 +138,10 @@ scale = Vector2(0.70066, 0.70066)
 texture = ExtResource("5_r1l1y")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
-autoplay = "title"
 libraries = {
 "": SubResource("AnimationLibrary_f2j7k")
 }
+autoplay = "title"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_vbsb5")
