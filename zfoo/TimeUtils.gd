@@ -24,7 +24,9 @@ static func currentTimeMillis() -> int:
 
 
 static func timeToString(timestamp: int) -> String:
+	@warning_ignore("integer_division")
 	return Time.get_datetime_string_from_unix_time((timestamp + MILLIS_PER_HOUR_8) / MILLIS_PER_SECOND, true)
 
 static func timeToDateString(timestamp: int) -> String:
+	@warning_ignore("integer_division")
 	return Time.get_date_string_from_unix_time((timestamp + MILLIS_PER_HOUR_8) / MILLIS_PER_SECOND)
