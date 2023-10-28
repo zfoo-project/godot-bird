@@ -112,7 +112,7 @@ func asyncAsk(packet):
 	# add attachment
 	signalAttachmentMap[signalId] = encodedPacketInfo
 	for key in signalAttachmentMap.keys():
-		var oldAttachment: EncodedPacketInfo = signalAttachmentMap[key].attachment
+		var oldAttachment = signalAttachmentMap[key].attachment
 		if oldAttachment != null && currentTime - oldAttachment.timestamp > 60000:
 			signalAttachmentMap.erase(key) # remove timeout packet
 	var returnPacket = await encodedPacketInfo.PacketSignal
