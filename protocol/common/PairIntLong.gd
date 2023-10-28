@@ -1,14 +1,13 @@
-const PROTOCOL_ID = 100
-const PROTOCOL_CLASS_NAME = "Message"
+const PROTOCOL_ID = 110
+const PROTOCOL_CLASS_NAME = "PairIntLong"
 
 
-var module: int
-var code: int
-var message: String
+var key: int
+var value: int
 
 func _to_string() -> String:
-	const jsonTemplate = "{module:{}, code:{}, message:'{}'}"
-	var params = [self.module, self.code, self.message]
+	const jsonTemplate = "{key:{}, value:{}}"
+	var params = [self.key, self.value]
 	return jsonTemplate.format(params, "{}")
 
 static func write(buffer, packet):
@@ -16,9 +15,8 @@ static func write(buffer, packet):
 		buffer.writeInt(0)
 		return
 	buffer.writeInt(-1)
-	buffer.writeInt(packet.code)
-	buffer.writeString(packet.message)
-	buffer.writeByte(packet.module)
+	buffer.writeInt(packet.key)
+	buffer.writeLong(packet.value)
 	pass
 
 static func read(buffer):
@@ -28,11 +26,9 @@ static func read(buffer):
 	var beforeReadIndex = buffer.getReadOffset()
 	var packet = buffer.newInstance(PROTOCOL_ID)
 	var result0 = buffer.readInt()
-	packet.code = result0
-	var result1 = buffer.readString()
-	packet.message = result1
-	var result2 = buffer.readByte()
-	packet.module = result2
+	packet.key = result0
+	var result1 = buffer.readLong()
+	packet.value = result1
 	if (length > 0):
 		buffer.setReadOffset(beforeReadIndex + length)
 	return packet

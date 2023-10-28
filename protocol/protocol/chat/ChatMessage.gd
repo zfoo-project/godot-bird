@@ -9,32 +9,29 @@ var name: String
 var message: String
 var timestamp: int
 
-func map() -> Dictionary:
-	var map = {}
-	map["id"] = id
-	map["sendId"] = sendId
-	map["avatar"] = avatar
-	map["name"] = name
-	map["message"] = message
-	map["timestamp"] = timestamp
-	return map
-
 func _to_string() -> String:
-	return JSON.stringify(map())
+	const jsonTemplate = "{id:{}, sendId:{}, avatar:'{}', name:'{}', message:'{}', timestamp:{}}"
+	var params = [self.id, self.sendId, self.avatar, self.name, self.message, self.timestamp]
+	return jsonTemplate.format(params, "{}")
 
 static func write(buffer, packet):
-	if (buffer.writePacketFlag(packet)):
+	if (packet == null):
+		buffer.writeInt(0)
 		return
+	buffer.writeInt(-1)
 	buffer.writeString(packet.avatar)
 	buffer.writeLong(packet.id)
 	buffer.writeString(packet.message)
 	buffer.writeString(packet.name)
 	buffer.writeLong(packet.sendId)
 	buffer.writeLong(packet.timestamp)
+	pass
 
 static func read(buffer):
-	if (!buffer.readBool()):
+	var length = buffer.readInt()
+	if (length == 0):
 		return null
+	var beforeReadIndex = buffer.getReadOffset()
 	var packet = buffer.newInstance(PROTOCOL_ID)
 	var result0 = buffer.readString()
 	packet.avatar = result0
@@ -48,4 +45,6 @@ static func read(buffer):
 	packet.sendId = result4
 	var result5 = buffer.readLong()
 	packet.timestamp = result5
+	if (length > 0):
+		buffer.setReadOffset(beforeReadIndex + length)
 	return packet

@@ -1,18 +1,10 @@
 const SignalAttachment = preload("res://protocol/attachment/SignalAttachment.gd")
-const GatewayAttachment = preload("res://protocol/attachment/GatewayAttachment.gd")
-const UdpAttachment = preload("res://protocol/attachment/UdpAttachment.gd")
-const HttpAttachment = preload("res://protocol/attachment/HttpAttachment.gd")
-const NoAnswerAttachment = preload("res://protocol/attachment/NoAnswerAttachment.gd")
-const AuthUidToGatewayCheck = preload("res://protocol/model/AuthUidToGatewayCheck.gd")
-const AuthUidToGatewayConfirm = preload("res://protocol/model/AuthUidToGatewayConfirm.gd")
-const AuthUidAsk = preload("res://protocol/model/AuthUidAsk.gd")
-const GatewaySessionInactiveAsk = preload("res://protocol/model/GatewaySessionInactiveAsk.gd")
-const GatewaySynchronizeSidAsk = preload("res://protocol/model/GatewaySynchronizeSidAsk.gd")
 const Message = preload("res://protocol/common/Message.gd")
 const Error = preload("res://protocol/common/Error.gd")
 const Heartbeat = preload("res://protocol/common/Heartbeat.gd")
 const Ping = preload("res://protocol/common/Ping.gd")
 const Pong = preload("res://protocol/common/Pong.gd")
+const PairIntLong = preload("res://protocol/common/PairIntLong.gd")
 const PairLong = preload("res://protocol/common/PairLong.gd")
 const PairString = preload("res://protocol/common/PairString.gd")
 const PairLS = preload("res://protocol/common/PairLS.gd")
@@ -32,12 +24,8 @@ const BattleResultRequest = preload("res://protocol/protocol/battle/BattleResult
 const BattleResultResponse = preload("res://protocol/protocol/battle/BattleResultResponse.gd")
 const CurrencyUpdateNotice = preload("res://protocol/protocol/CurrencyUpdateNotice.gd")
 const PlayerExpNotice = preload("res://protocol/protocol/PlayerExpNotice.gd")
-const AdminPlayerLevelAsk = preload("res://protocol/protocol/admin/AdminPlayerLevelAsk.gd")
-const AdminCurrencyAsk = preload("res://protocol/protocol/admin/AdminCurrencyAsk.gd")
 const TestRequest = preload("res://protocol/protocol/TestRequest.gd")
 const TestResponse = preload("res://protocol/protocol/TestResponse.gd")
-const BattleScoreAsk = preload("res://protocol/protocol/cache/BattleScoreAsk.gd")
-const BattleScoreAnswer = preload("res://protocol/protocol/cache/BattleScoreAnswer.gd")
 const ScoreRankRequest = preload("res://protocol/protocol/cache/ScoreRankRequest.gd")
 const ScoreRankResponse = preload("res://protocol/protocol/cache/ScoreRankResponse.gd")
 const ChatMessage = preload("res://protocol/protocol/chat/ChatMessage.gd")
@@ -48,20 +36,12 @@ const GroupHistoryMessageResponse = preload("res://protocol/protocol/chat/GroupH
 
 const protocols: Dictionary = {
 	0: SignalAttachment,
-	1: GatewayAttachment,
-	2: UdpAttachment,
-	3: HttpAttachment,
-	4: NoAnswerAttachment,
-	20: AuthUidToGatewayCheck,
-	21: AuthUidToGatewayConfirm,
-	22: AuthUidAsk,
-	23: GatewaySessionInactiveAsk,
-	24: GatewaySynchronizeSidAsk,
 	100: Message,
 	101: Error,
 	102: Heartbeat,
 	103: Ping,
 	104: Pong,
+	110: PairIntLong,
 	111: PairLong,
 	112: PairString,
 	113: PairLS,
@@ -81,12 +61,8 @@ const protocols: Dictionary = {
 	1007: BattleResultResponse,
 	1100: CurrencyUpdateNotice,
 	1101: PlayerExpNotice,
-	1200: AdminPlayerLevelAsk,
-	1201: AdminCurrencyAsk,
 	1300: TestRequest,
 	1301: TestResponse,
-	3000: BattleScoreAsk,
-	3001: BattleScoreAnswer,
 	3002: ScoreRankRequest,
 	3003: ScoreRankResponse,
 	4000: ChatMessage,
@@ -110,7 +86,7 @@ static func write(buffer, packet):
 	protocol.write(buffer, packet)
 
 static func read(buffer):
-	var protocolId = buffer.readShort();
+	var protocolId = buffer.readShort()
 	var protocol = protocols[protocolId]
-	var packet = protocol.read(buffer);
-	return packet;
+	var packet = protocol.read(buffer)
+	return packet

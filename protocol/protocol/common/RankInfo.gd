@@ -7,26 +7,26 @@ var playerInfo: PlayerInfo
 var time: int
 var score: int
 
-func map() -> Dictionary:
-	var map = {}
-	map["playerInfo"] = playerInfo
-	map["time"] = time
-	map["score"] = score
-	return map
-
 func _to_string() -> String:
-	return JSON.stringify(map())
+	const jsonTemplate = "{playerInfo:{}, time:{}, score:{}}"
+	var params = [self.playerInfo, self.time, self.score]
+	return jsonTemplate.format(params, "{}")
 
 static func write(buffer, packet):
-	if (buffer.writePacketFlag(packet)):
+	if (packet == null):
+		buffer.writeInt(0)
 		return
+	buffer.writeInt(-1)
 	buffer.writePacket(packet.playerInfo, 400)
 	buffer.writeInt(packet.score)
 	buffer.writeLong(packet.time)
+	pass
 
 static func read(buffer):
-	if (!buffer.readBool()):
+	var length = buffer.readInt()
+	if (length == 0):
 		return null
+	var beforeReadIndex = buffer.getReadOffset()
 	var packet = buffer.newInstance(PROTOCOL_ID)
 	var result0 = buffer.readPacket(400)
 	packet.playerInfo = result0
@@ -34,4 +34,6 @@ static func read(buffer):
 	packet.score = result1
 	var result2 = buffer.readLong()
 	packet.time = result2
+	if (length > 0):
+		buffer.setReadOffset(beforeReadIndex + length)
 	return packet

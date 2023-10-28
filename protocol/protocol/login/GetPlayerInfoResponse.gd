@@ -7,27 +7,30 @@ const CurrencyVo = preload("res://protocol/protocol/common/CurrencyVo.gd")
 var playerInfo: PlayerInfo
 var currencyVo: CurrencyVo
 
-func map() -> Dictionary:
-	var map = {}
-	map["playerInfo"] = playerInfo
-	map["currencyVo"] = currencyVo
-	return map
-
 func _to_string() -> String:
-	return JSON.stringify(map())
+	const jsonTemplate = "{playerInfo:{}, currencyVo:{}}"
+	var params = [self.playerInfo, self.currencyVo]
+	return jsonTemplate.format(params, "{}")
 
 static func write(buffer, packet):
-	if (buffer.writePacketFlag(packet)):
+	if (packet == null):
+		buffer.writeInt(0)
 		return
+	buffer.writeInt(-1)
 	buffer.writePacket(packet.currencyVo, 401)
 	buffer.writePacket(packet.playerInfo, 400)
+	pass
 
 static func read(buffer):
-	if (!buffer.readBool()):
+	var length = buffer.readInt()
+	if (length == 0):
 		return null
+	var beforeReadIndex = buffer.getReadOffset()
 	var packet = buffer.newInstance(PROTOCOL_ID)
 	var result0 = buffer.readPacket(401)
 	packet.currencyVo = result0
 	var result1 = buffer.readPacket(400)
 	packet.playerInfo = result1
+	if (length > 0):
+		buffer.setReadOffset(beforeReadIndex + length)
 	return packet

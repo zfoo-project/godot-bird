@@ -8,30 +8,28 @@ var avatar: String
 var level: int
 var exp: int
 
-func map() -> Dictionary:
-	var map = {}
-	map["id"] = id
-	map["name"] = name
-	map["avatar"] = avatar
-	map["level"] = level
-	map["exp"] = exp
-	return map
-
 func _to_string() -> String:
-	return JSON.stringify(map())
+	const jsonTemplate = "{id:{}, name:'{}', avatar:'{}', level:{}, exp:{}}"
+	var params = [self.id, self.name, self.avatar, self.level, self.exp]
+	return jsonTemplate.format(params, "{}")
 
 static func write(buffer, packet):
-	if (buffer.writePacketFlag(packet)):
+	if (packet == null):
+		buffer.writeInt(0)
 		return
+	buffer.writeInt(-1)
 	buffer.writeString(packet.avatar)
 	buffer.writeLong(packet.exp)
 	buffer.writeLong(packet.id)
 	buffer.writeInt(packet.level)
 	buffer.writeString(packet.name)
+	pass
 
 static func read(buffer):
-	if (!buffer.readBool()):
+	var length = buffer.readInt()
+	if (length == 0):
 		return null
+	var beforeReadIndex = buffer.getReadOffset()
 	var packet = buffer.newInstance(PROTOCOL_ID)
 	var result0 = buffer.readString()
 	packet.avatar = result0
@@ -43,4 +41,6 @@ static func read(buffer):
 	packet.level = result3
 	var result4 = buffer.readString()
 	packet.name = result4
+	if (length > 0):
+		buffer.setReadOffset(beforeReadIndex + length)
 	return packet
