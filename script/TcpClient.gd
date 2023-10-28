@@ -22,7 +22,7 @@ func start():
 
 # It is necessary to call update every once in a while to start the network to send and receive
 func update():
-	tickConnect()
+	tickReceive()
 	tickSend()
 	pass
 
@@ -30,12 +30,12 @@ func update():
 class EncodedPacketInfo:
 	extends RefCounted
 
-	signal PacketSignal(packet: RefCounted)
+	signal PacketSignal(packet: Object)
 
 	var packet: RefCounted
 	var attachment: SignalAttachment
 
-	func _init(packet: RefCounted, attachment: SignalAttachment):
+	func _init(packet: Object, attachment: SignalAttachment):
 		self.packet = packet
 		self.attachment = attachment
 		pass
@@ -44,10 +44,10 @@ class EncodedPacketInfo:
 class DecodedPacketInfo:
 	extends RefCounted
 
-	var packet: RefCounted
+	var packet: Object
 	var attachment: SignalAttachment
 
-	func _init(packet: RefCounted, attachment: SignalAttachment):
+	func _init(packet: Object, attachment: SignalAttachment):
 		self.packet = packet
 		self.attachment = attachment
 		pass
@@ -105,21 +105,20 @@ func asyncAsk(packet):
 	var signalId = uuid
 	attachment.signalId = signalId
 	attachment.timestamp = currentTime
-	attachment.client = true
+	attachment.client = 12
+	attachment.taskExecutorHash = -1
 	var encodedPacketInfo: EncodedPacketInfo = EncodedPacketInfo.new(packet, attachment)
 	sendQueue.push_back(encodedPacketInfo)
 	# add attachment
 	signalAttachmentMap[signalId] = encodedPacketInfo
 	for key in signalAttachmentMap.keys():
-		var oldAttachment = signalAttachmentMap[key].attachment
+		var oldAttachment: EncodedPacketInfo = signalAttachmentMap[key].attachment
 		if oldAttachment != null && currentTime - oldAttachment.timestamp > 60000:
 			signalAttachmentMap.erase(key) # remove timeout packet
-		pass
 	var returnPacket = await encodedPacketInfo.PacketSignal
 	# remove attachment
 	signalAttachmentMap.erase(signalId)
 	return returnPacket
-	pass
 
 
 func encodeAndSend(encodedPacketInfo: EncodedPacketInfo):
@@ -152,11 +151,11 @@ func decodeAndReceive():
 		buffer.writePackedByteArray(PackedByteArray(data[1]))
 		var packet = ProtocolManager.read(buffer)
 		print(format("receive packet [{}]", [packet.PROTOCOL_CLASS_NAME]))
-		print(packet.map())
+		print(packet)
 		var attachment: SignalAttachment = null
 		if buffer.isReadable() && buffer.readBool():
 			attachment = ProtocolManager.read(buffer)
-			var clientAttachment = signalAttachmentMap[attachment.signalId]
+			var clientAttachment: EncodedPacketInfo = signalAttachmentMap[attachment.signalId]
 			clientAttachment.emit_signal("PacketSignal", packet)
 		else:
 			if !packetBus.has(packet.PROTOCOL_ID):
@@ -166,7 +165,7 @@ func decodeAndReceive():
 	pass
 
 
-func tickConnect():
+func tickReceive():
 	var currentTime = Time.get_unix_time_from_system()
 	client.poll()
 	var status = client.get_status()
@@ -224,5 +223,4 @@ func tickSend():
 # 格式化字符串
 func format(template: String, args: Array) -> String:
 	return template.format(args, "{}")
-	pass
 

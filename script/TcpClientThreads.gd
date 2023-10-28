@@ -7,7 +7,7 @@ const SignalAttachment = preload("res://protocol/attachment/SignalAttachment.gd"
 
 var client = StreamPeerTCP.new()
 
-var connectThread = Thread.new()
+var receiveThread = Thread.new()
 var sendThread = Thread.new()
 
 var host: String
@@ -22,20 +22,26 @@ func _init(hostAndPort: String):
 func start():
 	client.big_endian = true
 	client.connect_to_host(host, port)
-	connectThread.start(Callable(self, "tickConnect"))
 	sendThread.start(Callable(self, "tickSend"))
-	print(format("tcp client connect threadId:[{}]", [connectThread.get_id()]))
+	receiveThread.start(Callable(self, "tickReceive"))
+	print(format("tcp client connect threadId:[{}]", [receiveThread.get_id()]))
 	print(format("tcp client send threadId:[{}]", [sendThread.get_id()]))
 	pass
 
 func update():
-	var packet = popReceivePacket()
-	if packet == null:
+	var decodedPacketInfo = popReceivePacket()
+	if decodedPacketInfo == null:
 		return
-	if !packetBus.has(packet.PROTOCOL_ID):
-		printerr(format("[protocol:{}][protocolId:{}] has no registration, please register for this protocol", [packet.PROTOCOL_CLASS_NAME, packet.PROTOCOL_ID]))
-		return
-	packetBus[packet.PROTOCOL_ID].call(packet)
+	var packet = decodedPacketInfo.packet
+	var attachment = decodedPacketInfo.attachment
+	if attachment == null:
+		if !packetBus.has(packet.PROTOCOL_ID):
+			printerr(format("[protocol:{}][protocolId:{}] has no registration, please register for this protocol", [packet.PROTOCOL_CLASS_NAME, packet.PROTOCOL_ID]))
+			return
+		packetBus[packet.PROTOCOL_ID].call(packet)
+	else:
+		var clientAttachment: EncodedPacketInfo = signalAttachmentMap[attachment.signalId]
+		clientAttachment.emit_signal("PacketSignal", packet)
 	pass
 
 class EncodedPacketInfo:
@@ -43,27 +49,26 @@ class EncodedPacketInfo:
 	
 	signal PacketSignal(packet: RefCounted)
 	
-	var packet: RefCounted
+	var packet: Object
 	var attachment: SignalAttachment
 	
-	func _init(packet: RefCounted, attachment: SignalAttachment):
+	func _init(packet: Object, attachment: SignalAttachment):
 		self.packet = packet
 		self.attachment = attachment
-		pass
 	pass
 
 class DecodedPacketInfo:
 	extends RefCounted
 	
-	var packet: RefCounted
+	var packet: Object
 	var attachment: SignalAttachment
 	
-	func _init(packet: RefCounted, attachment: SignalAttachment):
+	func _init(packet: Object, attachment: SignalAttachment):
 		self.packet = packet
 		self.attachment = attachment
-		pass
 	pass
 
+###################################################################################
 var noneTime: int = 0
 var errorTime: int = 0
 var connectingTime: int = 0
@@ -81,11 +86,11 @@ var signalAttachmentMutex: Mutex = Mutex.new()
 
 # PacketBus
 var packetBus: Dictionary = {}
+###################################################################################
 
 func isConnected() -> bool:
 	var status = client.get_status()
 	return true if status == StreamPeerTCP.STATUS_CONNECTED else false
-	pass
 
 func registerReceiver(protocol, callable: Callable):
 	if packetBus.has(protocol.PROTOCOL_ID):
@@ -103,23 +108,20 @@ func removeReceiver(receiver):
 	pass
 
 
-func popReceivePacket():
+func popReceivePacket() -> DecodedPacketInfo:
 	if receiveQueue.is_empty():
 		return null
 	print(format("------------------------------ receive packet count [{}]", [receiveQueue.size()]))
 	receiveMutex.lock()
 	var decodedPacketInfo: DecodedPacketInfo = receiveQueue.pop_front()
 	receiveMutex.unlock()
-	return decodedPacketInfo.packet
-	pass
+	return decodedPacketInfo
 
 # 查看服务器返回的第一个包
 func peekReceivePacket():
 	if receiveQueue.is_empty():
 		return null
 	return receiveQueue.front().packet
-	pass
-
 
 func send(packet):
 	if packet == null:
@@ -136,28 +138,26 @@ func asyncAsk(packet):
 	var signalId = uuidInt()
 	attachment.signalId = signalId
 	attachment.timestamp = currentTime
-	attachment.client = true
+	attachment.client = 12
+	attachment.taskExecutorHash = -1
 	var encodedPacketInfo: EncodedPacketInfo = EncodedPacketInfo.new(packet, attachment)
 	addToSendQueue(encodedPacketInfo)
 	# add attachment
 	signalAttachmentMutex.lock()
-	signalAttachmentMap[signalId] = attachment
+	signalAttachmentMap[signalId] = encodedPacketInfo
 	for key in signalAttachmentMap.keys():
-		if signalAttachmentMap[key].timestamp - currentTime > 60000:
+		var oldAttachment = signalAttachmentMap[key].attachment
+		if oldAttachment != null && currentTime - oldAttachment.timestamp > 60000:
 			signalAttachmentMap.erase(key) # remove timeout packet
-		pass
 	signalAttachmentMutex.unlock()
-	print("33333333333333333333333333333333333333333333333")
 	var returnPacket = await encodedPacketInfo.PacketSignal
-	print("33333333333333333333333333333333333333333333333xxxxxxxxxxxxxxxxxxxxxxxxx")
 	# remove attachment
 	signalAttachmentMutex.lock()
 	signalAttachmentMap.erase(signalId)
 	signalAttachmentMutex.unlock()
 	return returnPacket
-	pass
 
-	
+
 func encodeAndSend(encodedPacketInfo: EncodedPacketInfo):
 	var packet = encodedPacketInfo.packet
 	var attachment = encodedPacketInfo.attachment
@@ -189,15 +189,10 @@ func decodeAndReceive():
 		var packet = ProtocolManager.read(buffer)
 		var attachment: SignalAttachment = null
 		if buffer.isReadable() && buffer.readBool():
-			print("11111111111111111111111111111111111111111111111111111111111")
 			attachment = ProtocolManager.read(buffer)
-			var clientAttachment = signalAttachmentMap[attachment.signalId]
-			print("11111111111111111111111111111111111111111111111111111111111")
-			clientAttachment.emit("PacketSignal", packet)
-			return
 		addToReceiveQueue(DecodedPacketInfo.new(packet, attachment))
 		print(format("receive packet [{}]", [packet.PROTOCOL_CLASS_NAME]))
-		print(packet.map())
+		print(packet)
 	pass
 
 func addToSendQueue(encodedPacketInfo: EncodedPacketInfo):
@@ -213,7 +208,7 @@ func addToReceiveQueue(decodedPacketInfo: DecodedPacketInfo):
 	receiveMutex.unlock()
 	pass
 
-func tickConnect():
+func tickReceive():
 	while true:
 		client.poll()
 		
@@ -274,7 +269,6 @@ func tickSend():
 			_:
 				print("tcp client unknown")
 	pass
-	
 
 
 # other method
