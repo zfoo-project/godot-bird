@@ -21,10 +21,11 @@ func _init(hostAndPort: String):
 
 func start():
 	client.big_endian = true
-	client.connect_to_host(host, port)
+	client.set_no_delay(true)
+	var result = client.connect_to_host(host, port)
 	sendThread.start(Callable(self, "tickSend"))
 	receiveThread.start(Callable(self, "tickReceive"))
-	print(format("tcp client receive threadId:[{}]", [receiveThread.get_id()]))
+	print(format("tcp client receive threadId:[{}] connect:[{}]", [receiveThread.get_id(), result]))
 	print(format("tcp client send threadId:[{}]", [sendThread.get_id()]))
 	pass
 
@@ -129,6 +130,19 @@ func send(packet):
 	addToSendQueue(EncodedPacketInfo.new(packet, null))
 	pass
 
+func addToSendQueue(encodedPacketInfo: EncodedPacketInfo):
+	sendMutex.lock()
+	sendQueue.push_back(encodedPacketInfo)
+	sendMutex.unlock()
+	sendSemaphore.post()
+	pass
+
+func addToReceiveQueue(decodedPacketInfo: DecodedPacketInfo):
+	receiveMutex.lock()
+	receiveQueue.push_back(decodedPacketInfo)
+	receiveMutex.unlock()
+	pass
+
 
 func asyncAsk(packet):
 	if packet == null:
@@ -195,18 +209,6 @@ func decodeAndReceive():
 		print(packet)
 	pass
 
-func addToSendQueue(encodedPacketInfo: EncodedPacketInfo):
-	sendMutex.lock()
-	sendQueue.push_back(encodedPacketInfo)
-	sendMutex.unlock()
-	sendSemaphore.post()
-	pass
-
-func addToReceiveQueue(decodedPacketInfo: DecodedPacketInfo):
-	receiveMutex.lock()
-	receiveQueue.push_back(decodedPacketInfo)
-	receiveMutex.unlock()
-	pass
 
 func tickReceive():
 	while true:
