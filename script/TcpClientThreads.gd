@@ -24,7 +24,7 @@ func start():
 	client.connect_to_host(host, port)
 	sendThread.start(Callable(self, "tickSend"))
 	receiveThread.start(Callable(self, "tickReceive"))
-	print(format("tcp client connect threadId:[{}]", [receiveThread.get_id()]))
+	print(format("tcp client receive threadId:[{}]", [receiveThread.get_id()]))
 	print(format("tcp client send threadId:[{}]", [sendThread.get_id()]))
 	pass
 

@@ -9,7 +9,7 @@ const ByteBuffer = preload("res://protocol/ByteBuffer.gd")
 
 var client = WebSocketPeer.new()
 
-var connectThread = Thread.new()
+var receiveThread = Thread.new()
 var sendThread = Thread.new()
 
 var url: String
@@ -21,9 +21,9 @@ func _init(url: String):
 func start():
 	var result = client.connect_to_url(url)
 	client.set_no_delay(true)
-	connectThread.start(Callable(self, "tickConnect"))
+	receiveThread.start(Callable(self, "tickReceive"))
 	sendThread.start(Callable(self, "tickSend"))
-	print(StringUtils.format("websocket client connect threadId:[{}] connect:[{}]", [connectThread.get_id(), result]))
+	print(StringUtils.format("websocket client receive threadId:[{}] connect:[{}]", [receiveThread.get_id(), result]))
 	print(StringUtils.format("websocket client send threadId:[{}]", [sendThread.get_id()]))
 	
 
@@ -90,7 +90,7 @@ func popSendPacket():
 	sendMutex.unlock()
 	return packet
 
-func tickConnect():
+func tickReceive():
 	while true:
 		client.poll()
 		
