@@ -187,7 +187,8 @@ func encodeAndSend(encodedPacketInfo: EncodedPacketInfo):
 	buffer.setWriteOffset(writeOffset)
 	var data = buffer.toPackedByteArray()
 	client.send(data, client.WRITE_MODE_BINARY)
-	print(format("send packet [{}] [{}]", [packet.PROTOCOL_ID, packet._to_string()]))
+	print(data)
+	print(format("send packet [{}] [size:{}] [{}]", [packet.PROTOCOL_ID, buffer.getWriteOffset(), packet._to_string()]))
 	pass
 	
 
@@ -263,7 +264,7 @@ func tickSend():
 			WebSocketPeer.STATE_CONNECTING:
 				addToSendQueue(encodedPacketInfo)
 			WebSocketPeer.STATE_OPEN:
-				addToSendQueue(encodedPacketInfo)
+				encodeAndSend(encodedPacketInfo)
 			_:
 				print("websocket client unknown")
 	pass
