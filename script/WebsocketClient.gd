@@ -18,7 +18,6 @@ func _init(url: String):
 	pass
 
 func start():
-	client.set_no_delay(true)
 	var result = client.connect_to_url(url)
 	receiveThread.start(Callable(self, "tickReceive"))
 	sendThread.start(Callable(self, "tickSend"))
