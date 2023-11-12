@@ -189,7 +189,7 @@ func encodeAndSend(encodedPacketInfo: EncodedPacketInfo):
 	buffer.setWriteOffset(writeOffset)
 	var data = buffer.toPackedByteArray()
 	client.put_data(data)
-	print(format("send packet [{}] [{}]", [packet.PROTOCOL_ID, packet._to_string()]))
+	print(format("send packet [{}] [size:{}] [{}]", [packet.PROTOCOL_ID, buffer.getWriteOffset(), packet._to_string()]))
 	pass
 	
 
