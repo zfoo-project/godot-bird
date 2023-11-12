@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://bne2efagx3mlq"]
 
-[ext_resource type="Texture2D" uid="uid://doqx2efbtllrr" path="res://icon.svg" id="1_xybxl"]
+[ext_resource type="Texture2D" uid="uid://bt00wp2ec074e" path="res://icon.svg" id="1_xybxl"]
 [ext_resource type="Texture2D" uid="uid://p4pqa7iei236" path="res://image/tile/Modern_Office-48-48.png" id="2_r1dqh"]
 [ext_resource type="Texture2D" uid="uid://ck50d48lkd4st" path="res://image/tile/Modern_Office_Decoration-48-48.png" id="3_rmb1d"]
 
@@ -15,10 +15,10 @@ script/source = "extends Node2D
 var speed = 250
 
 func _physics_process(delta):
-	if nav_2d.is_navigation_finished() || nav_2d.get_final_location() == Vector2.ZERO:
+	if nav_2d.is_navigation_finished() || nav_2d.get_final_position() == Vector2.ZERO:
 		return
 	
-	var next_location = nav_2d.get_next_location()
+	var next_location = nav_2d.get_next_path_position()
 	var direction = player.global_position.direction_to(next_location)
 	
 	nav_2d.set_velocity(direction * speed)
@@ -29,11 +29,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not event is InputEventMouseButton:
 		return
 		
-	var playerPosition = player.global_position
-	var mousePosition = event.global_position
-	nav_2d.set_target_location(mousePosition)
-	nav_2d.get_next_location()
-	var navPath = nav_2d.get_nav_path()
+	var playerPosition = player.get_global_position()
+	var mousePosition = event.get_global_position()
+	nav_2d.set_target_position(mousePosition)
+	nav_2d.get_next_path_position()
+	var navPath = nav_2d.get_current_navigation_path()
 	line2D.points = navPath
 
 "
@@ -42,21 +42,25 @@ func _unhandled_input(event: InputEvent) -> void:
 vertices = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)])
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_xaefp"]
 vertices = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)])
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_2lmyw"]
 vertices = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)])
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_a5ek5"]
 vertices = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)])
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8t6eo"]
 texture = ExtResource("2_r1dqh")
@@ -256,5 +260,5 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_trtn8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_xybxl")
