@@ -21,7 +21,6 @@ func _init(hostAndPort: String):
 
 func start():
 	client.big_endian = true
-	client.set_no_delay(true)
 	var result = client.connect_to_host(host, port)
 	sendThread.start(Callable(self, "tickSend"))
 	receiveThread.start(Callable(self, "tickReceive"))
