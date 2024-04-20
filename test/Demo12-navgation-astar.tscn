@@ -4,12 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://p4pqa7iei236" path="res://image/tile/Modern_Office-48-48.png" id="1_lctex"]
 [ext_resource type="Texture2D" uid="uid://ck50d48lkd4st" path="res://image/tile/Modern_Office_Decoration-48-48.png" id="2_ushmr"]
 [ext_resource type="Script" path="res://test/script/Demo12-navgation-astar.gd" id="3_hfkaw"]
-[ext_resource type="Texture2D" uid="uid://doqx2efbtllrr" path="res://icon.svg" id="4_anfr4"]
+[ext_resource type="Texture2D" uid="uid://bt00wp2ec074e" path="res://icon.svg" id="4_anfr4"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_q1c87"]
 vertices = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)])
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6jf7r"]
 texture = ExtResource("1_lctex")
@@ -202,6 +203,7 @@ layer_1/modulate = Color(1, 1, 1, 1)
 layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
+layer_1/navigation_enabled = true
 layer_1/tile_data = PackedInt32Array(4, 786432, 1, 65540, 786432, 1, 131076, 786432, 1, 196612, 786432, 1, 262148, 786432, 1, 327684, 786432, 1, 393220, 786432, 1, 458756, 786432, 1, 196616, 786432, 1, 262152, 786432, 1, 327688, 786432, 1, 393224, 786432, 1, 458760, 786432, 1, 524296, 786432, 1, 589832, 786432, 1, 655368, 786432, 1, 13, 786432, 1, 65549, 786432, 1, 131085, 786432, 1, 196621, 786432, 1, 262157, 786432, 1, 327693, 786432, 1, 393229, 786432, 1, 458765, 786432, 1, 131089, 786432, 1, 196625, 786432, 1, 262161, 786432, 1, 327697, 786432, 1, 393233, 786432, 1, 458769, 786432, 1, 524305, 786432, 1, 589841, 786432, 1, 655377, 786432, 1, 524301, 786432, 1, 524302, 786432, 1, 524303, 786432, 1, 458767, 786432, 1, 262160, 786432, 1, 262159, 786432, 1, 131086, 786432, 1, 131087, 786432, 1)
 script = ExtResource("3_hfkaw")
 
@@ -213,5 +215,5 @@ script = ExtResource("3_hfkaw")
 shape = SubResource("RectangleShape2D_4pmis")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("4_anfr4")
