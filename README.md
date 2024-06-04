@@ -2,7 +2,7 @@
 
 - frontend：[godot](https://github.com/godotengine/godot)
 
-- backend：[zfoo](https://github.com/zfoo-project/zfoo) ，Use Maven install before running [zfoo](https://github.com/zfoo-project/zfoo)
+- backend：[zfoo tank game server of single-boot](https://github.com/zfoo-project/tank-game-server/blob/main/single-boot/src/test/java/com/zfoo/tank/single/boot/ApplicationTest.java)
 
 - support await grammar of net request
 
