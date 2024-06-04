@@ -1,4 +1,4 @@
-# godot-bird（鸟了个鸟）powered by godot 4.0
+# godot-bird（鸟了个鸟）powered by godot 4.2
 
 - frontend：[godot](https://github.com/godotengine/godot)
 
