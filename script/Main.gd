@@ -50,11 +50,12 @@ var playInfo: GetPlayerInfoResponse = null
 
 func _init():
 	print("开始加载配置表")
+	ProtocolManagerStorage.initProtocol()
 	# 加载配置表的数据
 	var buffer = ByteBufferStorage.new()
 
 	var poolByteArray = FileUtils.readFileToByteArray("res://godot_resource_storage.bin.txt")
-	buffer.writePackedByteArray(poolByteArray)
+	buffer.writeBytes(poolByteArray)
 	var packet = ProtocolManagerStorage.read(buffer)
 	resourceStorage = packet
 	print(JSON.stringify(packet.objectResources))
