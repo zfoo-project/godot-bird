@@ -1,4 +1,4 @@
-class_name GodotCommonResource
+class_name _GodotCommonResource
 
 const ByteBuffer = preload("./ByteBuffer.gd")
 
@@ -15,7 +15,7 @@ func _to_string() -> String:
 	return jsonTemplate.format(params, "{}")
 
 class GodotCommonResourceRegistration:
-	func write(buffer: ByteBuffer, packet: GodotCommonResource):
+	func write(buffer: ByteBuffer, packet: _GodotCommonResource):
 		if (packet == null):
 			buffer.writeInt(0)
 			return
@@ -24,12 +24,12 @@ class GodotCommonResourceRegistration:
 		buffer.writeString(packet.value)
 		pass
 
-	func read(buffer: ByteBuffer) -> GodotCommonResource:
+	func read(buffer: ByteBuffer) -> _GodotCommonResource:
 		var length = buffer.readInt()
 		if (length == 0):
 			return null
 		var beforeReadIndex = buffer.getReadOffset()
-		var packet: GodotCommonResource = buffer.newInstance(2)
+		var packet: _GodotCommonResource = buffer.newInstance(2)
 		var result0 = buffer.readString()
 		packet.key = result0
 		var result1 = buffer.readString()

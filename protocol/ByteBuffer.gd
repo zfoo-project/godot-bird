@@ -1,4 +1,4 @@
-const ProtocolManager = preload("res://protocol/ProtocolManager.gd")
+const ProtocolManager = preload("./ProtocolManager.gd")
 
 const EMPTY: String = ""
 
@@ -13,7 +13,7 @@ var readOffset: int = 0
 func _init():
 	buffer.big_endian = true
 
-func adjustPadding(predictionLength: int, beforeWriteIndex: int) -> void:
+func adjustPadding(predictionLength: int, beforeWriteIndex: int):
 	var currentWriteIndex = writeOffset
 	var predictionCount = writeIntCount(predictionLength)
 	var length = currentWriteIndex - beforeWriteIndex - predictionCount
@@ -24,6 +24,7 @@ func adjustPadding(predictionLength: int, beforeWriteIndex: int) -> void:
 		writeInt(length)
 		setWriteOffset(currentWriteIndex)
 	else:
+		# get_partial_data of StreamPeerBuffer is deep clone
 		buffer.seek(currentWriteIndex - length)
 		var retainedByteBuf = buffer.get_partial_data(length)[1]
 		setWriteOffset(beforeWriteIndex)
@@ -39,9 +40,12 @@ func compatibleRead(beforeReadIndex: int, length: int) -> bool:
 	return length != -1 && getReadOffset() < length + beforeReadIndex
 
 # -------------------------------------------------get/set-------------------------------------------------
-func setWriteOffset(writeIndex: int) -> void:
+func getBuffer() -> StreamPeerBuffer:
+	return buffer
+
+func setWriteOffset(writeIndex: int):
 	if (writeIndex > buffer.get_size()):
-		var template = "writeIndex[{}] out of bounds exception: readerIndex: {}, writerIndex: {} (expected: 0 <= readerIndex <= writerIndex <= capacity: {})"
+		var template = "writeIndex[{}] out of bounds exception: readOffset: {}, writeOffset: {} (expected: 0 <= readOffset <= writeOffset <= capacity: {})"
 		printerr(template.format([writeIndex, readOffset, writeOffset, buffer.get_size()], "{}"))
 		return
 	writeOffset = writeIndex
@@ -50,9 +54,9 @@ func setWriteOffset(writeIndex: int) -> void:
 func getWriteOffset() -> int:
 	return writeOffset
 
-func setReadOffset(readIndex: int) -> void:
+func setReadOffset(readIndex: int):
 	if (readIndex > writeOffset):
-		var template = "readIndex[{}] out of bounds exception: readerIndex: {}, writerIndex: {} (expected: 0 <= readerIndex <= writerIndex <= capacity: {})"
+		var template = "readIndex[{}] out of bounds exception: readOffset: {}, writeOffset: {} (expected: 0 <= readOffset <= writeOffset <= capacity: {})"
 		printerr(template.format([readIndex, readOffset, writeOffset, buffer.size()], "{}"))
 		return
 	readOffset = readIndex
@@ -64,17 +68,23 @@ func getReadOffset() -> int:
 func isReadable() -> bool:
 	return writeOffset > readOffset
 
+func toBytes() -> PackedByteArray:
+	return buffer.data_array.slice(0, writeOffset)
+
+func newInstance(protocolId: int) -> Object:
+	return ProtocolManager.newInstance(protocolId)
+
 # -------------------------------------------------write/read-------------------------------------------------
-func writePackedByteArray(value: PackedByteArray):
+func writeBytes(value: PackedByteArray):
 	var length: int = value.size()
 	buffer.put_partial_data(value)
 	writeOffset += length
 	pass
 
-func toPackedByteArray() -> PackedByteArray:
-	return buffer.data_array.slice(0, writeOffset)
+func readBytes(length: int) -> PackedByteArray:
+	return buffer.data_array.slice(0, length)
 
-func writeBool(value: bool) -> void:
+func writeBool(value: bool):
 	var byte: int = 1 if value else 0
 	buffer.seek(writeOffset)
 	buffer.put_8(byte)
@@ -87,7 +97,7 @@ func readBool() -> bool:
 	readOffset += 1
 	return byte == 1
 
-func writeByte(value: int) -> void:
+func writeByte(value: int):
 	buffer.seek(writeOffset)
 	buffer.put_8(value)
 	writeOffset += 1
@@ -99,7 +109,7 @@ func readByte() -> int:
 	readOffset += 1
 	return value
 
-func writeShort(value: int) -> void:
+func writeShort(value: int):
 	buffer.seek(writeOffset)
 	buffer.put_16(value)
 	writeOffset += 2
@@ -111,7 +121,7 @@ func readShort() -> int:
 	readOffset += 2
 	return value
 
-func writeRawInt(value) -> void:
+func writeRawInt(value):
 	buffer.seek(writeOffset)
 	buffer.put_32(value)
 	writeOffset += 4
@@ -123,7 +133,7 @@ func readRawInt() -> int:
 	readOffset += 4
 	return value
 
-func writeInt(value) -> void:
+func writeInt(value):
 	if !(minInt <= value && value <= maxInt):
 		printerr("value must range between minInt:-2147483648 and maxInt:2147483647")
 		return
@@ -148,7 +158,7 @@ func writeIntCount(value: int) -> int:
 func readInt() -> int:
 	return readLong()
 
-func writeLong(longValue: int) -> void:
+func writeLong(longValue: int):
 	var value: int = (longValue << 1) ^ (longValue >> 63)
 
 	if (value >> 7 == 0):
@@ -247,7 +257,7 @@ func readLong() -> int:
 	return mask ^ -(value & 1)
 
 
-func writeFloat(value: float) -> void:
+func writeFloat(value: float):
 	buffer.seek(writeOffset)
 	buffer.put_float(value)
 	writeOffset += 4
@@ -259,7 +269,7 @@ func readFloat() -> float:
 	readOffset += 4
 	return value
 
-func writeDouble(value: float) -> void:
+func writeDouble(value: float):
 	buffer.seek(writeOffset)
 	buffer.put_double(value)
 	writeOffset += 8
@@ -272,7 +282,7 @@ func readDouble() -> float:
 	return value
 
 
-func writeString(value: String) -> void:
+func writeString(value: String):
 	if (value == null || value.length() ==0):
 		writeInt(0)
 		return
@@ -291,7 +301,6 @@ func readString() -> String:
 		return EMPTY
 	buffer.seek(readOffset)
 	var value: String = buffer.get_utf8_string(length)
-	var strBytes: PackedByteArray = value.to_utf8_buffer()
 	readOffset += length
 	return value
 
@@ -300,14 +309,11 @@ func writePacket(packet, protocolId):
 	protocolRegistration.write(self, packet)
 	pass
 
-func readPacket(protocolId):
+func readPacket(protocolId) -> Object:
 	var protocolRegistration = ProtocolManager.getProtocol(protocolId)
 	return protocolRegistration.read(self)
 
-func newInstance(protocolId: int):
-	return ProtocolManager.newInstance(protocolId)
-
-func writeBooleanArray(array):
+func writeBoolArray(array):
 	if (array == null):
 		writeInt(0)
 	else:
@@ -316,7 +322,7 @@ func writeBooleanArray(array):
 			writeBool(element)
 	pass
 
-func readBooleanArray() -> Array[bool]:
+func readBoolArray() -> Array[bool]:
 	var array: Array[bool] = []
 	var size = readInt()
 	if (size > 0):
@@ -350,7 +356,7 @@ func writeShortArray(array):
 			writeShort(element)
 	pass
 
-func readShortArray():
+func readShortArray() -> Array[int]:
 	var array: Array[int] = []
 	var size = readInt()
 	if (size > 0):
@@ -367,7 +373,7 @@ func writeIntArray(array):
 			writeInt(element)
 	pass
 
-func readIntArray():
+func readIntArray() -> Array[int]:
 	var array: Array[int] = []
 	var size = readInt()
 	if (size > 0):
@@ -384,7 +390,7 @@ func writeLongArray(array):
 			writeLong(element)
 	pass
 
-func readLongArray():
+func readLongArray() -> Array[int]:
 	var array: Array[int] = []
 	var size = readInt()
 	if (size > 0):
@@ -401,7 +407,7 @@ func writeFloatArray(array):
 			writeFloat(element)
 	pass
 
-func readFloatArray():
+func readFloatArray() -> Array[float]:
 	var array: Array[float] = []
 	var size = readInt()
 	if (size > 0):
@@ -418,7 +424,7 @@ func writeDoubleArray(array):
 			writeDouble(element)
 	pass
 
-func readDoubleArray():
+func readDoubleArray() -> Array[float]:
 	var array: Array[float] = []
 	var size = readInt()
 	if (size > 0):
@@ -435,7 +441,7 @@ func writeStringArray(array):
 			writeString(element)
 	pass
 
-func readStringArray():
+func readStringArray() -> Array[String]:
 	var array: Array[String] = []
 	var size = readInt()
 	if (size > 0):
@@ -453,9 +459,10 @@ func writePacketArray(array, protocolId):
 			protocolRegistration.write(self, element)
 	pass
 
-func readPacketArray(protocolId):
+func readPacketArray(protocolId) -> Array:
 	var protocolRegistration = ProtocolManager.getProtocol(protocolId)
-	var array = Array([], typeof(protocolRegistration), StringName("RefCounted"), protocolRegistration)
+	var protocol = ProtocolManager.getProtocolClass(protocolId)
+	var array = Array([], typeof(protocol), StringName("RefCounted"), protocol)
 	var size = readInt()
 	if (size > 0):
 		for index in range(size):
@@ -480,8 +487,8 @@ func writeIntIntMap(map):
 			writeInt(map[key])
 	pass
 
-func readIntIntMap():
-	var map = {}
+func readIntIntMap() -> Dictionary[int, int]:
+	var map: Dictionary[int, int] = {}
 	var size = readInt()
 	if (size > 0):
 		for index in range(size):
@@ -500,8 +507,8 @@ func writeIntLongMap(map):
 			writeLong(map[key])
 	pass
 
-func readIntLongMap():
-	var map = {}
+func readIntLongMap() -> Dictionary[int, int]:
+	var map: Dictionary[int, int] = {}
 	var size = readInt()
 	if (size > 0):
 		for index in range(size):
@@ -520,8 +527,8 @@ func writeIntStringMap(map):
 			writeString(map[key])
 	pass
 
-func readIntStringMap():
-	var map = {}
+func readIntStringMap() -> Dictionary[int, String]:
+	var map: Dictionary[int, String] = {}
 	var size = readInt()
 	if (size > 0):
 		for index in range(size):
@@ -541,11 +548,12 @@ func writeIntPacketMap(map, protocolId):
 			protocolRegistration.write(self, map[key])
 	pass
 
-func readIntPacketMap(protocolId):
-	var map = {}
+func readIntPacketMap(protocolId) -> Dictionary:
+	var protocolRegistration = ProtocolManager.getProtocol(protocolId)
+	var protocol = ProtocolManager.getProtocolClass(protocolId)
+	var map = Dictionary({}, TYPE_INT, "", null, typeof(protocol), StringName("RefCounted"), protocol)
 	var size = readInt()
 	if (size > 0):
-		var protocolRegistration = ProtocolManager.getProtocol(protocolId)
 		for index in range(size):
 			var key = readInt()
 			var value = protocolRegistration.read(self)
@@ -562,8 +570,8 @@ func writeLongIntMap(map):
 			writeInt(map[key])
 	pass
 
-func readLongIntMap():
-	var map = {}
+func readLongIntMap() -> Dictionary[int, int]:
+	var map: Dictionary[int, int] = {}
 	var size = readInt()
 	if (size > 0):
 		for index in range(size):
@@ -582,8 +590,8 @@ func writeLongLongMap(map):
 			writeLong(map[key])
 	pass
 
-func readLongLongMap():
-	var map = {}
+func readLongLongMap() -> Dictionary[int, int]:
+	var map: Dictionary[int, int] = {}
 	var size = readInt()
 	if (size > 0):
 		for index in range(size):
@@ -602,8 +610,8 @@ func writeLongStringMap(map):
 			writeString(map[key])
 	pass
 
-func readLongStringMap():
-	var map = {}
+func readLongStringMap() -> Dictionary[int, String]:
+	var map: Dictionary[int, String] = {}
 	var size = readInt()
 	if (size > 0):
 		for index in range(size):
@@ -623,11 +631,12 @@ func writeLongPacketMap(map, protocolId):
 			protocolRegistration.write(self, map[key])
 	pass
 
-func readLongPacketMap(protocolId):
-	var map = {}
+func readLongPacketMap(protocolId) -> Dictionary:
+	var protocolRegistration = ProtocolManager.getProtocol(protocolId)
+	var protocol = ProtocolManager.getProtocolClass(protocolId)
+	var map = Dictionary({}, TYPE_INT, "", null, typeof(protocol), StringName("RefCounted"), protocol)
 	var size = readInt()
 	if (size > 0):
-		var protocolRegistration = ProtocolManager.getProtocol(protocolId)
 		for index in range(size):
 			var key = readLong()
 			var value = protocolRegistration.read(self)
@@ -644,8 +653,8 @@ func writeStringIntMap(map):
 			writeInt(map[key])
 	pass
 
-func readStringIntMap():
-	var map = {}
+func readStringIntMap() -> Dictionary[String, String]:
+	var map: Dictionary[String, String] = {}
 	var size = readInt()
 	if (size > 0):
 		for index in range(size):
@@ -664,8 +673,8 @@ func writeStringLongMap(map):
 			writeLong(map[key])
 	pass
 
-func readStringLongMap():
-	var map = {}
+func readStringLongMap() -> Dictionary[String, int]:
+	var map: Dictionary[String, int] = {}
 	var size = readInt()
 	if (size > 0):
 		for index in range(size):
@@ -684,8 +693,8 @@ func writeStringStringMap(map):
 			writeString(map[key])
 	pass
 
-func readStringStringMap():
-	var map = {}
+func readStringStringMap() -> Dictionary[String, String]:
+	var map: Dictionary[String, String] = {}
 	var size = readInt()
 	if (size > 0):
 		for index in range(size):
@@ -705,11 +714,12 @@ func writeStringPacketMap(map, protocolId):
 			protocolRegistration.write(self, map[key])
 	pass
 
-func readStringPacketMap(protocolId):
-	var map = {}
+func readStringPacketMap(protocolId) -> Dictionary:
+	var protocolRegistration = ProtocolManager.getProtocol(protocolId)
+	var protocol = ProtocolManager.getProtocolClass(protocolId)
+	var map = Dictionary({}, TYPE_STRING, "", null, typeof(protocol), StringName("RefCounted"), protocol)
 	var size = readInt()
 	if (size > 0):
-		var protocolRegistration = ProtocolManager.getProtocol(protocolId)
 		for index in range(size):
 			var key = readString()
 			var value = protocolRegistration.read(self)

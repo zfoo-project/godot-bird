@@ -1,4 +1,4 @@
-class_name GodotObjectResource
+class_name _GodotObjectResource
 
 const ByteBuffer = preload("./ByteBuffer.gd")
 
@@ -23,7 +23,7 @@ func _to_string() -> String:
 	return jsonTemplate.format(params, "{}")
 
 class GodotObjectResourceRegistration:
-	func write(buffer: ByteBuffer, packet: GodotObjectResource):
+	func write(buffer: ByteBuffer, packet: _GodotObjectResource):
 		if (packet == null):
 			buffer.writeInt(0)
 			return
@@ -40,12 +40,12 @@ class GodotObjectResourceRegistration:
 		buffer.writeString(packet.signalBind)
 		pass
 
-	func read(buffer: ByteBuffer) -> GodotObjectResource:
+	func read(buffer: ByteBuffer) -> _GodotObjectResource:
 		var length = buffer.readInt()
 		if (length == 0):
 			return null
 		var beforeReadIndex = buffer.getReadOffset()
-		var packet: GodotObjectResource = buffer.newInstance(1)
+		var packet: _GodotObjectResource = buffer.newInstance(1)
 		var result0 = buffer.readString()
 		packet.callback = result0
 		var result1 = buffer.readFloat()

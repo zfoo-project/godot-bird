@@ -2,10 +2,10 @@ extends Node2D
 
 const RandomUtils = preload("res://zfoo/RandomUtils.gd")
 const StringUtils = preload("res://zfoo/StringUtils.gd")
-const LoginRequest = preload("res://protocol/protocol/login/LoginRequest.gd")
-const LoginResponse = preload("res://protocol/protocol/login/LoginResponse.gd")
-const GetPlayerInfoRequest = preload("res://protocol/protocol/login/GetPlayerInfoRequest.gd")
-const GetPlayerInfoResponse = preload("res://protocol/protocol/login/GetPlayerInfoResponse.gd")
+const LoginRequest = preload("res://protocol/login/LoginRequest.gd")
+const LoginResponse = preload("res://protocol/login/LoginResponse.gd")
+const GetPlayerInfoRequest = preload("res://protocol/login/GetPlayerInfoRequest.gd")
+const GetPlayerInfoResponse = preload("res://protocol/login/GetPlayerInfoResponse.gd")
 
 func _ready():
 	$Timer.timeout.connect(onTimeout)

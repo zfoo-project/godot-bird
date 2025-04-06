@@ -1,4 +1,4 @@
-class_name ResourceStorage
+class_name _ResourceStorage
 
 const ByteBuffer = preload("./ByteBuffer.gd")
 const GodotObjectResource = preload("./GodotObjectResource.gd")
@@ -17,7 +17,7 @@ func _to_string() -> String:
 	return jsonTemplate.format(params, "{}")
 
 class ResourceStorageRegistration:
-	func write(buffer: ByteBuffer, packet: ResourceStorage):
+	func write(buffer: ByteBuffer, packet: _ResourceStorage):
 		if (packet == null):
 			buffer.writeInt(0)
 			return
@@ -26,12 +26,12 @@ class ResourceStorageRegistration:
 		buffer.writeIntPacketMap(packet.objectResources, 1)
 		pass
 
-	func read(buffer: ByteBuffer) -> ResourceStorage:
+	func read(buffer: ByteBuffer) -> _ResourceStorage:
 		var length = buffer.readInt()
 		if (length == 0):
 			return null
 		var beforeReadIndex = buffer.getReadOffset()
-		var packet: ResourceStorage = buffer.newInstance(0)
+		var packet: _ResourceStorage = buffer.newInstance(0)
 		var map0 = buffer.readStringPacketMap(2)
 		packet.commonResources = map0
 		var map1 = buffer.readIntPacketMap(1)

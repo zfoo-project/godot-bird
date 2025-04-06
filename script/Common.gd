@@ -54,4 +54,3 @@ static func speedShark() -> float:
 
 static func speedBiliBili() -> float:
 	return Main.resourceStorage.commonResources["speedBiliBili"].value.to_float()
-

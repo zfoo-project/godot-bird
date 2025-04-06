@@ -2,14 +2,14 @@ extends Node2D
 
 const TimeUtils = preload("res://zfoo/TimeUtils.gd")
 const StringUtils = preload("res://zfoo/StringUtils.gd")
-const ScoreRankRequest =preload("res://protocol/protocol/cache/ScoreRankRequest.gd")
-const ScoreRankResponse =preload("res://protocol/protocol/cache/ScoreRankResponse.gd")
-const RankInfo = preload("res://protocol/protocol/common/RankInfo.gd")
-const ChatMessage = preload("res://protocol/protocol/chat/ChatMessage.gd")
-const GroupChatRequest = preload("res://protocol/protocol/chat/GroupChatRequest.gd")
-const GroupChatMessageNotice = preload("res://protocol/protocol/chat/GroupChatMessageNotice.gd")
-const GroupHistoryMessageRequest = preload("res://protocol/protocol/chat/GroupHistoryMessageRequest.gd")
-const GroupHistoryMessageResponse = preload("res://protocol/protocol/chat/GroupHistoryMessageResponse.gd")
+const ScoreRankRequest =preload("res://protocol/cache/ScoreRankRequest.gd")
+const ScoreRankResponse =preload("res://protocol/cache/ScoreRankResponse.gd")
+const RankInfo = preload("res://protocol/common/RankInfo.gd")
+const ChatMessage = preload("res://protocol/chat/ChatMessage.gd")
+const GroupChatRequest = preload("res://protocol/chat/GroupChatRequest.gd")
+const GroupChatMessageNotice = preload("res://protocol/chat/GroupChatMessageNotice.gd")
+const GroupHistoryMessageRequest = preload("res://protocol/chat/GroupHistoryMessageRequest.gd")
+const GroupHistoryMessageResponse = preload("res://protocol/chat/GroupHistoryMessageResponse.gd")
 
 
 @onready var rankList: ItemList = $Control/RankList

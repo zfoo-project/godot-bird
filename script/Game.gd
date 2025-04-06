@@ -4,7 +4,7 @@ const RandomUtils = preload("res://zfoo/RandomUtils.gd")
 const StringUtils = preload("res://zfoo/StringUtils.gd")
 const Common = preload("res://script/Common.gd")
 const GodotObjectResource = preload("res://storage/GodotObjectResource.gd")
-const BattleResultRequest = preload("res://protocol/protocol/battle/BattleResultRequest.gd")
+const BattleResultRequest = preload("res://protocol/battle/BattleResultRequest.gd")
 
 @onready var camera2d: Camera2D = $Camera2d
 @onready var bird: RigidBody2D = $Bird

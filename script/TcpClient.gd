@@ -223,4 +223,3 @@ func tickSend():
 # 格式化字符串
 func format(template: String, args: Array) -> String:
 	return template.format(args, "{}")
-

@@ -9,13 +9,14 @@ const RandomUtils = preload("res://zfoo/RandomUtils.gd")
 const StringUtils = preload("res://zfoo/StringUtils.gd")
 const ByteBufferStorage =preload("res://storage/ByteBuffer.gd")
 const ProtocolManagerStorage = preload("res://storage/ProtocolManager.gd")
+const ProtocolManager = preload("res://protocol/ProtocolManager.gd")
 const ResourceStorage = preload("res://storage/ResourceStorage.gd")
-const GetPlayerInfoResponse = preload("res://protocol/protocol/login/GetPlayerInfoResponse.gd")
-const BattleResultResponse = preload("res://protocol/protocol/battle/BattleResultResponse.gd")
-const CurrencyUpdateNotice = preload("res://protocol/protocol/CurrencyUpdateNotice.gd")
-const PlayerExpNotice = preload("res://protocol/protocol/PlayerExpNotice.gd")
-const PlayerInfo = preload("res://protocol/protocol/common/PlayerInfo.gd")
-const CurrencyVo = preload("res://protocol/protocol/common/CurrencyVo.gd")
+const GetPlayerInfoResponse = preload("res://protocol/login/GetPlayerInfoResponse.gd")
+const BattleResultResponse = preload("res://protocol/battle/BattleResultResponse.gd")
+const CurrencyUpdateNotice = preload("res://protocol/notice/CurrencyUpdateNotice.gd")
+const PlayerExpNotice = preload("res://protocol/notice/PlayerExpNotice.gd")
+const PlayerInfo = preload("res://protocol/common/PlayerInfo.gd")
+const CurrencyVo = preload("res://protocol/common/CurrencyVo.gd")
 
 
 @onready var dieAudio: AudioStreamPlayer = $DieAudio
@@ -49,6 +50,7 @@ var resourceStorage: ResourceStorage
 var playInfo: GetPlayerInfoResponse = null
 
 func _init():
+	ProtocolManager.initProtocol()
 	print("开始加载配置表")
 	ProtocolManagerStorage.initProtocol()
 	# 加载配置表的数据

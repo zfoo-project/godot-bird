@@ -141,5 +141,3 @@ func onSpeedUpTimeout():
 	flyUpSpeed = Common.birdFlyUpSpeed()
 	isSpeedUp = false
 	pass
-
-
