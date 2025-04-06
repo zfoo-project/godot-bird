@@ -1,7 +1,7 @@
-const ByteBuffer = preload("res://storage/ByteBuffer.gd")
-const ResourceStorage = preload("res://storage/ResourceStorage.gd")
-const GodotObjectResource = preload("res://storage/GodotObjectResource.gd")
-const GodotCommonResource = preload("res://storage/GodotCommonResource.gd")
+const ByteBuffer = preload("./ByteBuffer.gd")
+const ResourceStorage = preload("./ResourceStorage.gd")
+const GodotObjectResource = preload("./GodotObjectResource.gd")
+const GodotCommonResource = preload("./GodotCommonResource.gd")
 
 static var protocols: Dictionary[int, RefCounted] = {}
 static var protocolClassMap: Dictionary[int, Object] = {}

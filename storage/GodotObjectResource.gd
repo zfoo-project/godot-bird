@@ -1,4 +1,6 @@
-const ByteBuffer = preload("res://storage/ByteBuffer.gd")
+class_name GodotObjectResource
+
+const ByteBuffer = preload("./ByteBuffer.gd")
 
 
 var id: int
@@ -15,16 +17,13 @@ var callback: String
 func protocolId() -> int:
 	return 1
 
-func get_class_name() -> String:
-	return "GodotObjectResource"
-
 func _to_string() -> String:
 	const jsonTemplate = "{id:{}, path:'{}', randomUpY:{}, randomDownY:{}, forwardX:{}, refreshTime:{}, refreshMinTime:{}, refreshAccelerate:{}, signalBind:'{}', callback:'{}'}"
 	var params = [self.id, self.path, self.randomUpY, self.randomDownY, self.forwardX, self.refreshTime, self.refreshMinTime, self.refreshAccelerate, self.signalBind, self.callback]
 	return jsonTemplate.format(params, "{}")
 
 class GodotObjectResourceRegistration:
-	func write(buffer: ByteBuffer, packet: Object):
+	func write(buffer: ByteBuffer, packet: GodotObjectResource):
 		if (packet == null):
 			buffer.writeInt(0)
 			return
@@ -41,12 +40,12 @@ class GodotObjectResourceRegistration:
 		buffer.writeString(packet.signalBind)
 		pass
 
-	func read(buffer: ByteBuffer):
+	func read(buffer: ByteBuffer) -> GodotObjectResource:
 		var length = buffer.readInt()
 		if (length == 0):
 			return null
 		var beforeReadIndex = buffer.getReadOffset()
-		var packet = buffer.newInstance(1)
+		var packet: GodotObjectResource = buffer.newInstance(1)
 		var result0 = buffer.readString()
 		packet.callback = result0
 		var result1 = buffer.readFloat()
