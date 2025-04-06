@@ -1,0 +1,44 @@
+myspring:
+  profiles:
+    active: dev
+
+logging:
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} [%clr(%5level)] [%thread] %clr(%logger{20}.%M){cyan}\(%F:%line\) - %msg%n'
+
+storage:
+  id: storageManager
+  scan:
+    package: fun.jiucai.bogers.resource
+  resource:
+    location: classpath:/excel
+
+orm:
+  id: mongodbConfig
+  entity-package: fun.jiucai.bogers.entity
+  host:
+    database: bogers
+    user:
+    password:
+    address:
+      - 127.0.0.1:27017
+  caches:
+    - strategy: default
+      size: 6000
+      expire-millisecond: 600000
+    - strategy: tenThousand
+      size: 10000
+      expire-millisecond: 600000
+  persisters:
+    - strategy: default
+      type: time
+      config: 60000
+    - strategy: cron30s
+      type: cron
+      config: 0/30 * * * * ?
+
+net:
+  id: netConfig
+  protocol-location: protocol.xml
+  code-languages: 0
+  fold-protocol: true

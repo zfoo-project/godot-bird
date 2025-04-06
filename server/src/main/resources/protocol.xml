@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+
+<!-- native为内部消息，common是公共消息每个模块都能使用 -->
+<protocols>
+
+    <module id="1" name="native">
+        <protocol location="com.zfoo.net.router.attachment.SignalAttachment"/>
+        <protocol location="com.zfoo.net.router.attachment.GatewayAttachment"/>
+        <protocol location="com.zfoo.net.router.attachment.UdpAttachment"/>
+        <protocol location="com.zfoo.net.router.attachment.HttpAttachment"/>
+        <protocol location="com.zfoo.net.router.attachment.NoAnswerAttachment"/>
+    </module>
+
+    <module id="2" name="common">
+        <protocol location="com.zfoo.net.packet.common.Message"/>
+        <protocol location="com.zfoo.net.packet.common.Error"/>
+        <protocol location="com.zfoo.net.packet.common.Heartbeat"/>
+        <protocol location="com.zfoo.net.packet.common.Ping"/>
+        <protocol location="com.zfoo.net.packet.common.Pong"/>
+
+        <protocol location="com.zfoo.net.packet.common.PairIntLong"/>
+        <protocol location="com.zfoo.net.packet.common.PairLong"/>
+        <protocol location="com.zfoo.net.packet.common.PairString"/>
+        <protocol location="com.zfoo.net.packet.common.PairLS"/>
+        <protocol location="com.zfoo.net.packet.common.TripleLong"/>
+        <protocol location="com.zfoo.net.packet.common.TripleString"/>
+        <protocol location="com.zfoo.net.packet.common.TripleLSS"/>
+    </module>
+
+    <module id="3" name="tankHome">
+
+        <protocol id="400" location="fun.jiucai.bogers.protocol.common.PlayerInfo"/>
+        <protocol id="401" location="fun.jiucai.bogers.protocol.common.CurrencyVo"/>
+        <protocol id="402" location="fun.jiucai.bogers.protocol.common.RankInfo"/>
+
+        <protocol id="1000" location="fun.jiucai.bogers.protocol.login.LoginRequest"/>
+        <protocol id="1001" location="fun.jiucai.bogers.protocol.login.LoginResponse"/>
+        <protocol id="1002" location="fun.jiucai.bogers.protocol.login.LogoutRequest"/>
+        <protocol id="1003" location="fun.jiucai.bogers.protocol.login.LogoutResponse"/>
+        <protocol id="1004" location="fun.jiucai.bogers.protocol.login.GetPlayerInfoRequest"/>
+        <protocol id="1005" location="fun.jiucai.bogers.protocol.login.GetPlayerInfoResponse"/>
+        <protocol id="1010" location="fun.jiucai.bogers.protocol.login.KickPlayerNotice"/>
+
+
+
+        <protocol id="1006" location="fun.jiucai.bogers.protocol.battle.BattleResultRequest"/>
+        <protocol id="1007" location="fun.jiucai.bogers.protocol.battle.BattleResultResponse"/>
+
+
+
+        <protocol id="1100" location="fun.jiucai.bogers.protocol.notice.CurrencyUpdateNotice"/>
+        <protocol id="1101" location="fun.jiucai.bogers.protocol.notice.PlayerExpNotice"/>
+
+        <protocol id="1200" location="fun.jiucai.bogers.protocol.admin.AdminPlayerLevelAsk"/>
+        <protocol id="1201" location="fun.jiucai.bogers.protocol.admin.AdminCurrencyAsk"/>
+        <protocol id="1500" location="fun.jiucai.bogers.protocol.room.CreateRoomRequest"/>
+        <protocol id="1501" location="fun.jiucai.bogers.protocol.room.CreateRoomResponse"/>
+
+        <protocol id="3000" location="fun.jiucai.bogers.protocol.cache.BattleScoreAsk"/>
+        <protocol id="3001" location="fun.jiucai.bogers.protocol.cache.BattleScoreAnswer"/>
+        <protocol id="3002" location="fun.jiucai.bogers.protocol.cache.ScoreRankRequest"/>
+        <protocol id="3003" location="fun.jiucai.bogers.protocol.cache.ScoreRankResponse"/>
+    </module>
+
+
+    <module id="5" name="chat">
+        <protocol id="4000" location="fun.jiucai.bogers.protocol.chat.ChatMessage"/>
+        <protocol id="4001" location="fun.jiucai.bogers.protocol.chat.GroupChatMessageNotice"/>
+        <protocol id="4002" location="fun.jiucai.bogers.protocol.chat.GroupChatRequest"/>
+        <protocol id="4003" location="fun.jiucai.bogers.protocol.chat.GroupHistoryMessageRequest"/>
+        <protocol id="4004" location="fun.jiucai.bogers.protocol.chat.GroupHistoryMessageResponse"/>
+    </module>
+
+    <module id="6" name="tankRoom">
+        <protocol id="6007" location="fun.jiucai.bogers.protocol.room.ExitRoomNotice"/>
+        <protocol id="6008" location="fun.jiucai.bogers.protocol.room.ExitRoomRequest"/>
+        <protocol id="6009" location="fun.jiucai.bogers.protocol.room.ExitRoomResponse"/>
+        <protocol id="6010" location="fun.jiucai.bogers.protocol.room.JoinRoomNotice"/>
+        <protocol id="6011" location="fun.jiucai.bogers.protocol.room.JoinRoomRequest"/>
+        <protocol id="6012" location="fun.jiucai.bogers.protocol.room.JoinRoomResponse"/>
+        <protocol id="6013" location="fun.jiucai.bogers.protocol.room.Room"/>
+        <protocol id="6014" location="fun.jiucai.bogers.protocol.room.RoomInfoAsk"/>
+        <protocol id="6015" location="fun.jiucai.bogers.protocol.room.RoomInfoAnswer"/>
+    </module>
+
+
+</protocols>
