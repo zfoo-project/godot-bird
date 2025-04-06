@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dldp8j5votvcd"]
-
-[ext_resource type="Script" uid="uid://da8xj28cq17al" path="res://test/protocol/ProtocolTest.gd" id="1_frubx"]
-
-[node name="ProtocolTest" type="Node2D"]
-script = ExtResource("1_frubx")

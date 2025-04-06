@@ -113,7 +113,7 @@ func notify(message: String):
 
 # 网络连接服务器相关
 #var tcpClient: TcpClient = TcpClient.new("127.0.0.1:16000")
-var tcpClient: TcpClientThreads = TcpClientThreads.new("127.0.0.1:16000") if OS.has_feature("editor") else TcpClientThreads.new("x.x.x.x:16000")
+var tcpClient: TcpClientThreads = TcpClientThreads.new("192.168.1.103:16000") if OS.has_feature("editor") else TcpClientThreads.new("x.x.x.x:16000")
 # 登录令牌
 var token: String = StringUtils.EMPTY
 

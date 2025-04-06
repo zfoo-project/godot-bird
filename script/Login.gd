@@ -12,8 +12,6 @@ func _ready():
 	$Control/Login.connect("pressed", Callable(self, "login"))
 	Main.tcpClient.start()
 	Main.showLoading()
-	Main.tcpClient.registerReceiver(LoginResponse, Callable(self, "atLoginResponse"))
-	Main.tcpClient.registerReceiver(GetPlayerInfoResponse, Callable(self, "atGetPlayerInfoResponse"))
 	pass
 
 func _exit_tree():
@@ -25,17 +23,6 @@ func _process(delta):
 		Main.unshowLoading()
 	pass
 
-func atLoginResponse(response: LoginResponse):
-	Main.token = response.token
-	print(StringUtils.format("收到登录令牌token:[{}]", [response.token]))
-	pass
-
-func atGetPlayerInfoResponse(response: GetPlayerInfoResponse):
-	Main.playInfo = response
-	Main.changeScene(Main.SCENE.Home)
-	Main.notify(StringUtils.format("[{}] 欢迎回来", [response.playerInfo.name]))
-	pass
-
 func login():
 	var account: String = $Control/Account.text
 	var password = $Control/Password.text
@@ -45,10 +32,20 @@ func login():
 	if !account.to_lower().begins_with("bird") && !OS.has_feature("editor"):
 		Main.notify("账号名称需要用 bird 开头")
 		return
-	var request = LoginRequest.new()
-	request.account = account
-	request.password = password
-	Main.tcpClient.send(request)
+	
+	var loginRequest = LoginRequest.new()
+	loginRequest.account = account
+	loginRequest.password = password
+	var loginResponse: LoginResponse = await Main.tcpClient.asyncAsk(loginRequest)
+	Main.token = loginResponse.token
+	print(StringUtils.format("收到登录令牌token:[{}]", [loginResponse.token]))
+	
+	var getPlayerInfoRequest = GetPlayerInfoRequest.new()
+	getPlayerInfoRequest.token = loginResponse.token
+	var getPlayerInfoResponse: GetPlayerInfoResponse = await Main.tcpClient.asyncAsk(getPlayerInfoRequest)
+	Main.playInfo = getPlayerInfoResponse
+	Main.changeScene(Main.SCENE.Home)
+	Main.notify(StringUtils.format("[{}] 欢迎回来", [getPlayerInfoResponse.playerInfo.name]))	
 	pass
 
 func onTimeout():
