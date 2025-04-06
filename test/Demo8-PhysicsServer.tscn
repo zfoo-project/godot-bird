@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dmm7j5vjc147x"]
 
 [ext_resource type="Texture2D" uid="uid://bt00wp2ec074e" path="res://icon.svg" id="1_we14u"]
-[ext_resource type="Script" path="res://test/script/Demo8.gd" id="2_ps2ho"]
+[ext_resource type="Script" uid="uid://juwha8cqi42v" path="res://test/script/Demo8.gd" id="2_ps2ho"]
 [ext_resource type="PackedScene" uid="uid://x2j8ifdnka4d" path="res://scene/Pipe.tscn" id="3_7stfc"]
 
 [node name="Demo8" type="Node2D"]

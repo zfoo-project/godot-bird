@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dsepw6t0hvnmo"]
 
 [ext_resource type="Texture2D" uid="uid://bi1w13qjlffi6" path="res://image/water/water.png" id="1_h0ctn"]
-[ext_resource type="Shader" path="res://test/script/Demo13.gdshader" id="2_tg3jd"]
-[ext_resource type="Texture2D" uid="uid://doqx2efbtllrr" path="res://icon.svg" id="3_5l2xq"]
+[ext_resource type="Shader" uid="uid://485bcpi3i411" path="res://test/script/Demo13.gdshader" id="2_tg3jd"]
+[ext_resource type="Texture2D" uid="uid://bt00wp2ec074e" path="res://icon.svg" id="3_5l2xq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bwi8r"]
 shader = ExtResource("2_tg3jd")

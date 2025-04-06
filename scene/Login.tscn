@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://begf4acapm88l"]
 
-[ext_resource type="Script" path="res://script/Login.gd" id="1_8883d"]
+[ext_resource type="Script" uid="uid://cs7vdhf5g65s5" path="res://script/Login.gd" id="1_8883d"]
 [ext_resource type="PackedScene" uid="uid://bpggn6rfp70y2" path="res://scene/Background.tscn" id="1_xhk51"]
 [ext_resource type="FontFile" uid="uid://dwo20txgiw2r7" path="res://font/HarmonyOS_Sans_SC_Medium.ttf" id="3_gn64u"]
 [ext_resource type="Texture2D" uid="uid://d0k38jvbuasdf" path="res://image/ui/UI_Main_MessageBox.png" id="4_3srp8"]
@@ -8,19 +8,17 @@
 [ext_resource type="Texture2D" uid="uid://bj0km8pnflson" path="res://image/titile7.png" id="5_r1l1y"]
 [ext_resource type="AudioStream" uid="uid://c1ihpx6ioyxv5" path="res://audio/Enine-Bass-Rebels.mp3" id="7_vbsb5"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kho4r"]
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0lggc"]
 texture = ExtResource("4_3srp8")
 region_rect = Rect2(0, 0, 265, 85)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kho4r"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4lsov"]
 texture = ExtResource("4_3srp8")
 region_rect = Rect2(0, 0, 265, 85)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xjcxh"]
-texture = ExtResource("5_lkx08")
-region_rect = Rect2(0, 0, 122, 51)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kmon0"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6fg73"]
 texture = ExtResource("5_lkx08")
@@ -30,7 +28,9 @@ region_rect = Rect2(0, 0, 122, 51)
 texture = ExtResource("5_lkx08")
 region_rect = Rect2(0, 0, 122, 51)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kmon0"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xjcxh"]
+texture = ExtResource("5_lkx08")
+region_rect = Rect2(0, 0, 122, 51)
 
 [sub_resource type="Animation" id="Animation_vc1ir"]
 length = 0.001
@@ -66,8 +66,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f2j7k"]
 _data = {
-"RESET": SubResource("Animation_vc1ir"),
-"title": SubResource("Animation_3flym")
+&"RESET": SubResource("Animation_vc1ir"),
+&"title": SubResource("Animation_3flym")
 }
 
 [node name="Login" type="Node2D"]
@@ -90,8 +90,8 @@ offset_top = 176.0
 offset_right = 688.0
 offset_bottom = 237.0
 theme_override_fonts/font = ExtResource("3_gn64u")
-theme_override_styles/normal = SubResource("StyleBoxTexture_0lggc")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_kho4r")
+theme_override_styles/normal = SubResource("StyleBoxTexture_0lggc")
 placeholder_text = "账号名称（bird开头）"
 alignment = 1
 
@@ -102,8 +102,8 @@ offset_top = 248.0
 offset_right = 688.0
 offset_bottom = 306.0
 theme_override_fonts/font = ExtResource("3_gn64u")
-theme_override_styles/normal = SubResource("StyleBoxTexture_4lsov")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_kho4r")
+theme_override_styles/normal = SubResource("StyleBoxTexture_4lsov")
 placeholder_text = "密码（可以不填）"
 alignment = 1
 secret = true
@@ -115,10 +115,10 @@ offset_top = 328.0
 offset_right = 640.0
 offset_bottom = 392.0
 theme_override_fonts/font = ExtResource("3_gn64u")
-theme_override_styles/normal = SubResource("StyleBoxTexture_xjcxh")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kmon0")
 theme_override_styles/hover = SubResource("StyleBoxTexture_6fg73")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pj6ar")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_kmon0")
+theme_override_styles/normal = SubResource("StyleBoxTexture_xjcxh")
 text = "登录"
 
 [node name="Label" type="Label" parent="Control"]
@@ -139,7 +139,7 @@ texture = ExtResource("5_r1l1y")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
 libraries = {
-"": SubResource("AnimationLibrary_f2j7k")
+&"": SubResource("AnimationLibrary_f2j7k")
 }
 autoplay = "title"
 

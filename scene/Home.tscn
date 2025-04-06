@@ -1,7 +1,7 @@
 [gd_scene load_steps=29 format=3 uid="uid://dgtlwwsmtiwtn"]
 
 [ext_resource type="PackedScene" uid="uid://bpggn6rfp70y2" path="res://scene/Background.tscn" id="1_3mncm"]
-[ext_resource type="Script" path="res://script/Home.gd" id="1_8nwth"]
+[ext_resource type="Script" uid="uid://b6cx2hfnkd057" path="res://script/Home.gd" id="1_8nwth"]
 [ext_resource type="Texture2D" uid="uid://bj0km8pnflson" path="res://image/titile7.png" id="3_idvbg"]
 [ext_resource type="Texture2D" uid="uid://dynec8127lrcn" path="res://image/bird1_0.png" id="3_rofjb"]
 [ext_resource type="Texture2D" uid="uid://1pqepk4bsrym" path="res://image/bird1_1.png" id="4_4ri0l"]
@@ -99,8 +99,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f2j7k"]
 _data = {
-"RESET": SubResource("Animation_vc1ir"),
-"title": SubResource("Animation_3flym")
+&"RESET": SubResource("Animation_vc1ir"),
+&"title": SubResource("Animation_3flym")
 }
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o10le"]

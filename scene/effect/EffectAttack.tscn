@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c42q772pm12uh"]
 
-[ext_resource type="Script" path="res://script/effect/EffectAttack.gd" id="1_6rrse"]
+[ext_resource type="Script" uid="uid://bb7jyuciq2hbm" path="res://script/effect/EffectAttack.gd" id="1_6rrse"]
 [ext_resource type="Texture2D" uid="uid://bmyg5u0uk7noq" path="res://image/effect/attack.png" id="1_kgb4g"]
 
 [sub_resource type="Animation" id="Animation_xx315"]
@@ -34,8 +34,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1dena"]
 _data = {
-"RESET": SubResource("Animation_xx315"),
-"attack": SubResource("Animation_d5f2h")
+&"RESET": SubResource("Animation_xx315"),
+&"attack": SubResource("Animation_d5f2h")
 }
 
 [node name="EffectAttack" type="Node2D"]

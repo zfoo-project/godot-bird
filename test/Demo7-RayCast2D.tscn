@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bt00wp2ec074e" path="res://icon.svg" id="1_5xlbh"]
 [ext_resource type="PackedScene" uid="uid://x2j8ifdnka4d" path="res://scene/Pipe.tscn" id="2_ht7wp"]
-[ext_resource type="Script" path="res://test/script/Demo7-RayCast2D.gd" id="2_v855y"]
+[ext_resource type="Script" uid="uid://be46rmru1ooe4" path="res://test/script/Demo7-RayCast2D.gd" id="2_v855y"]
 
 [node name="Demo7-RayCast2D" type="Node2D"]
 

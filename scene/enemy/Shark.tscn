@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://cklt47n0w06i2"]
 
-[ext_resource type="Script" path="res://script/enemy/Shark.gd" id="1_gjil1"]
+[ext_resource type="Script" uid="uid://irl8ity6xsts" path="res://script/enemy/Shark.gd" id="1_gjil1"]
 [ext_resource type="Texture2D" uid="uid://cssabo7s5sx5f" path="res://image/enemy/shark/0.png" id="2_j4hxc"]
 [ext_resource type="Texture2D" uid="uid://daix2ya461gsn" path="res://image/enemy/shark/1.png" id="3_bnm7k"]
 [ext_resource type="Texture2D" uid="uid://l1f7akor6ie1" path="res://image/enemy/shark/2.png" id="4_02dc2"]

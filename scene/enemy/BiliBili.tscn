@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cla2lshoedc3o"]
 
-[ext_resource type="Script" path="res://script/enemy/Cloud.gd" id="1_td6ao"]
+[ext_resource type="Script" uid="uid://dcswbjnbwos45" path="res://script/enemy/Cloud.gd" id="1_td6ao"]
 [ext_resource type="Texture2D" uid="uid://5u2i8al5taw" path="res://image/enemy/bilibili.png" id="2_aokby"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t05s7"]
@@ -41,8 +41,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_olqkp"]
 _data = {
-"RESET": SubResource("Animation_ul62t"),
-"bilibili": SubResource("Animation_or08s")
+&"RESET": SubResource("Animation_ul62t"),
+&"bilibili": SubResource("Animation_or08s")
 }
 
 [node name="BiliBili" type="AnimatableBody2D"]

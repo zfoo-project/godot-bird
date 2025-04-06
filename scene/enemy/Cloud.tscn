@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dld0h87uyknlp"]
 
-[ext_resource type="Script" path="res://script/enemy/Cloud.gd" id="1_td6ao"]
+[ext_resource type="Script" uid="uid://dcswbjnbwos45" path="res://script/enemy/Cloud.gd" id="1_td6ao"]
 [ext_resource type="Texture2D" uid="uid://ck1wulbkxkbvs" path="res://image/enemy/cloud/0.png" id="2_ad7v2"]
 [ext_resource type="Texture2D" uid="uid://dpw5e4joft2hh" path="res://image/enemy/cloud/1.png" id="3_dlx4s"]
 [ext_resource type="Texture2D" uid="uid://dsag87y63qte6" path="res://image/enemy/cloud/2.png" id="4_73qgj"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://bb3rpff8vrjhh"]
 
 [ext_resource type="PackedScene" uid="uid://d34k8bhduppp8" path="res://scene/Bird.tscn" id="1_57m10"]
-[ext_resource type="Script" path="res://script/Game.gd" id="1_cica3"]
+[ext_resource type="Script" uid="uid://dd2bm3m0raskj" path="res://script/Game.gd" id="1_cica3"]
 [ext_resource type="Texture2D" uid="uid://bw4k3kxyen6yg" path="res://image/land.png" id="3_ii7vv"]
 [ext_resource type="Texture2D" uid="uid://ollibr005jsd" path="res://image/bg_day.png" id="4_p31ru"]
 [ext_resource type="Texture2D" uid="uid://baywi268vk2wi" path="res://image/hp/0.png" id="5_xq86p"]
@@ -50,8 +50,6 @@ curve = SubResource("Curve_mvas1")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g7xqs"]
 particle_flag_disable_z = true
 gravity = Vector3(0, 98, 0)
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
 scale_curve = SubResource("CurveTexture_54858")
 color_ramp = SubResource("GradientTexture1D_hx1o0")
 

@@ -1,15 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://p0dckd2eligw"]
 
-[ext_resource type="Script" path="res://script/Notify.gd" id="1_fbm7y"]
+[ext_resource type="Script" uid="uid://du0lsrh71d3k0" path="res://script/Notify.gd" id="1_fbm7y"]
 [ext_resource type="FontFile" uid="uid://dwo20txgiw2r7" path="res://font/HarmonyOS_Sans_SC_Medium.ttf" id="2_78swn"]
 [ext_resource type="Texture2D" uid="uid://djt3difpy4sum" path="res://image/ui/UI_Popup_BTN6.png" id="3_h1yiy"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_coksl"]
 texture = ExtResource("3_h1yiy")
-margin_left = 26.6304
-margin_top = 22.8748
-margin_right = 24.5819
-margin_bottom = 23.5576
 region_rect = Rect2(0, 0, 190, 98)
 
 [node name="Notify" type="Node2D"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b8hkjyfbxhjya"]
 
-[ext_resource type="Script" path="res://test/await/AwaitTest.gd" id="1_ivjex"]
+[ext_resource type="Script" uid="uid://df2xd250vwlaa" path="res://test/await/AwaitTest.gd" id="1_ivjex"]
 
 [node name="AwaitTest" type="Node2D"]
 script = ExtResource("1_ivjex")

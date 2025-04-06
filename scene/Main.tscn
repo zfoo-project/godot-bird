@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://d1he6mg0d54wk"]
 
-[ext_resource type="Script" path="res://script/Main.gd" id="1_31v4x"]
+[ext_resource type="Script" uid="uid://cfpi15m6a1tow" path="res://script/Main.gd" id="1_31v4x"]
 [ext_resource type="AudioStream" uid="uid://dj3s6cg6cthyx" path="res://audio/die.wav" id="2_l07b6"]
 [ext_resource type="AudioStream" uid="uid://ddp61kf15rkay" path="res://audio/swoosh.wav" id="3_8madq"]
 [ext_resource type="Texture2D" uid="uid://4t10u10w0t7f" path="res://image/ui/LOADING_ICON_01.png" id="4_j0c71"]
@@ -24,7 +24,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sda2m"]
 _data = {
-"fade-in": SubResource("Animation_mmgsd")
+&"fade-in": SubResource("Animation_mmgsd")
 }
 
 [sub_resource type="Animation" id="Animation_ood7s"]
@@ -45,7 +45,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1pk73"]
 _data = {
-"loading": SubResource("Animation_ood7s")
+&"loading": SubResource("Animation_ood7s")
 }
 
 [node name="Main" type="Node"]
